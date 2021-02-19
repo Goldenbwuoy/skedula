@@ -1,0 +1,46 @@
+### This file is used to test the REST API endpoints
+
+### Test Create Patient
+POST http://localhost:5000/api/patients
+Content-Type: application/json
+
+{
+    "firstName": "Golden",
+    "lastName": "Tendekai",
+    "email": "golden@mail.com",
+    "phoneNumber": "0772142413",
+    "role": "Patient",
+    "password": "password"
+}
+
+### Test Create a doctor
+POST http://localhost:5000/api/doctors
+Content-Type: application/json
+
+{
+    "firstName": "Doctor",
+    "lastName": "Test",
+    "email": "doctor@test.com",
+    "phoneNumber": "0772142413",
+    "practice_number": "FB299883",
+    "role": "Doctor",
+    "password": "password"
+}
+
+### Test Login (doctor)
+POST http://localhost:5000/api/signin
+Content-Type: application/json
+
+{
+    "email": "doctor@test.com",
+    "password": "password"
+}
+
+### Test Login (Patient)
+POST http://localhost:5000/api/signin
+Content-Type: application/json
+
+{
+    "email": "golden@mail.com",
+    "password": "password"
+}

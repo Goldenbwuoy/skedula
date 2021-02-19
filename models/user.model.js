@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
 const UserSchema = new mongoose.Schema({
   email: {
@@ -19,5 +20,22 @@ const UserSchema = new mongoose.Schema({
     required: "Role is required",
   },
 });
+
+UserSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
+    return next();
+  }
+  try {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    return next();
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+UserSchema.methods.authenticate = async function (plainText) {
+  return await bcrypt.compare(plainText, this.password);
+};
 
 module.exports = mongoose.model("User", UserSchema);

@@ -18,7 +18,7 @@ const PatientSchema = new mongoose.Schema({
   phoneNumber: {
     type: String,
     trim: true,
-    required: "Last name is required",
+    required: "Phone Number is required",
   },
 });
 
