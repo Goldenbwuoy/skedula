@@ -6,6 +6,7 @@ const morgan = require("morgan");
 const patientRoutes = require("./routes/patient.routes");
 const doctorRoutes = require("./routes/doctor.routes");
 const authRoutes = require("./routes/auth.routes");
+const appointmentRoutes = require("./routes/appointment.routes");
 
 const app = express();
 app.use(express.json());
@@ -18,6 +19,7 @@ app.use(morgan("dev"));
 app.use("/", patientRoutes);
 app.use("/", doctorRoutes);
 app.use("/", authRoutes);
+app.use("/", appointmentRoutes);
 
 /* To handle auth-related errors thrown by express-jwt when it tries to validate JWT
 tokens in incoming requests */
