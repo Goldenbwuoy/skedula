@@ -32,6 +32,23 @@ const patientByAccount = async (req, res, next, accountId) => {
   }
 };
 
+const patientById = async (req, res, next, id) => {
+  try {
+    let patient = await Patient.findById(id);
+    if (!patient) {
+      return res.status(400).json({
+        error: "Patient not found",
+      });
+    }
+    req.patient_profile = patient;
+    next();
+  } catch (err) {
+    return res.status(400).json({
+      error: "Could not retrieve patient",
+    });
+  }
+};
+
 const read = async (req, res) => {
   try {
     req.profile.password = undefined;
@@ -50,4 +67,4 @@ const list = async (req, res) => {
   }
 };
 
-module.exports = { create, patientByAccount, read, list };
+module.exports = { create, patientByAccount, patientById, read, list };

@@ -58,3 +58,18 @@ GET http://localhost:5000/api/doctors
 ### Read a doctor by accountId
 GET http://localhost:5000/api/doctors/602f9a36be4d89387c1756f6
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDJmOWEzNmJlNGQ4OTM4N2MxNzU2ZjYiLCJpYXQiOjE2MTM3NDA5MDd9.yxioVPNdV3pphXIbCzlzoGW1w8mzjvMxepmbRXPkISk
+
+### Read a doctor by accountId
+POST http://localhost:5000/api/doctors/602f9a36be4d89387c1756f6/activate
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDJmOWEzNmJlNGQ4OTM4N2MxNzU2ZjYiLCJpYXQiOjE2MTM3NDA5MDd9.yxioVPNdV3pphXIbCzlzoGW1w8mzjvMxepmbRXPkISk
+
+{
+    "physical_address": "The address",
+    "affiliations": "Affiliations",
+    "brief_introduction": "This is the intro"
+}
+
+
+
+

@@ -12,6 +12,14 @@ router
   .route("/api/doctors/:accountId")
   .get(authCtrl.requireSignin, authCtrl.hasAuthorization, doctorCtrl.read);
 
+router
+  .route("/api/doctors/:accountId/activate")
+  .post(
+    authCtrl.requireSignin,
+    authCtrl.hasAuthorization,
+    doctorCtrl.addInfo /**TODO: Notify admin */
+  );
+
 router.param("accountId", doctorCtrl.doctorByAccount);
 
 module.exports = router;
