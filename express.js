@@ -19,4 +19,14 @@ app.use("/", patientRoutes);
 app.use("/", doctorRoutes);
 app.use("/", authRoutes);
 
+/* To handle auth-related errors thrown by express-jwt when it tries to validate JWT
+tokens in incoming requests */
+app.use((err, req, res, next) => {
+  if (err.name === "UnauthorizedError") {
+    res.status(401).json({ error: err.message });
+  } else if (err) {
+    res.status(400).json({ error: err.name + ": " + err.message });
+  }
+});
+
 module.exports = app;

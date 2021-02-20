@@ -15,4 +15,39 @@ const create = async (req, res) => {
   }
 };
 
-module.exports = { create };
+const patientByAccount = async (req, res, next, accountId) => {
+  try {
+    let patient = await Patient.findOne({ account: accountId });
+    if (!patient) {
+      return res.status(400).json({
+        error: "Patient not found",
+      });
+    }
+    req.profile = patient;
+    next();
+  } catch (err) {
+    return res.status(400).json({
+      error: "Could not retrieve patient",
+    });
+  }
+};
+
+const read = async (req, res) => {
+  try {
+    req.profile.password = undefined;
+    return res.status(200).json(req.profile);
+  } catch (err) {}
+};
+
+const list = async (req, res) => {
+  try {
+    const patients = await Patient.find();
+    res.json(patients);
+  } catch (err) {
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(err),
+    });
+  }
+};
+
+module.exports = { create, patientByAccount, read, list };

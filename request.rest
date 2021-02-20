@@ -44,3 +44,17 @@ Content-Type: application/json
     "email": "golden@mail.com",
     "password": "password"
 }
+
+### List all patients
+GET http://localhost:5000/api/patients
+
+### Read a patient by accountId
+GET http://localhost:5000/api/patients/602f97e68ce0be07507156e5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDJmOTdlNjhjZTBiZTA3NTA3MTU2ZTUiLCJpYXQiOjE2MTM3Mzk1Mjl9.lyE51VXmU7K9vryI1xtK-iLsPOejk71k3ZPlfNAGZjg
+
+### List all doctors
+GET http://localhost:5000/api/doctors
+
+### Read a doctor by accountId
+GET http://localhost:5000/api/doctors/602f9a36be4d89387c1756f6
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDJmOWEzNmJlNGQ4OTM4N2MxNzU2ZjYiLCJpYXQiOjE2MTM3NDA5MDd9.yxioVPNdV3pphXIbCzlzoGW1w8mzjvMxepmbRXPkISk

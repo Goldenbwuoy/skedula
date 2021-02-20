@@ -1,5 +1,6 @@
 const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
+const expressJwt = require("express-jwt");
 
 const signin = async (req, res) => {
   try {
@@ -25,4 +26,22 @@ const signin = async (req, res) => {
   }
 };
 
-module.exports = { signin };
+const requireSignin = expressJwt({
+  secret: process.env.JWT_SECRET,
+  algorithms: ["sha1", "RS256", "HS256"],
+  userProperty: "auth",
+});
+
+const hasAuthorization = (req, res, next) => {
+  console.log(req.profile);
+  console.log(req.auth);
+  const authorized = req.profile.account == req.auth._id;
+  if (!authorized) {
+    return res.status(403).json({
+      error: "Not authorized",
+    });
+  }
+  next();
+};
+
+module.exports = { signin, requireSignin, hasAuthorization };
