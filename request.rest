@@ -80,6 +80,15 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDJmOTdlN
     "end_time": "2021-02-21T07:43:52.815Z"
 }
 
+### list appointments by patient
+GET http://localhost:5000/api/appointments/patient/602f97e68ce0be07507156e5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDJmOTdlNjhjZTBiZTA3NTA3MTU2ZTUiLCJpYXQiOjE2MTM3Mzk1Mjl9.lyE51VXmU7K9vryI1xtK-iLsPOejk71k3ZPlfNAGZjg
+
+### list appointments by doctor
+GET http://localhost:5000/api/appointments/doctor/602f9a36be4d89387c1756f6
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDJmOWEzNmJlNGQ4OTM4N2MxNzU2ZjYiLCJpYXQiOjE2MTM3NDA5MDd9.yxioVPNdV3pphXIbCzlzoGW1w8mzjvMxepmbRXPkISk
+
+
 
 
 

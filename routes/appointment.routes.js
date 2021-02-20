@@ -12,7 +12,24 @@ router
     appointmentCtrl.create
   );
 
+router
+  .route("/api/appointments/patient/:patientAccount")
+  .get(
+    authCtrl.requireSignin,
+    authCtrl.hasAuthorization,
+    appointmentCtrl.appointmentsByPatient
+  );
+
+router
+  .route("/api/appointments/doctor/:doctorAccount")
+  .get(
+    authCtrl.requireSignin,
+    authCtrl.hasAuthorization,
+    appointmentCtrl.appointmentsByDoctor
+  );
+
 router.param("patientAccount", patientCtrl.patientByAccount);
+router.param("doctorAccount", doctorCtrl.doctorByAccount);
 router.param("doctorId", doctorCtrl.doctorById);
 
 module.exports = router;

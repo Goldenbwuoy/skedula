@@ -3,8 +3,8 @@ const errorHandler = require("../helpers/dbErrorHandler");
 
 const create = async (req, res) => {
   let appointment = {
-    doctor: req.doctor_profile.account,
-    patient: req.profile.account,
+    doctor: req.doctor_profile,
+    patient: req.profile,
     start_time: req.body.start_time,
     end_time: req.body.end_time,
   };
@@ -19,4 +19,30 @@ const create = async (req, res) => {
   }
 };
 
-module.exports = { create };
+const appointmentsByPatient = async (req, res) => {
+  try {
+    const appointments = await Appointment.find({
+      "patient.account": req.profile.account,
+    });
+    return res.status(200).json(appointments);
+  } catch (err) {
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(err),
+    });
+  }
+};
+
+const appointmentsByDoctor = async (req, res) => {
+  try {
+    const appointments = await Appointment.find({
+      "doctor.account": req.profile.account,
+    });
+    return res.status(200).json(appointments);
+  } catch (err) {
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(err),
+    });
+  }
+};
+
+module.exports = { create, appointmentsByPatient, appointmentsByDoctor };
