@@ -1,5 +1,6 @@
 ### This file is used to test the REST API endpoints
 
+GET http://localhost:5000/
 ### Test Create Patient
 POST http://localhost:5000/api/patients
 Content-Type: application/json
