@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-const Login = () => {
+const Login = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.loginTop}>
@@ -38,7 +38,9 @@ const Login = () => {
       </View>
       <View style={styles.signupTextView}>
         <Text style={styles.signupText}>Don't have an account? </Text>
-        <Text style={styles.signupButton}>Signup</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
+          <Text style={styles.signupButton}>Signup</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -49,6 +51,7 @@ export default Login;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#455a64",
   },
   loginTop: {
     flexGrow: 1,
