@@ -16,7 +16,7 @@ const Login = () => {
           style={{ width: 80, height: 80 }}
           source={require("../../assets/logo.jpg")}
         />
-        <Text style={styles.logoText}>Welcome to the World</Text>
+        {/* <Text style={styles.logoText}>Welcome to the World</Text> */}
       </View>
       <View style={styles.loginForm}>
         <TextInput
