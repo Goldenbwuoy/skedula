@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -6,14 +6,25 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  Animated,
 } from "react-native";
+import SelectRole from "./SelectRole";
 
 const Signup = ({ navigation }) => {
+  const [roleValues, setRoleValues] = useState({
+    active: 0,
+    xTabOne: 0,
+    xTabTwo: 0,
+    translateX: new Animated.Value(0),
+    isDoctor: false,
+  });
+
+  console.log(roleValues.isDoctor);
   return (
     <View style={styles.container}>
       <View style={styles.loginTop}>
         <Image
-          style={{ width: 80, height: 80 }}
+          style={{ width: 50, height: 50 }}
           source={require("../../assets/logo.jpg")}
         />
       </View>
@@ -43,6 +54,16 @@ const Signup = ({ navigation }) => {
           secureTextEntry={true}
           placeholderTextColor="#fff"
         />
+        <SelectRole roleValues={roleValues} setRoleValues={setRoleValues} />
+
+        {roleValues.isDoctor && (
+          <TextInput
+            style={styles.inputBox}
+            underlineColorAndroid="rgba(0,0,0,0)"
+            placeholder="Practitioner Number"
+            placeholderTextColor="#fff"
+          />
+        )}
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Sign Up</Text>
         </TouchableOpacity>

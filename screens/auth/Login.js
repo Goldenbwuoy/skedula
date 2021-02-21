@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 
 const Login = ({ navigation }) => {
@@ -35,6 +36,10 @@ const Login = ({ navigation }) => {
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
+
+        {/* <TouchableOpacity disabled style={styles.button}>
+          <ActivityIndicator color="white" />
+        </TouchableOpacity> */}
       </View>
       <View style={styles.signupTextView}>
         <Text style={styles.signupText}>Don't have an account? </Text>
