@@ -19,6 +19,15 @@ const storeUser = async (user) => {
   }
 };
 
+const signup = async (userType, user) => {
+  try {
+    const response = await axios.post(`/api/${userType}`, user);
+    return response.data;
+  } catch (err) {
+    return err.response.data;
+  }
+};
+
 const signOut = async () => {
   try {
     await AsyncStorage.removeItem("user");
@@ -27,4 +36,4 @@ const signOut = async () => {
   }
 };
 
-export { signin, signOut };
+export { signin, signOut, signup };

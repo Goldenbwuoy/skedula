@@ -7,10 +7,28 @@ import {
   TextInput,
   TouchableOpacity,
   Animated,
+  ActivityIndicator,
 } from "react-native";
 import SelectRole from "./SelectRole";
+import { signup } from "./api-auth";
 
 const Signup = ({ navigation }) => {
+  const ROLES = {
+    DOCTOR: "Doctor",
+    PATIENT: "Patient",
+  };
+
+  const [formValues, setFormValues] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
+    password: "",
+    role: "",
+    practice_number: "",
+    loading: false,
+    error: "",
+  });
   const [roleValues, setRoleValues] = useState({
     active: 0,
     xTabOne: 0,
@@ -18,6 +36,31 @@ const Signup = ({ navigation }) => {
     translateX: new Animated.Value(0),
     isDoctor: false,
   });
+
+  const handleSignup = () => {
+    setFormValues({ ...formValues, loading: true });
+    let userType = roleValues.isDoctor ? "doctors" : "patients";
+    const user = {
+      firstName: formValues.firstName || undefined,
+      lastName: formValues.lastName || undefined,
+      email: formValues.email || undefined,
+      phoneNumber: formValues.phoneNumber || undefined,
+      password: formValues.password || undefined,
+      role: roleValues.isDoctor ? ROLES.DOCTOR : ROLES.PATIENT,
+      practice_number: roleValues.isDoctor
+        ? formValues.practice_number
+        : undefined,
+    };
+    signup(userType, user).then((data) => {
+      setFormValues({ ...formValues, loading: false, error: "" });
+      if (data && data.error) {
+        console.log(data.error);
+        setFormValues({ ...formValues, error: data.error });
+      } else {
+        navigation.navigate("Login");
+      }
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -33,18 +76,38 @@ const Signup = ({ navigation }) => {
           underlineColorAndroid="rgba(0,0,0,0)"
           placeholder="First Name"
           placeholderTextColor="#fff"
+          value={formValues.firstName}
+          onChangeText={(val) =>
+            setFormValues({ ...formValues, firstName: val })
+          }
         />
         <TextInput
           style={styles.inputBox}
           underlineColorAndroid="rgba(0,0,0,0)"
           placeholder="Last Name"
           placeholderTextColor="#fff"
+          value={formValues.lastName}
+          onChangeText={(val) =>
+            setFormValues({ ...formValues, lastName: val })
+          }
         />
         <TextInput
           style={styles.inputBox}
           underlineColorAndroid="rgba(0,0,0,0)"
           placeholder="Email"
           placeholderTextColor="#fff"
+          value={formValues.email}
+          onChangeText={(val) => setFormValues({ ...formValues, email: val })}
+        />
+        <TextInput
+          style={styles.inputBox}
+          underlineColorAndroid="rgba(0,0,0,0)"
+          placeholder="Phone Number"
+          placeholderTextColor="#fff"
+          value={formValues.phoneNumber}
+          onChangeText={(val) =>
+            setFormValues({ ...formValues, phoneNumber: val })
+          }
         />
         <TextInput
           style={styles.inputBox}
@@ -52,6 +115,10 @@ const Signup = ({ navigation }) => {
           placeholder="Password"
           secureTextEntry={true}
           placeholderTextColor="#fff"
+          value={formValues.password}
+          onChangeText={(val) =>
+            setFormValues({ ...formValues, password: val })
+          }
         />
         <SelectRole roleValues={roleValues} setRoleValues={setRoleValues} />
 
@@ -59,12 +126,27 @@ const Signup = ({ navigation }) => {
           <TextInput
             style={styles.inputBox}
             underlineColorAndroid="rgba(0,0,0,0)"
-            placeholder="Practitioner Number"
+            placeholder="Practice Number"
             placeholderTextColor="#fff"
+            value={formValues.practice_number}
+            onChangeText={(val) =>
+              setFormValues({ ...formValues, practice_number: val })
+            }
           />
         )}
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Sign Up</Text>
+        {formValues.error !== "" && (
+          <Text style={styles.errorText}>{formValues.error}</Text>
+        )}
+        <TouchableOpacity
+          disabled={formValues.loading}
+          style={styles.button}
+          onPress={handleSignup}
+        >
+          {formValues.loading ? (
+            <ActivityIndicator color="white" />
+          ) : (
+            <Text style={styles.buttonText}>Sign Up</Text>
+          )}
         </TouchableOpacity>
       </View>
       <View style={styles.signupTextView}>
@@ -136,5 +218,9 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
     fontWeight: "500",
+  },
+  errorText: {
+    color: "rgb(254,92,92)",
+    fontSize: 15,
   },
 });
