@@ -2,14 +2,14 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import PatientHome from "./PatientHome";
 
-const PatientStack = createStackNavigator();
+const Stack = createStackNavigator();
 
-const PatientStackScreen = () => {
+const PatientStack = () => {
   return (
-    <PatientStack.Navigator>
-      <PatientStack.Screen name="Patient Home" component={PatientHome} />
-    </PatientStack.Navigator>
+    <Stack.Navigator>
+      <Stack.Screen name="Patient Home" component={PatientHome} />
+    </Stack.Navigator>
   );
 };
 
-export default PatientStackScreen;
+export default PatientStack;

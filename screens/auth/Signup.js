@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -19,7 +19,6 @@ const Signup = ({ navigation }) => {
     isDoctor: false,
   });
 
-  console.log(roleValues.isDoctor);
   return (
     <View style={styles.container}>
       <View style={styles.loginTop}>

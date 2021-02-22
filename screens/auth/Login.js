@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import {
   View,
   Text,
@@ -8,8 +8,39 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
+import AuthContext from "../../context/AuthContext";
+import { ACTIONS } from "../../context/reducer";
+import { signin } from "./api-auth";
 
 const Login = ({ navigation }) => {
+  const [values, setValues] = useState({
+    email: "",
+    password: "",
+    loading: false,
+    error: "",
+  });
+  const { state, dispatch } = useContext(AuthContext);
+
+  const emptyField = !values.email || !values.password;
+
+  const handleSubmit = () => {
+    setValues({ ...values, error: "", loading: true });
+    const user = {
+      email: values.email || undefined,
+      password: values.password || undefined,
+    };
+    signin(user).then((data) => {
+      setValues({ ...values, loading: false });
+      if (data && data.error) {
+        setValues({ ...values, error: data.error });
+      } else {
+        dispatch({
+          type: ACTIONS.SIGN_IN,
+          user: data,
+        });
+      }
+    });
+  };
   return (
     <View style={styles.container}>
       <View style={styles.loginTop}>
@@ -22,24 +53,41 @@ const Login = ({ navigation }) => {
       <View style={styles.loginForm}>
         <TextInput
           style={styles.inputBox}
+          value={values.email}
+          autoCapitalize="none"
+          onChangeText={(emailValue) =>
+            setValues({ ...values, email: emailValue })
+          }
           underlineColorAndroid="rgba(0,0,0,0)"
           placeholder="Email"
           placeholderTextColor="#fff"
         />
         <TextInput
           style={styles.inputBox}
+          value={values.password}
+          autoCapitalize="none"
+          onChangeText={(passwordValue) =>
+            setValues({ ...values, password: passwordValue })
+          }
           underlineColorAndroid="rgba(0,0,0,0)"
           placeholder="Password"
           secureTextEntry={true}
           placeholderTextColor="#fff"
         />
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Login</Text>
+        {values.error !== "" && (
+          <Text style={styles.errorText}>{values.error}</Text>
+        )}
+        <TouchableOpacity
+          disabled={values.loading || emptyField}
+          onPress={handleSubmit}
+          style={styles.button}
+        >
+          {values.loading ? (
+            <ActivityIndicator color="white" />
+          ) : (
+            <Text style={styles.buttonText}>Login</Text>
+          )}
         </TouchableOpacity>
-
-        {/* <TouchableOpacity disabled style={styles.button}>
-          <ActivityIndicator color="white" />
-        </TouchableOpacity> */}
       </View>
       <View style={styles.signupTextView}>
         <Text style={styles.signupText}>Don't have an account? </Text>
@@ -110,5 +158,9 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
     fontWeight: "500",
+  },
+  errorText: {
+    color: "rgb(254,92,92)",
+    fontSize: 15,
   },
 });
