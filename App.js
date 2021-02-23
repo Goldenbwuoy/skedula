@@ -7,13 +7,23 @@ import {
   authInitialState,
   AUTH_ACTIONS,
 } from "./context/reducers/authReducer";
+import {
+  profileReducer,
+  profileInitialState,
+  PROFILE_ACTIONS,
+} from "./context/reducers/profileReducer";
 import AuthContext from "./context/AuthContext";
+import ProfileContext from "./context/ProfileContext";
 import RootStack from "./screens/auth/RootStack";
 import PatientScreen from "./screens/patient/PatientHome";
 import DoctorScreen from "./screens/doctor/DoctorScreen";
 
 export default function App() {
   const [authState, authDispatch] = useReducer(authReducer, authInitialState);
+  const [profileState, profileDispatch] = useReducer(
+    profileReducer,
+    profileInitialState
+  );
 
   const MyTheme = {
     ...DefaultTheme,
@@ -47,21 +57,28 @@ export default function App() {
   const authContextValue = useMemo(() => {
     return { state: authState, dispatch: authDispatch };
   }, [authState, authDispatch]);
+
+  const profileContextValue = useMemo(() => {
+    return { profileState, profileDispatch };
+  }, [profileState, profileDispatch]);
+
   return (
     <AuthContext.Provider value={authContextValue}>
-      <NavigationContainer theme={MyTheme}>
-        {authState.auth == null ? (
-          <RootStack />
-        ) : (
-          <>
-            {authState.auth.user.role == "Patient" ? (
-              <PatientScreen />
-            ) : (
-              <DoctorScreen />
-            )}
-          </>
-        )}
-      </NavigationContainer>
+      <ProfileContext.Provider value={profileContextValue}>
+        <NavigationContainer theme={MyTheme}>
+          {authState.auth == null ? (
+            <RootStack />
+          ) : (
+            <>
+              {authState.auth.user.role == "Patient" ? (
+                <PatientScreen />
+              ) : (
+                <DoctorScreen />
+              )}
+            </>
+          )}
+        </NavigationContainer>
+      </ProfileContext.Provider>
     </AuthContext.Provider>
   );
 }
