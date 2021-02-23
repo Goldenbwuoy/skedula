@@ -76,6 +76,7 @@ const Signup = ({ navigation }) => {
           underlineColorAndroid="rgba(0,0,0,0)"
           placeholder="First Name"
           placeholderTextColor="#fff"
+          autoCapitalize="none"
           value={formValues.firstName}
           onChangeText={(val) =>
             setFormValues({ ...formValues, firstName: val })
@@ -86,6 +87,7 @@ const Signup = ({ navigation }) => {
           underlineColorAndroid="rgba(0,0,0,0)"
           placeholder="Last Name"
           placeholderTextColor="#fff"
+          autoCapitalize="none"
           value={formValues.lastName}
           onChangeText={(val) =>
             setFormValues({ ...formValues, lastName: val })
@@ -95,6 +97,7 @@ const Signup = ({ navigation }) => {
           style={styles.inputBox}
           underlineColorAndroid="rgba(0,0,0,0)"
           placeholder="Email"
+          autoCapitalize="none"
           placeholderTextColor="#fff"
           value={formValues.email}
           onChangeText={(val) => setFormValues({ ...formValues, email: val })}
@@ -115,6 +118,7 @@ const Signup = ({ navigation }) => {
           placeholder="Password"
           secureTextEntry={true}
           placeholderTextColor="#fff"
+          autoCapitalize="none"
           value={formValues.password}
           onChangeText={(val) =>
             setFormValues({ ...formValues, password: val })
@@ -128,6 +132,7 @@ const Signup = ({ navigation }) => {
             underlineColorAndroid="rgba(0,0,0,0)"
             placeholder="Practice Number"
             placeholderTextColor="#fff"
+            autoCapitalize="none"
             value={formValues.practice_number}
             onChangeText={(val) =>
               setFormValues({ ...formValues, practice_number: val })
