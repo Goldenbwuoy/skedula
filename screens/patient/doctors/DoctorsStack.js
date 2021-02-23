@@ -1,15 +1,15 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import PatientHome from "./PatientHome";
+import Doctors from "./Doctors";
 
 const Stack = createStackNavigator();
 
-const PatientStack = () => {
+const DoctorsStack = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Patient Home" component={PatientHome} />
+      <Stack.Screen name="Doctors" component={Doctors} />
     </Stack.Navigator>
   );
 };
 
-export default PatientStack;
+export default DoctorsStack;

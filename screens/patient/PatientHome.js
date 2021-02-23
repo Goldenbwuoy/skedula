@@ -1,38 +1,70 @@
 import React, { useContext } from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import AuthContext from "../../context/AuthContext";
-import { ACTIONS } from "../../context/reducer";
-import { signOut } from "../auth/api-auth";
+import { StyleSheet } from "react-native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { FontAwesome } from "@expo/vector-icons";
+import { Fontisto } from "@expo/vector-icons";
+import HomeStack from "./home/HomeStack";
+import DoctorsStack from "./doctors/DoctorsStack";
+import AppointmentsStack from "./appointments/AppointmentsStack";
+import ProfileStack from "./profile/ProfileStack";
+
+const Tabs = createBottomTabNavigator();
 
 const PatientHome = () => {
-  const { state, dispatch } = useContext(AuthContext);
-
-  console.log(state.user);
-
-  const handleSignOut = async () => {
-    try {
-      await signOut();
-      dispatch({ type: ACTIONS.SIGN_OUT });
-    } catch (err) {
-      console.log("failed to signout");
-    }
-  };
   return (
-    <View style={styles.container}>
-      <Text>Patient Home Page</Text>
-      <TouchableOpacity
-        style={{
-          backgroundColor: "blue",
-          marginVertical: 15,
-          padding: 8,
-          borderRadius: 10,
+    <Tabs.Navigator
+      initialRouteName="Home"
+      tabBarOptions={{
+        activeTintColor: "#009387",
+        inactiveTintColor: "rgba(255, 255, 255, 0.7)",
+        style: {
+          backgroundColor: "#1c313a",
+        },
+      }}
+    >
+      <Tabs.Screen
+        name="Home"
+        component={HomeStack}
+        options={{
+          tabBarLabel: "Home",
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome name="home" size={size} color={color} />
+          ),
         }}
-        onPress={handleSignOut}
-      >
-        <Text style={{ color: "#fff" }}>Logout</Text>
-      </TouchableOpacity>
-    </View>
+      />
+
+      <Tabs.Screen
+        name="Doctors"
+        component={DoctorsStack}
+        options={{
+          tabBarLabel: "Doctors",
+          tabBarIcon: ({ color, size }) => (
+            <Fontisto name="doctor" size={size} color={color} />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="Appointments"
+        component={AppointmentsStack}
+        options={{
+          tabBarLabel: "Appointments",
+          tabBarIcon: ({ color, size }) => (
+            <Fontisto name="date" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="Profile"
+        component={ProfileStack}
+        options={{
+          tabBarLabel: "Profile",
+          tabBarIcon: ({ color, size }) => (
+            <Fontisto name="person" size={size} color={color} />
+          ),
+        }}
+      />
+    </Tabs.Navigator>
   );
 };
 

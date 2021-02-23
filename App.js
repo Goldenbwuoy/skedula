@@ -1,15 +1,28 @@
 import "react-native-gesture-handler";
 import React, { useEffect, useReducer, useMemo } from "react";
 import AsyncStorage from "@react-native-community/async-storage";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { reducer, initialState, ACTIONS } from "./context/reducer";
 import AuthContext from "./context/AuthContext";
 import RootStack from "./screens/auth/RootStack";
-import PatientStack from "./screens/patient/PatientStack";
+import PatientHome from "./screens/patient/PatientHome";
 import DoctorStack from "./screens/doctor/DoctorStack";
 
 export default function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  const MyTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      primary: "#fff",
+      background: "#455a64",
+      card: "#1c313a",
+      text: "#fff",
+      border: "#1c313a",
+      notification: "rgb(254,92,92)",
+    },
+  };
 
   useEffect(() => {
     getToken();
@@ -32,13 +45,13 @@ export default function App() {
   }, [state, dispatch]);
   return (
     <AuthContext.Provider value={contextValue}>
-      <NavigationContainer>
+      <NavigationContainer theme={MyTheme}>
         {state.user == null ? (
           <RootStack />
         ) : (
           <>
             {state.user.user.role == "Patient" ? (
-              <PatientStack />
+              <PatientHome />
             ) : (
               <DoctorStack />
             )}
