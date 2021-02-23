@@ -5,8 +5,8 @@ import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { reducer, initialState, ACTIONS } from "./context/reducer";
 import AuthContext from "./context/AuthContext";
 import RootStack from "./screens/auth/RootStack";
-import PatientHome from "./screens/patient/PatientHome";
-import DoctorStack from "./screens/doctor/DoctorStack";
+import PatientScreen from "./screens/patient/PatientHome";
+import DoctorScreen from "./screens/doctor/DoctorScreen";
 
 export default function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -51,9 +51,9 @@ export default function App() {
         ) : (
           <>
             {state.user.user.role == "Patient" ? (
-              <PatientHome />
+              <PatientScreen />
             ) : (
-              <DoctorStack />
+              <DoctorScreen />
             )}
           </>
         )}

@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import AuthContext from "../../context/AuthContext";
-import { ACTIONS } from "../../context/reducer";
-import { signOut } from "../auth/api-auth";
+import AuthContext from "../../../context/AuthContext";
+import { ACTIONS } from "../../../context/reducer";
+import { signOut } from "../../auth/api-auth";
 
-const DoctorHome = () => {
-  const { dispatch } = useContext(AuthContext);
+const Profile = () => {
+  const { state, dispatch } = useContext(AuthContext);
 
   const handleSignOut = async () => {
     try {
@@ -18,7 +18,7 @@ const DoctorHome = () => {
   };
   return (
     <View style={styles.container}>
-      <Text>Doctor Home Page</Text>
+      <Text>This is the Doctor's Profile</Text>
       <TouchableOpacity
         style={{
           backgroundColor: "blue",
@@ -34,7 +34,7 @@ const DoctorHome = () => {
   );
 };
 
-export default DoctorHome;
+export default Profile;
 
 const styles = StyleSheet.create({
   container: {
