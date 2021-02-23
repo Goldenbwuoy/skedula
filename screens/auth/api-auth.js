@@ -13,7 +13,7 @@ const signin = async (user) => {
 
 const storeUser = async (user) => {
   try {
-    await AsyncStorage.setItem("user", JSON.stringify(user));
+    await AsyncStorage.setItem("auth", JSON.stringify(user));
   } catch (err) {
     console.log(err);
   }
@@ -30,7 +30,7 @@ const signup = async (userType, user) => {
 
 const signOut = async () => {
   try {
-    await AsyncStorage.removeItem("user");
+    await AsyncStorage.removeItem("auth");
   } catch (err) {
     console.log(err);
   }

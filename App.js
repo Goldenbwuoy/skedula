@@ -2,14 +2,18 @@ import "react-native-gesture-handler";
 import React, { useEffect, useReducer, useMemo } from "react";
 import AsyncStorage from "@react-native-community/async-storage";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
-import { reducer, initialState, ACTIONS } from "./context/reducer";
+import {
+  authReducer,
+  authInitialState,
+  AUTH_ACTIONS,
+} from "./context/reducers/authReducer";
 import AuthContext from "./context/AuthContext";
 import RootStack from "./screens/auth/RootStack";
 import PatientScreen from "./screens/patient/PatientHome";
 import DoctorScreen from "./screens/doctor/DoctorScreen";
 
 export default function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [authState, authDispatch] = useReducer(authReducer, authInitialState);
 
   const MyTheme = {
     ...DefaultTheme,
@@ -29,28 +33,28 @@ export default function App() {
   }, []);
 
   const getToken = async () => {
-    let user;
+    let auth;
 
     try {
-      user = await AsyncStorage.getItem("user");
+      auth = await AsyncStorage.getItem("auth");
     } catch (err) {
       console.log(err);
     }
 
-    dispatch({ type: ACTIONS.RESTORE_USER, user: JSON.parse(user) });
+    authDispatch({ type: AUTH_ACTIONS.RESTORE_USER, auth: JSON.parse(auth) });
   };
 
-  const contextValue = useMemo(() => {
-    return { state, dispatch };
-  }, [state, dispatch]);
+  const authContextValue = useMemo(() => {
+    return { state: authState, dispatch: authDispatch };
+  }, [authState, authDispatch]);
   return (
-    <AuthContext.Provider value={contextValue}>
+    <AuthContext.Provider value={authContextValue}>
       <NavigationContainer theme={MyTheme}>
-        {state.user == null ? (
+        {authState.auth == null ? (
           <RootStack />
         ) : (
           <>
-            {state.user.user.role == "Patient" ? (
+            {authState.auth.user.role == "Patient" ? (
               <PatientScreen />
             ) : (
               <DoctorScreen />

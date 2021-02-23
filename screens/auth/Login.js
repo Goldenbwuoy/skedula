@@ -9,7 +9,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import AuthContext from "../../context/AuthContext";
-import { ACTIONS } from "../../context/reducer";
+import { AUTH_ACTIONS } from "../../context/reducers/authReducer";
 import { signin } from "./api-auth";
 
 const Login = ({ navigation }) => {
@@ -35,8 +35,8 @@ const Login = ({ navigation }) => {
         setValues({ ...values, error: data.error });
       } else {
         dispatch({
-          type: ACTIONS.SIGN_IN,
-          user: data,
+          type: AUTH_ACTIONS.SIGN_IN,
+          auth: data,
         });
       }
     });

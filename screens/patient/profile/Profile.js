@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import AuthContext from "../../../context/AuthContext";
-import { ACTIONS } from "../../../context/reducer";
+import { AUTH_ACTIONS } from "../../../context/reducers/authReducer";
 import { signOut } from "../../auth/api-auth";
 
 const Profile = () => {
@@ -11,7 +11,7 @@ const Profile = () => {
   const handleSignOut = async () => {
     try {
       await signOut();
-      dispatch({ type: ACTIONS.SIGN_OUT });
+      dispatch({ type: AUTH_ACTIONS.SIGN_OUT });
     } catch (err) {
       console.log("failed to signout");
     }
