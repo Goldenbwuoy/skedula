@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome } from "@expo/vector-icons";
@@ -11,12 +11,14 @@ import AuthContext from "../../context/AuthContext";
 import ProfileContext from "../../context/ProfileContext";
 import { getProfile } from "./api-patient";
 import { PROFILE_ACTIONS } from "../../context/reducers/profileReducer";
+import LoadingScreen from "../shared/LoadingScreen";
 
 const Tabs = createBottomTabNavigator();
 
 const PatientHome = () => {
   const { state } = useContext(AuthContext);
   const { profileState, profileDispatch } = useContext(ProfileContext);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     state && getPatientProfile();
@@ -30,6 +32,7 @@ const PatientHome = () => {
       { token: state.auth?.token }
     )
       .then((patient) => {
+        setLoading(false);
         if (patient && patient.error) {
           console.log("Failed to fetch profile " + patient.error);
         } else {
@@ -41,6 +44,10 @@ const PatientHome = () => {
       })
       .catch((err) => console.log(err));
   };
+
+  if (loading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <Tabs.Navigator
