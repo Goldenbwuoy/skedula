@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome } from "@expo/vector-icons";
@@ -6,10 +6,41 @@ import { Fontisto } from "@expo/vector-icons";
 import HomeStack from "./home/HomeStack";
 import AppointmentsStack from "./appointments/AppointmentsStack";
 import ProfileStack from "./profile/ProfileStack";
+import AuthContext from "../../context/AuthContext";
+import ProfileContext from "../../context/ProfileContext";
+import { getProfile } from "./api-doctor";
+import { PROFILE_ACTIONS } from "../../context/reducers/profileReducer";
 
 const Tabs = createBottomTabNavigator();
 
 const PatientHome = () => {
+  const { state } = useContext(AuthContext);
+  const { profileDispatch } = useContext(ProfileContext);
+
+  useEffect(() => {
+    getDoctorProfile();
+  }, []);
+
+  const getDoctorProfile = () => {
+    getProfile(
+      {
+        accountId: state.auth?.user._id,
+      },
+      { token: state.auth?.token }
+    )
+      .then((doctor) => {
+        if (doctor && doctor.error) {
+          console.log("Failed to fetch profile " + doctor.error);
+        } else {
+          profileDispatch({
+            type: PROFILE_ACTIONS.SET_PROFILE,
+            profile: doctor,
+          });
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <Tabs.Navigator
       initialRouteName="Home"

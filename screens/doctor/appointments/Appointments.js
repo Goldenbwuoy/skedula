@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from "react-native";
 const Appointments = () => {
   return (
     <View style={styles.container}>
-      <Text>Display Appointments with Patients Here</Text>
+      <Text style={styles.text}>Display Appointments with Patients Here</Text>
     </View>
   );
 };
@@ -16,5 +16,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  text: {
+    fontSize: 20,
+    color: "#fff",
   },
 });

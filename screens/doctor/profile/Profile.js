@@ -18,10 +18,10 @@ const Profile = () => {
   };
   return (
     <View style={styles.container}>
-      <Text>This is the Doctor's Profile</Text>
+      <Text style={styles.text}>This is the Doctor's Profile</Text>
       <TouchableOpacity
         style={{
-          backgroundColor: "blue",
+          backgroundColor: "#1c313a",
           marginVertical: 15,
           padding: 8,
           borderRadius: 10,
@@ -41,5 +41,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  text: {
+    fontSize: 20,
+    color: "#fff",
   },
 });
