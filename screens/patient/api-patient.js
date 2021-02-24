@@ -13,4 +13,13 @@ const getProfile = async (params, credentials) => {
   }
 };
 
-export { getProfile };
+const fetchDoctors = async () => {
+  try {
+    const doctors = await axios.get("/api/doctors");
+    return doctors.data;
+  } catch (err) {
+    return err.doctors.data;
+  }
+};
+
+export { getProfile, fetchDoctors };
