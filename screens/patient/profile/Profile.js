@@ -17,14 +17,10 @@ import ProfileContext from "../../../context/ProfileContext";
 import { AUTH_ACTIONS } from "../../../context/reducers/authReducer";
 import { signOut } from "../../auth/api-auth";
 
-const screenWidth = Dimensions.get("window").width;
-
 const Profile = () => {
   const { colors } = useTheme();
   const { state, dispatch } = useContext(AuthContext);
   const { profileState } = useContext(ProfileContext);
-
-  console.log(profileState);
 
   const handleSignOut = async () => {
     try {
@@ -130,33 +126,5 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "#fff",
     margin: 15,
-  },
-  infoBoxWrapper: {
-    borderBottomColor: "#dddddd",
-    borderBottomWidth: 1,
-    borderTopColor: "#dddddd",
-    borderTopWidth: 1,
-    flexDirection: "row",
-    height: 100,
-  },
-  infoBox: {
-    width: "50%",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  menuWrapper: {
-    marginTop: 10,
-  },
-  menuItem: {
-    flexDirection: "row",
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-  },
-  menuItemText: {
-    color: "#777777",
-    marginLeft: 20,
-    fontWeight: "600",
-    fontSize: 16,
-    lineHeight: 26,
   },
 });
