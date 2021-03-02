@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { EvilIcons } from "@expo/vector-icons";
@@ -10,9 +11,11 @@ const AppointmentCard = ({
   noHeader,
   noFooter,
 }) => {
-  const [date, time] = new Date(appointment.start_time)
-    .toLocaleString()
-    .split(",");
+  const momentdate = moment(appointment.start_time).format(
+    "ddd MMM Do YYYY, HH:mm"
+  );
+
+  const [date, time] = momentdate.split(",");
 
   const { doctor } = appointment;
   return (
@@ -38,9 +41,7 @@ const AppointmentCard = ({
               </Text>
               <View style={styles.cardTime}>
                 <EvilIcons name="calendar" size={15} color="#1c313a" />
-                <Text style={styles.cardTimeText}>
-                  {new Date(date).toDateString()}
-                </Text>
+                <Text style={styles.cardTimeText}>{date}</Text>
               </View>
               <View style={styles.cardTime}>
                 <EvilIcons name="clock" size={15} color="#1c313a" />

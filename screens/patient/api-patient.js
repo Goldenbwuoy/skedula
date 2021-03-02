@@ -41,7 +41,6 @@ const createAppointment = async (params, credentials, appointment) => {
 };
 
 const appointmentsByPatient = async (params, credentials) => {
-  console.log(params);
   try {
     const appointments = await axios.get(
       `/api/appointments/patient/${params.patientAccount}`,

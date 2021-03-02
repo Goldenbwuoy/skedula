@@ -4,9 +4,11 @@ import { ScrollView } from "react-native-gesture-handler";
 import AppointmentCard from "../../../components/AppointmentCard";
 import { appointmentsByPatient } from "../api-patient";
 import AuthContext from "../../../context/AuthContext";
+import LoadingScreen from "../../shared/LoadingScreen";
 
 const Appointments = () => {
   const [appointments, setAppointments] = useState([]);
+  const [loading, setLoading] = useState(true);
   const {
     state: {
       auth: { token, user },
@@ -16,6 +18,7 @@ const Appointments = () => {
   useEffect(() => {
     appointmentsByPatient({ patientAccount: user._id }, { token }).then(
       (data) => {
+        setLoading(false);
         if (data && data.error) {
           console.log(data.error);
         } else {
@@ -24,6 +27,8 @@ const Appointments = () => {
       }
     );
   }, [user, token]);
+
+  if (loading) return <LoadingScreen />;
 
   return (
     <View style={styles.container}>
