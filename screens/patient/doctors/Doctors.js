@@ -50,7 +50,7 @@ const Rating = ({ rating }) => {
   );
 };
 
-const DoctorCard = ({ doctor }) => {
+const DoctorCard = ({ doctor, navigation }) => {
   return (
     <View style={styles.cardContainer}>
       <View style={styles.cardBody}>
@@ -68,7 +68,12 @@ const DoctorCard = ({ doctor }) => {
             <Text style={styles.cardAddress}>Address</Text>
             <Rating rating={4} />
             <View style={styles.buttons}>
-              <TouchableOpacity style={styles.bookButton}>
+              <TouchableOpacity
+                style={styles.bookButton}
+                onPress={() =>
+                  navigation.navigate("NewAppointment", { doctor })
+                }
+              >
                 <Text style={styles.btnBookText}>Book Visit</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.chatButton}>
@@ -87,7 +92,7 @@ const DoctorCard = ({ doctor }) => {
   );
 };
 
-const Doctors = () => {
+const Doctors = ({ navigation }) => {
   const [doctors, setDoctors] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -110,7 +115,11 @@ const Doctors = () => {
       <ScrollView style={styles.scrollView}>
         <Search />
         {doctors.map((doctor) => (
-          <DoctorCard key={doctor._id} doctor={doctor} />
+          <DoctorCard
+            key={doctor._id}
+            doctor={doctor}
+            navigation={navigation}
+          />
         ))}
       </ScrollView>
     </View>

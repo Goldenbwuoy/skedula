@@ -22,4 +22,22 @@ const fetchDoctors = async () => {
   }
 };
 
-export { getProfile, fetchDoctors };
+const createAppointment = async (params, credentials, appointment) => {
+  try {
+    const request = await axios.post(
+      `/api/appointment/by/${params.patientAccount}/with/${params.doctorId}`,
+      appointment,
+      {
+        headers: {
+          Authorization: `Bearer ${credentials.token}`,
+        },
+      }
+    );
+
+    return request.data;
+  } catch (err) {
+    return err.request.data;
+  }
+};
+
+export { getProfile, fetchDoctors, createAppointment };
