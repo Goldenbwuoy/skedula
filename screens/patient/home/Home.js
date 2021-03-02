@@ -10,6 +10,7 @@ import {
 import ProfileContext from "../../../context/ProfileContext";
 import { LinearGradient } from "expo-linear-gradient";
 import AppointmentCard from "../../../components/AppointmentCard";
+import * as Animatable from "react-native-animatable";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -17,7 +18,8 @@ const Home = ({ navigation }) => {
   const { profileState } = useContext(ProfileContext);
   return (
     <SafeAreaView style={styles.container}>
-      <View
+      <Animatable.View
+        animation="slideInDown"
         style={{
           overflow: "hidden",
           borderBottomLeftRadius: 60,
@@ -39,14 +41,17 @@ const Home = ({ navigation }) => {
           <View style={[styles.line, { top: 130, left: -150 }]} />
           <View style={[styles.line, { top: 160, left: 0 }]} />
         </LinearGradient>
-      </View>
+      </Animatable.View>
       <ScrollView style={{ flex: 1 }}>
-        <View style={styles.headingContainer}>
+        <Animatable.View
+          animation="slideInLeft"
+          style={styles.headingContainer}
+        >
           <Text style={styles.heading}>
             Welcome {`${profileState.profile?.firstName}`}
           </Text>
           <Text style={styles.desc}>You have 1 upcoming appointments.</Text>
-        </View>
+        </Animatable.View>
         <AppointmentCard
           title="Your Next Appointment"
           appointment={{

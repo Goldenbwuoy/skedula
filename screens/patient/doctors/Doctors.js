@@ -10,12 +10,13 @@ import {
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
+import * as Animatable from "react-native-animatable";
 import { fetchDoctors } from "../api-patient";
 import LoadingScreen from "../../shared/LoadingScreen";
 
 const Search = () => {
   return (
-    <View>
+    <Animatable.View animation="slideInDown">
       <View style={styles.wrapperInput}>
         <AntDesign name="search1" size={18} color="gray" />
         <TextInput
@@ -24,7 +25,7 @@ const Search = () => {
           autoCapitalize="none"
         />
       </View>
-    </View>
+    </Animatable.View>
   );
 };
 
@@ -52,7 +53,7 @@ const Rating = ({ rating }) => {
 
 const DoctorCard = ({ doctor, navigation }) => {
   return (
-    <View style={styles.cardContainer}>
+    <Animatable.View animation="zoomInUp" style={styles.cardContainer}>
       <View style={styles.cardBody}>
         <View style={styles.cardBodyTop}>
           <Image
@@ -88,7 +89,7 @@ const DoctorCard = ({ doctor, navigation }) => {
           </View>
         </View>
       </View>
-    </View>
+    </Animatable.View>
   );
 };
 

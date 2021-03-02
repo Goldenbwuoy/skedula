@@ -3,6 +3,7 @@ import moment from "moment";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { EvilIcons } from "@expo/vector-icons";
+import * as Animatable from "react-native-animatable";
 
 const AppointmentCard = ({
   appointment,
@@ -21,14 +22,17 @@ const AppointmentCard = ({
   return (
     <View style={styles.cardContainer}>
       {!noHeader && (
-        <View style={styles.cardHeaderContainer}>
+        <Animatable.View
+          animation="slideInRight"
+          style={styles.cardHeaderContainer}
+        >
           <Text style={styles.cardHeading}>{title}</Text>
           <TouchableOpacity onPress={() => navigation.navigate("Appointments")}>
             <Text style={styles.cardMore}>See All</Text>
           </TouchableOpacity>
-        </View>
+        </Animatable.View>
       )}
-      <View style={styles.cardBody}>
+      <Animatable.View animation="zoomIn" style={styles.cardBody}>
         <TouchableOpacity>
           <View style={styles.cardBodyTop}>
             <Image
@@ -72,7 +76,7 @@ const AppointmentCard = ({
             </TouchableOpacity>
           </View>
         )}
-      </View>
+      </Animatable.View>
     </View>
   );
 };
