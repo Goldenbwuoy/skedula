@@ -1,57 +1,42 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import AppointmentCard from "../../../components/AppointmentCard";
+import { appointmentsByPatient } from "../api-patient";
+import AuthContext from "../../../context/AuthContext";
 
 const Appointments = () => {
+  const [appointments, setAppointments] = useState([]);
+  const {
+    state: {
+      auth: { token, user },
+    },
+  } = useContext(AuthContext);
+  console.log(user);
+
+  useEffect(() => {
+    appointmentsByPatient({ patientAccount: user._id }, { token }).then(
+      (data) => {
+        if (data && data.error) {
+          console.log(data.error);
+        } else {
+          setAppointments(data);
+        }
+      }
+    );
+  }, [user, token]);
+
   return (
     <View style={styles.container}>
       <ScrollView style={{ flex: 1 }}>
-        <AppointmentCard
-          noHeader
-          noFooter
-          appointment={{
-            doctor: "Dr Neo Morpheus",
-            time: "Monday, January 10th at 3:00 PM",
-            address: "570 Beimen Road",
-          }}
-        />
-        <AppointmentCard
-          noHeader
-          noFooter
-          appointment={{
-            doctor: "Dr Neo Morpheus",
-            time: "Monday, January 10th at 3:00 PM",
-            address: "570 Beimen Road",
-          }}
-        />
-        <AppointmentCard
-          noHeader
-          noFooter
-          appointment={{
-            doctor: "Dr Neo Morpheus",
-            time: "Monday, January 10th at 3:00 PM",
-            address: "570 Beimen Road",
-          }}
-        />
-        <AppointmentCard
-          noHeader
-          noFooter
-          appointment={{
-            doctor: "Dr Neo Morpheus",
-            time: "Monday, January 10th at 3:00 PM",
-            address: "570 Beimen Road",
-          }}
-        />
-        <AppointmentCard
-          noHeader
-          noFooter
-          appointment={{
-            doctor: "Dr Neo Morpheus",
-            time: "Monday, January 10th at 3:00 PM",
-            address: "570 Beimen Road",
-          }}
-        />
+        {appointments.map((appointment) => (
+          <AppointmentCard
+            key={appointment._id}
+            noHeader
+            noFooter
+            appointment={appointment}
+          />
+        ))}
       </ScrollView>
     </View>
   );

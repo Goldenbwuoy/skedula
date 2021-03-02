@@ -16,6 +16,29 @@ const PLATFORMS = {
   ANDROID: "android",
 };
 
+const getDateString = (date, time, display) => {
+  let year = date.getFullYear();
+  let day =
+    date.getDate().toString().length === 1
+      ? "0" + date.getDate()
+      : date.getDate();
+  let month =
+    date.getMonth().toString().length === 1
+      ? "0" + (date.getMonth() + 1)
+      : date.getMonth() + 1;
+  let hours =
+    time.getHours().toString().length === 1
+      ? "0" + time.getHours()
+      : time.getHours();
+  let minutes =
+    time.getMinutes().toString().length === 1
+      ? "0" + time.getMinutes()
+      : time.getMinutes();
+  let dateString = `${year}/${month}/${day} ${hours}:${minutes}`;
+
+  return dateString;
+};
+
 const CreateAppointment = ({ route, navigation }) => {
   const { doctor } = route.params;
   const {
@@ -23,8 +46,9 @@ const CreateAppointment = ({ route, navigation }) => {
       auth: { token, user },
     },
   } = useContext(AuthContext);
-  const [date, setDate] = useState(new Date());
-  const [time, setTime] = useState(new Date());
+  const dateTime = new Date();
+  const [date, setDate] = useState(dateTime);
+  const [time, setTime] = useState(dateTime);
   const [loading, setLoading] = useState(false);
 
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -42,33 +66,16 @@ const CreateAppointment = ({ route, navigation }) => {
     setTime(currentTime);
   };
 
-  const getDateString = (date, time, display) => {
-    let year = date.getFullYear();
-    let day =
-      date.getDate().toString().length === 1
-        ? "0" + date.getDate()
-        : date.getDate();
-    let month =
-      date.getMonth().toString().length === 1
-        ? "0" + (date.getMonth() + 1)
-        : date.getMonth() + 1;
-    let hours =
-      time.getHours().toString().length === 1
-        ? "0" + time.getHours()
-        : time.getHours();
-    let minutes =
-      time.getMinutes().toString().length === 1
-        ? "0" + time.getMinutes()
-        : time.getMinutes();
-    let dateString = display
-      ? `${year}/${month}/${day} ${hours}:${minutes}`
-      : `${year}-${month}-${day}T${hours}:${minutes}`;
-    return dateString;
+  const formatDate = (date, time) => {
+    const formattedDate = new Date(date).toLocaleDateString();
+    const formattedTime = new Date(time).toLocaleTimeString();
+    const formattedDateTime = `${formattedDate}, ${formattedTime}`;
+    return new Date(formattedDateTime);
   };
 
   const handleCreate = () => {
     setLoading(true);
-    const start_time = getDateString(date, time, false);
+    const start_time = formatDate(date, time);
     const params = {
       patientAccount: user._id,
       doctorId: doctor._id,
@@ -162,7 +169,7 @@ const CreateAppointment = ({ route, navigation }) => {
       {Platform.OS === PLATFORMS.ANDROID && (
         <View style={{ alignSelf: "center", marginVertical: 20 }}>
           <Text style={{ color: "rgba(255, 255, 255, 0.6)", fontSize: 18 }}>
-            {getDateString(date, time, true)}
+            {getDateString(date, time)}
           </Text>
         </View>
       )}

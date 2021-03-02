@@ -40,4 +40,21 @@ const createAppointment = async (params, credentials, appointment) => {
   }
 };
 
-export { getProfile, fetchDoctors, createAppointment };
+const appointmentsByPatient = async (params, credentials) => {
+  console.log(params);
+  try {
+    const appointments = await axios.get(
+      `/api/appointments/patient/${params.patientAccount}`,
+      {
+        headers: {
+          Authorization: `Bearer ${credentials.token}`,
+        },
+      }
+    );
+    return appointments.data;
+  } catch (err) {
+    return err.appointments.data;
+  }
+};
+
+export { getProfile, fetchDoctors, createAppointment, appointmentsByPatient };

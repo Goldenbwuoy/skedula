@@ -3,6 +3,13 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { EvilIcons } from "@expo/vector-icons";
 
+const displayDateTime = (dateTime) => {
+  console.log(dateTime);
+  const date = new Date(dateTime).toDateString();
+  const time = new Date(dateTime).toLocaleTimeString();
+  return `${date}, ${time}`;
+};
+
 const AppointmentCard = ({
   appointment,
   navigation,
@@ -10,6 +17,7 @@ const AppointmentCard = ({
   noHeader,
   noFooter,
 }) => {
+  const { doctor } = appointment;
   return (
     <View style={styles.cardContainer}>
       {!noHeader && (
@@ -27,9 +35,13 @@ const AppointmentCard = ({
             source={require("../assets/doctor.jpg")}
           />
           <View style={styles.cardLeftSide}>
-            <Text style={styles.cardName}>{appointment.doctor}</Text>
-            <Text style={styles.cardTime}>{appointment.time}</Text>
-            <Text style={styles.cardAddress}>{appointment.address}</Text>
+            <Text style={styles.cardName}>
+              Dr {`${doctor.firstName} ${doctor.lastName}`}
+            </Text>
+            <Text style={styles.cardTime}>
+              {new Date(appointment.start_time).toLocaleString()}
+            </Text>
+            <Text style={styles.cardAddress}>Address Here!!!!</Text>
             <View style={styles.iconMore}>
               <MaterialIcons name="read-more" size={24} color="gray" />
             </View>
