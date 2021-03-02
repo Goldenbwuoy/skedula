@@ -33,8 +33,8 @@ const requireSignin = expressJwt({
 });
 
 const hasAuthorization = (req, res, next) => {
-  console.log(req.profile);
-  console.log(req.auth);
+  // console.log(req.profile);
+  // console.log(req.auth);
   const authorized = req.profile.account == req.auth._id;
   if (!authorized) {
     return res.status(403).json({
