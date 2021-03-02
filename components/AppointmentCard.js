@@ -3,13 +3,6 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { EvilIcons } from "@expo/vector-icons";
 
-const displayDateTime = (dateTime) => {
-  console.log(dateTime);
-  const date = new Date(dateTime).toDateString();
-  const time = new Date(dateTime).toLocaleTimeString();
-  return `${date}, ${time}`;
-};
-
 const AppointmentCard = ({
   appointment,
   navigation,
@@ -17,6 +10,10 @@ const AppointmentCard = ({
   noHeader,
   noFooter,
 }) => {
+  const [date, time] = new Date(appointment.start_time)
+    .toLocaleString()
+    .split(",");
+
   const { doctor } = appointment;
   return (
     <View style={styles.cardContainer}>
@@ -29,36 +26,49 @@ const AppointmentCard = ({
         </View>
       )}
       <View style={styles.cardBody}>
-        <View style={styles.cardBodyTop}>
-          <Image
-            style={styles.cardAvatar}
-            source={require("../assets/doctor.jpg")}
-          />
-          <View style={styles.cardLeftSide}>
-            <Text style={styles.cardName}>
-              Dr {`${doctor.firstName} ${doctor.lastName}`}
-            </Text>
-            <Text style={styles.cardTime}>
-              {new Date(appointment.start_time).toLocaleString()}
-            </Text>
-            <Text style={styles.cardAddress}>Address Here!!!!</Text>
-            <View style={styles.iconMore}>
-              <MaterialIcons name="read-more" size={24} color="gray" />
+        <TouchableOpacity>
+          <View style={styles.cardBodyTop}>
+            <Image
+              style={styles.cardAvatar}
+              source={require("../assets/doctor.jpg")}
+            />
+            <View style={styles.cardLeftSide}>
+              <Text style={styles.cardName}>
+                Dr {`${doctor.firstName} ${doctor.lastName}`}
+              </Text>
+              <View style={styles.cardTime}>
+                <EvilIcons name="calendar" size={15} color="#1c313a" />
+                <Text style={styles.cardTimeText}>
+                  {new Date(date).toDateString()}
+                </Text>
+              </View>
+              <View style={styles.cardTime}>
+                <EvilIcons name="clock" size={15} color="#1c313a" />
+                <Text style={styles.cardTimeText}>{time?.trim()}</Text>
+              </View>
+              <View style={styles.cardAddressContainer}>
+                <EvilIcons name="location" size={15} color="black" />
+                <Text style={styles.cardAddress}>Address Here!!!!</Text>
+              </View>
+
+              <View style={styles.iconMore}>
+                <MaterialIcons name="read-more" size={24} color="#1c313a" />
+              </View>
             </View>
           </View>
-        </View>
+        </TouchableOpacity>
         {!noFooter && <View style={styles.margin} />}
 
         {!noFooter && (
           <View style={styles.cardBodyBottom}>
-            <View style={styles.cardGroupIcon}>
+            <TouchableOpacity style={styles.cardGroupIcon}>
               <MaterialIcons name="cancel" size={30} color="red" />
               <Text style={styles.cardBottomTitle}>Cancel</Text>
-            </View>
-            <View style={styles.cardGroupIcon}>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.cardGroupIcon}>
               <EvilIcons name="calendar" size={30} color="#1c313a" />
               <Text style={styles.cardBottomTitle}>Calendar</Text>
-            </View>
+            </TouchableOpacity>
           </View>
         )}
       </View>
@@ -76,12 +86,13 @@ const styles = StyleSheet.create({
   cardBody: {
     padding: 15,
     backgroundColor: "#fff",
-    marginTop: 15,
     borderRadius: 10,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
+    borderLeftWidth: 8,
+    borderLeftColor: "red",
   },
   cardBodyTop: {
     flexDirection: "row",
@@ -92,20 +103,30 @@ const styles = StyleSheet.create({
   },
   cardName: {
     color: "#222",
-    fontSize: 18,
-    fontWeight: "bold",
+    fontSize: 15,
+    fontWeight: "600",
   },
   cardTime: {
-    color: "#222",
-    fontSize: 16,
-    fontWeight: "500",
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 5,
+  },
+  cardTimeText: {
+    color: "#B066A4",
+    fontSize: 10,
+    fontWeight: "800",
+    marginLeft: 5,
+  },
+  cardAddressContainer: {
+    flexDirection: "row",
+    alignItems: "center",
     marginTop: 5,
   },
   cardAddress: {
     color: "gray",
-    fontSize: 15,
-    fontWeight: "500",
-    marginTop: 5,
+    fontSize: 13,
+    fontWeight: "700",
+    marginLeft: 5,
   },
   cardAvatar: {
     height: 60,
@@ -119,6 +140,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    marginBottom: 20,
   },
   cardHeading: {
     fontSize: 22,

@@ -12,7 +12,6 @@ const Appointments = () => {
       auth: { token, user },
     },
   } = useContext(AuthContext);
-  console.log(user);
 
   useEffect(() => {
     appointmentsByPatient({ patientAccount: user._id }, { token }).then(
@@ -47,6 +46,7 @@ export default Appointments;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginVertical: 10,
   },
   text: {
     fontSize: 20,
