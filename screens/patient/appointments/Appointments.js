@@ -1,39 +1,18 @@
-import React, { useContext, useEffect, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useContext } from "react";
+import { View, StyleSheet } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import AppointmentCard from "../../../components/AppointmentCard";
-import { appointmentsByPatient } from "../api-patient";
-import AuthContext from "../../../context/AuthContext";
-import LoadingScreen from "../../shared/LoadingScreen";
+import ProfileContext from "../../../context/ProfileContext";
 
 const Appointments = () => {
-  const [appointments, setAppointments] = useState([]);
-  const [loading, setLoading] = useState(true);
   const {
-    state: {
-      auth: { token, user },
-    },
-  } = useContext(AuthContext);
-
-  useEffect(() => {
-    appointmentsByPatient({ patientAccount: user._id }, { token }).then(
-      (data) => {
-        setLoading(false);
-        if (data && data.error) {
-          console.log(data.error);
-        } else {
-          setAppointments(data);
-        }
-      }
-    );
-  }, [user, token]);
-
-  if (loading) return <LoadingScreen />;
+    profileState: { appointments },
+  } = useContext(ProfileContext);
 
   return (
     <View style={styles.container}>
       <ScrollView style={{ flex: 1 }}>
-        {appointments.map((appointment) => (
+        {appointments?.map((appointment) => (
           <AppointmentCard
             key={appointment._id}
             noHeader

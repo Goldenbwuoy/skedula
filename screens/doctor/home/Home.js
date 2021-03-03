@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import ProfileContext from "../../../context/ProfileContext";
 import { LinearGradient } from "expo-linear-gradient";
-// import AppointmentCard from "../../../components/AppointmentCard";
 import * as Animatable from "react-native-animatable";
 import DoctorAppointmentCard from "../appointments/DoctorAppointmentCard";
 

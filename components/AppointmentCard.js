@@ -12,13 +12,13 @@ const AppointmentCard = ({
   noHeader,
   noFooter,
 }) => {
-  const momentdate = moment(appointment.start_time).format(
+  const momentdate = moment(appointment?.start_time).format(
     "ddd MMM Do YYYY, HH:mm"
   );
 
   const [date, time] = momentdate.split(",");
 
-  const { doctor } = appointment;
+  const doctor = appointment?.doctor;
   return (
     <View style={styles.cardContainer}>
       {!noHeader && (
@@ -41,7 +41,7 @@ const AppointmentCard = ({
             />
             <View style={styles.cardLeftSide}>
               <Text style={styles.cardName}>
-                Dr {`${doctor.firstName} ${doctor.lastName}`}
+                Dr {`${doctor?.firstName} ${doctor?.lastName}`}
               </Text>
               <View style={styles.cardTime}>
                 <EvilIcons name="calendar" size={15} color="#1c313a" />

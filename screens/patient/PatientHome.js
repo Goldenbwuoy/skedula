@@ -9,7 +9,7 @@ import AppointmentsStack from "./appointments/AppointmentsStack";
 import ProfileStack from "./profile/ProfileStack";
 import AuthContext from "../../context/AuthContext";
 import ProfileContext from "../../context/ProfileContext";
-import { getProfile } from "./api-patient";
+import { getProfile, appointmentsByPatient } from "./api-patient";
 import { PROFILE_ACTIONS } from "../../context/reducers/profileReducer";
 import LoadingScreen from "../shared/LoadingScreen";
 
@@ -17,7 +17,7 @@ const Tabs = createBottomTabNavigator();
 
 const PatientHome = () => {
   const { state } = useContext(AuthContext);
-  const { profileState, profileDispatch } = useContext(ProfileContext);
+  const { profileDispatch } = useContext(ProfileContext);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -39,6 +39,22 @@ const PatientHome = () => {
           profileDispatch({
             type: PROFILE_ACTIONS.SET_PROFILE,
             profile: patient,
+          });
+          appointmentsByPatient(
+            {
+              patientAccount: state.auth?.user._id,
+            },
+            { token: state.auth?.token }
+          ).then((appointments) => {
+            setLoading(false);
+            if (appointments && appointments.error) {
+              console.log("Failed to fetch appointments " + appointments.error);
+            } else {
+              profileDispatch({
+                type: PROFILE_ACTIONS.SET_APPOINTMENTS,
+                appointments: appointments,
+              });
+            }
           });
         }
       })
