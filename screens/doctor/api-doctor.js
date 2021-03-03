@@ -13,4 +13,21 @@ const getProfile = async (params, credentials) => {
   }
 };
 
-export { getProfile };
+const appointmentsByDoctor = async (params, credentials) => {
+  try {
+    const appointments = await axios.get(
+      `/api/appointments/doctor/${params.doctorAccount}`,
+      {
+        headers: {
+          Authorization: `Bearer ${credentials.token}`,
+        },
+      }
+    );
+
+    return appointments.data;
+  } catch (err) {
+    return err.appointments.data;
+  }
+};
+
+export { getProfile, appointmentsByDoctor };
