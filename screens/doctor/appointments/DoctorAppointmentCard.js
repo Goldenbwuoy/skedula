@@ -12,12 +12,12 @@ const DoctorAppointmentCard = ({
   noHeader,
   noFooter,
 }) => {
-  const momentdate = moment(appointment.start_time).format(
+  const momentdate = moment(appointment?.start_time).format(
     "ddd MMM Do YYYY, HH:mm"
   );
   const [date, time] = momentdate.split(",");
 
-  const { patient } = appointment;
+  const patient = appointment?.patient;
 
   return (
     <View style={styles.cardContainer}>

@@ -16,7 +16,10 @@ import DoctorAppointmentCard from "../appointments/DoctorAppointmentCard";
 const screenWidth = Dimensions.get("window").width;
 
 const Home = ({ navigation }) => {
-  const { profileState } = useContext(ProfileContext);
+  const {
+    profileState: { profile, appointments },
+  } = useContext(ProfileContext);
+
   return (
     <SafeAreaView style={styles.container}>
       <Animatable.View
@@ -50,17 +53,19 @@ const Home = ({ navigation }) => {
           style={styles.headingContainer}
         >
           <Text style={styles.heading}>
-            Welcome Dr {`${profileState.profile?.lastName}`}
+            Welcome Dr {`${profile?.lastName}`}
           </Text>
-          <Text style={styles.desc}>You have 1 upcoming appointments.</Text>
+          <Text style={styles.desc}>
+            You have{" "}
+            <Text style={[styles.desc, { fontWeight: "bold", color: "#fff" }]}>
+              {appointments?.length}
+            </Text>{" "}
+            upcoming appointments.
+          </Text>
         </Animatable.View>
         <DoctorAppointmentCard
           title="Your Next Appointment"
-          appointment={{
-            doctor: "Dr Neo Morpheus",
-            time: "Monday, January 10th at 3:00 PM",
-            address: "570 Beimen Road",
-          }}
+          appointment={appointments[0]}
           navigation={navigation}
         />
       </ScrollView>

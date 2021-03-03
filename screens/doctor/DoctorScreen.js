@@ -8,7 +8,7 @@ import AppointmentsStack from "./appointments/AppointmentsStack";
 import ProfileStack from "./profile/ProfileStack";
 import AuthContext from "../../context/AuthContext";
 import ProfileContext from "../../context/ProfileContext";
-import { getProfile } from "./api-doctor";
+import { getProfile, appointmentsByDoctor } from "./api-doctor";
 import { PROFILE_ACTIONS } from "../../context/reducers/profileReducer";
 import LoadingScreen from "../shared/LoadingScreen";
 
@@ -31,13 +31,26 @@ const PatientHome = () => {
       { token: state.auth?.token }
     )
       .then((doctor) => {
-        setLoading(false);
         if (doctor && doctor.error) {
           console.log("Failed to fetch profile " + doctor.error);
         } else {
           profileDispatch({
             type: PROFILE_ACTIONS.SET_PROFILE,
             profile: doctor,
+          });
+          appointmentsByDoctor(
+            { doctorAccount: state.auth?.user._id },
+            { token: state.auth?.token }
+          ).then((appointments) => {
+            setLoading(false);
+            if (appointments && appointments.error) {
+              console.log("Failed to fetch profile " + appointments.error);
+            } else {
+              profileDispatch({
+                type: PROFILE_ACTIONS.SET_APPOINTMENTS,
+                appointments: appointments,
+              });
+            }
           });
         }
       })
