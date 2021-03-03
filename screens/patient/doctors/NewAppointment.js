@@ -1,15 +1,18 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   View,
   Text,
+  Modal,
   StyleSheet,
+  Dimensions,
   TouchableOpacity,
-  Platform,
   ActivityIndicator,
 } from "react-native";
-import { createAppointment } from "../api-patient";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import AuthContext from "../../../context/AuthContext";
+import { createAppointment } from "../api-patient";
+
+const screenWidth = Dimensions.get("window").width;
 
 const PLATFORMS = {
   IOS: "ios",
@@ -39,18 +42,17 @@ const getDateString = (date, time, display) => {
   return dateString;
 };
 
-const CreateAppointment = ({ route, navigation }) => {
-  const { doctor } = route.params;
+const NewAppointment = ({ open, closeModal, doctor }) => {
   const {
     state: {
       auth: { token, user },
     },
   } = useContext(AuthContext);
+
   const dateTime = new Date();
   const [date, setDate] = useState(dateTime);
   const [time, setTime] = useState(dateTime);
   const [loading, setLoading] = useState(false);
-
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
 
@@ -87,7 +89,7 @@ const CreateAppointment = ({ route, navigation }) => {
         if (data && data.error) {
           console.log("failed");
         } else {
-          navigation.goBack();
+          closeModal();
         }
       })
       .catch((err) => {
@@ -159,42 +161,57 @@ const CreateAppointment = ({ route, navigation }) => {
   );
 
   return (
-    <View style={styles.container}>
-      <View style={styles.topTextContainer}>
-        <Text style={styles.topText}>Set Date and Time</Text>
-      </View>
-      <View style={styles.pickerContainer}>
-        {Platform.OS === PLATFORMS.IOS ? <IOSPicker /> : <AndroidPicker />}
-      </View>
-      {Platform.OS === PLATFORMS.ANDROID && (
-        <View style={{ alignSelf: "center", marginVertical: 20 }}>
-          <Text style={{ color: "rgba(255, 255, 255, 0.6)", fontSize: 18 }}>
-            {getDateString(date, time)}
-          </Text>
+    <Modal animationType="slide" transparent={true} visible={open}>
+      <View style={styles.container}>
+        <TouchableOpacity onPress={() => closeModal()}>
+          <Text style={styles.closeButton}>X</Text>
+        </TouchableOpacity>
+        <View style={styles.topTextContainer}>
+          <Text style={styles.topText}>Set Date and Time</Text>
         </View>
-      )}
-
-      <TouchableOpacity
-        onPress={handleCreate}
-        disabled={loading}
-        style={styles.button}
-      >
-        {loading ? (
-          <ActivityIndicator color="#fff" />
-        ) : (
-          <Text style={styles.buttonText}>Book</Text>
+        <View style={styles.pickerContainer}>
+          {Platform.OS === PLATFORMS.IOS ? <IOSPicker /> : <AndroidPicker />}
+        </View>
+        {Platform.OS === PLATFORMS.ANDROID && (
+          <View style={{ alignSelf: "center", marginVertical: 20 }}>
+            <Text style={{ color: "rgba(255, 255, 255, 0.6)", fontSize: 18 }}>
+              {getDateString(date, time)}
+            </Text>
+          </View>
         )}
-      </TouchableOpacity>
-    </View>
+
+        <TouchableOpacity
+          onPress={handleCreate}
+          disabled={loading}
+          style={styles.button}
+        >
+          {loading ? (
+            <ActivityIndicator color="#fff" />
+          ) : (
+            <Text style={styles.buttonText}>Book</Text>
+          )}
+        </TouchableOpacity>
+      </View>
+    </Modal>
   );
 };
 
-export default CreateAppointment;
+export default NewAppointment;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 50,
+    backgroundColor: "rgb(69, 90, 100)",
+    marginTop: screenWidth / 2,
+    borderTopRightRadius: 30,
+    borderTopLeftRadius: 30,
+    padding: 20,
+  },
+  closeButton: {
+    color: "white",
+    fontSize: 17,
+    marginLeft: 8,
+    fontWeight: "700",
   },
   topTextContainer: {
     justifyContent: "flex-end",
@@ -202,7 +219,7 @@ const styles = StyleSheet.create({
     marginVertical: 30,
   },
   topText: {
-    fontSize: 25,
+    fontSize: 20,
     color: "#fff",
   },
   pickerContainer: {
@@ -210,7 +227,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   datePickerStyle: {
-    // width: 300,
     backgroundColor: "rgba(239,240,241, 0.8)",
     borderRadius: 15,
     padding: 7,

@@ -13,6 +13,7 @@ import { Ionicons } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
 import { fetchDoctors } from "../api-patient";
 import LoadingScreen from "../../shared/LoadingScreen";
+import NewAppointment from "./NewAppointment";
 
 const Search = () => {
   return (
@@ -52,6 +53,15 @@ const Rating = ({ rating }) => {
 };
 
 const DoctorCard = ({ doctor, navigation }) => {
+  const [open, setOpen] = useState(false);
+
+  const openModal = () => {
+    setOpen(true);
+  };
+
+  const closeModal = () => {
+    setOpen(false);
+  };
   return (
     <Animatable.View animation="zoomInUp" style={styles.cardContainer}>
       <View style={styles.cardBody}>
@@ -71,9 +81,10 @@ const DoctorCard = ({ doctor, navigation }) => {
             <View style={styles.buttons}>
               <TouchableOpacity
                 style={styles.bookButton}
-                onPress={() =>
-                  navigation.navigate("NewAppointment", { doctor })
-                }
+                onPress={() => setOpen(true)}
+                // onPress={() =>
+                //   navigation.navigate("NewAppointment", { doctor })
+                // }
               >
                 <Text style={styles.btnBookText}>Book Visit</Text>
               </TouchableOpacity>
@@ -88,6 +99,7 @@ const DoctorCard = ({ doctor, navigation }) => {
             </View>
           </View>
         </View>
+        <NewAppointment open={open} closeModal={closeModal} doctor={doctor} />
       </View>
     </Animatable.View>
   );
