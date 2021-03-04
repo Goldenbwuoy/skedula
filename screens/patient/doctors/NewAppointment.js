@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -12,7 +12,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import AuthContext from "../../../context/AuthContext";
 import { createAppointment } from "../api-patient";
 import ProfileContext from "../../../context/ProfileContext";
-
+import { PROFILE_ACTIONS } from "../../../context/reducers/profileReducer";
 const screenWidth = Dimensions.get("window").width;
 
 const PLATFORMS = {
@@ -52,6 +52,7 @@ const NewAppointment = ({ open, closeModal, doctor }) => {
 
   const {
     profileState: { profile },
+    profileDispatch,
   } = useContext(ProfileContext);
 
   const dateTime = new Date();
@@ -90,9 +91,14 @@ const NewAppointment = ({ open, closeModal, doctor }) => {
 
     createAppointment(params, { token }, { start_time })
       .then((data) => {
+        setLoading(false);
         if (data && data.error) {
           console.log("failed");
         } else {
+          profileDispatch({
+            type: PROFILE_ACTIONS.ADD_APPOINTMENT,
+            appointment: data,
+          });
           closeModal();
         }
       })
