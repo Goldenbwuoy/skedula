@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import moment from "moment";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { EvilIcons } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
+import DisplayCalendar from "../../../components/DisplayCalendar";
 
 const DoctorAppointmentCard = ({
   appointment,
@@ -12,6 +13,7 @@ const DoctorAppointmentCard = ({
   noHeader,
   noFooter,
 }) => {
+  const [openCalendar, setOpenCalendar] = useState(false);
   const momentdate = moment(appointment?.start_time).format(
     "ddd MMM Do YYYY, HH:mm"
   );
@@ -66,13 +68,21 @@ const DoctorAppointmentCard = ({
               <MaterialIcons name="cancel" size={30} color="red" />
               <Text style={styles.cardBottomTitle}>Cancel</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.cardGroupIcon}>
+            <TouchableOpacity
+              onPress={() => setOpenCalendar(true)}
+              style={styles.cardGroupIcon}
+            >
               <EvilIcons name="calendar" size={30} color="#1c313a" />
               <Text style={styles.cardBottomTitle}>Calendar</Text>
             </TouchableOpacity>
           </View>
         )}
       </Animatable.View>
+      <DisplayCalendar
+        openCalendar={openCalendar}
+        setOpenCalendar={setOpenCalendar}
+        markedDate={appointment?.start_time}
+      />
     </View>
   );
 };
