@@ -2,11 +2,14 @@ import axios from "../../axios";
 
 const getProfile = async (params, credentials) => {
   try {
-    const patient = await axios.get(`/api/patients/${params.accountId}`, {
-      headers: {
-        Authorization: `Bearer ${credentials.token}`,
-      },
-    });
+    const patient = await axios.get(
+      `/api/patients/${params.patientAccount}/profile`,
+      {
+        headers: {
+          Authorization: `Bearer ${credentials.token}`,
+        },
+      }
+    );
     return patient.data;
   } catch (err) {
     return err.patient.data;
@@ -25,7 +28,7 @@ const fetchDoctors = async () => {
 const createAppointment = async (params, credentials, appointment) => {
   try {
     const request = await axios.post(
-      `/api/appointment/by/${params.patientAccount}/with/${params.doctorId}`,
+      `/api/appointment/by/${params.patientId}/with/${params.doctorId}`,
       appointment,
       {
         headers: {
@@ -43,7 +46,7 @@ const createAppointment = async (params, credentials, appointment) => {
 const appointmentsByPatient = async (params, credentials) => {
   try {
     const appointments = await axios.get(
-      `/api/appointments/patient/${params.patientAccount}`,
+      `/api/appointments/patient/${params.patientId}`,
       {
         headers: {
           Authorization: `Bearer ${credentials.token}`,

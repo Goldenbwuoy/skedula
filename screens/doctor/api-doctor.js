@@ -2,7 +2,7 @@ import axios from "../../axios";
 
 const getProfile = async (params, credentials) => {
   try {
-    const doctor = await axios.get(`/api/doctors/${params.accountId}`, {
+    const doctor = await axios.get(`/api/doctors/${params.accountId}/profile`, {
       headers: {
         Authorization: `Bearer ${credentials.token}`,
       },
@@ -16,7 +16,7 @@ const getProfile = async (params, credentials) => {
 const appointmentsByDoctor = async (params, credentials) => {
   try {
     const appointments = await axios.get(
-      `/api/appointments/doctor/${params.doctorAccount}`,
+      `/api/appointments/doctor/${params.doctorId}`,
       {
         headers: {
           Authorization: `Bearer ${credentials.token}`,

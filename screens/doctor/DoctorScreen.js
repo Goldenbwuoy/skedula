@@ -39,7 +39,7 @@ const PatientHome = () => {
             profile: doctor,
           });
           appointmentsByDoctor(
-            { doctorAccount: state.auth?.user._id },
+            { doctorId: doctor._id },
             { token: state.auth?.token }
           ).then((appointments) => {
             setLoading(false);

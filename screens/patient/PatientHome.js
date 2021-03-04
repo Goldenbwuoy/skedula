@@ -27,7 +27,7 @@ const PatientHome = () => {
   const getPatientProfile = () => {
     getProfile(
       {
-        accountId: state.auth?.user._id,
+        patientAccount: state.auth?.user._id,
       },
       { token: state.auth?.token }
     )
@@ -42,7 +42,7 @@ const PatientHome = () => {
           });
           appointmentsByPatient(
             {
-              patientAccount: state.auth?.user._id,
+              patientId: patient._id,
             },
             { token: state.auth?.token }
           ).then((appointments) => {

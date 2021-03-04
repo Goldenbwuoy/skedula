@@ -11,6 +11,7 @@ import {
 import DateTimePicker from "@react-native-community/datetimepicker";
 import AuthContext from "../../../context/AuthContext";
 import { createAppointment } from "../api-patient";
+import ProfileContext from "../../../context/ProfileContext";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -45,9 +46,13 @@ const getDateString = (date, time, display) => {
 const NewAppointment = ({ open, closeModal, doctor }) => {
   const {
     state: {
-      auth: { token, user },
+      auth: { token },
     },
   } = useContext(AuthContext);
+
+  const {
+    profileState: { profile },
+  } = useContext(ProfileContext);
 
   const dateTime = new Date();
   const [date, setDate] = useState(dateTime);
@@ -79,13 +84,12 @@ const NewAppointment = ({ open, closeModal, doctor }) => {
     setLoading(true);
     const start_time = formatDate(date, time);
     const params = {
-      patientAccount: user._id,
+      patientId: profile._id,
       doctorId: doctor._id,
     };
 
     createAppointment(params, { token }, { start_time })
       .then((data) => {
-        setLoading(false);
         if (data && data.error) {
           console.log("failed");
         } else {
