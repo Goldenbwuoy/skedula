@@ -9,8 +9,21 @@ router
   .get(patientCtrl.list);
 
 router
-  .route("/api/patients/:accountId")
-  .get(authCtrl.requireSignin, authCtrl.hasAuthorization, patientCtrl.read);
+  .route("/api/patients/:patientId")
+  .get(
+    authCtrl.requireSignin,
+    authCtrl.hasPatientAuthorization,
+    patientCtrl.read
+  );
 
-router.param("accountId", patientCtrl.patientByAccount);
+router
+  .route("/api/patients/:patientAccount/profile")
+  .get(
+    authCtrl.requireSignin,
+    authCtrl.hasAuthorization,
+    patientCtrl.readByAccount
+  );
+
+router.param("patientId", patientCtrl.patientById);
+router.param("patientAccount", patientCtrl.patientByAccount);
 module.exports = router;

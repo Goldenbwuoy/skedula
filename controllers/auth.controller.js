@@ -44,4 +44,34 @@ const hasAuthorization = (req, res, next) => {
   next();
 };
 
-module.exports = { signin, requireSignin, hasAuthorization };
+const hasPatientAuthorization = (req, res, next) => {
+  // console.log(req.patient_profile);
+  // console.log(req.auth);
+  const authorized = req.patient_profile.account._id == req.auth._id;
+  if (!authorized) {
+    return res.status(403).json({
+      error: "User Not authorized",
+    });
+  }
+  next();
+};
+
+const hasDoctorAuthorization = (req, res, next) => {
+  // console.log(req.doctor_profile);
+  // console.log(req.auth);
+  const authorized = req.doctor_profile.account._id == req.auth._id;
+  if (!authorized) {
+    return res.status(403).json({
+      error: "User Not authorized",
+    });
+  }
+  next();
+};
+
+module.exports = {
+  signin,
+  requireSignin,
+  hasAuthorization,
+  hasPatientAuthorization,
+  hasDoctorAuthorization,
+};

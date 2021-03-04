@@ -9,17 +9,22 @@ router
   .get(doctorCtrl.list);
 
 router
-  .route("/api/doctors/:accountId")
-  .get(authCtrl.requireSignin, authCtrl.hasAuthorization, doctorCtrl.read);
-
-router
-  .route("/api/doctors/:accountId/activate")
-  .post(
+  .route("/api/doctors/:doctorAccount/profile")
+  .get(
     authCtrl.requireSignin,
     authCtrl.hasAuthorization,
+    doctorCtrl.readByAccount
+  );
+
+router
+  .route("/api/doctors/:doctorId/activate")
+  .post(
+    authCtrl.requireSignin,
+    authCtrl.hasDoctorAuthorization,
     doctorCtrl.addInfo /**TODO: Notify admin */
   );
 
-router.param("accountId", doctorCtrl.doctorByAccount);
+router.param("doctorId", doctorCtrl.doctorById);
+router.param("doctorAccount", doctorCtrl.doctorByAccount);
 
 module.exports = router;

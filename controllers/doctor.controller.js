@@ -33,7 +33,7 @@ const doctorByAccount = async (req, res, next, accountId) => {
 
 const doctorById = async (req, res, next, id) => {
   try {
-    let doctor = await Doctor.findById(id);
+    let doctor = await Doctor.findById(id).populate("account", "_id email");
     if (!doctor) {
       return res.status(400).json({
         error: "Doctor not found",
@@ -42,6 +42,7 @@ const doctorById = async (req, res, next, id) => {
     req.doctor_profile = doctor;
     next();
   } catch (err) {
+    console.log(err);
     return res.status(400).json({
       error: "Could not retrieve doctor",
     });
@@ -49,6 +50,14 @@ const doctorById = async (req, res, next, id) => {
 };
 
 const read = async (req, res) => {
+  try {
+    return res.status(200).json(req.doctor_profile);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const readByAccount = async (req, res) => {
   try {
     return res.status(200).json(req.profile);
   } catch (err) {
@@ -69,7 +78,7 @@ const list = async (req, res) => {
 
 const addInfo = async (req, res, next) => {
   try {
-    let doctor = req.profile;
+    let doctor = req.doctor_profile;
     (doctor.account_status = "Active"), (doctor = extend(doctor, req.body));
     await doctor.save();
     res.status(200).json(doctor);
@@ -80,4 +89,12 @@ const addInfo = async (req, res, next) => {
   }
 };
 
-module.exports = { create, doctorByAccount, doctorById, read, list, addInfo };
+module.exports = {
+  create,
+  doctorByAccount,
+  doctorById,
+  read,
+  readByAccount,
+  list,
+  addInfo,
+};

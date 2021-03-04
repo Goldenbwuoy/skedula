@@ -5,31 +5,31 @@ const patientCtrl = require("../controllers/patient.controller");
 const doctorCtrl = require("../controllers/doctor.controller");
 
 router
-  .route("/api/appointment/by/:patientAccount/with/:doctorId")
+  .route("/api/appointment/by/:patientId/with/:doctorId")
   .post(
     authCtrl.requireSignin,
-    authCtrl.hasAuthorization,
+    authCtrl.hasPatientAuthorization,
     appointmentCtrl.create
   );
 
 router
-  .route("/api/appointments/patient/:patientAccount")
+  .route("/api/appointments/patient/:patientId")
   .get(
     authCtrl.requireSignin,
-    authCtrl.hasAuthorization,
+    authCtrl.hasPatientAuthorization,
     appointmentCtrl.appointmentsByPatient
   );
 
 router
-  .route("/api/appointments/doctor/:doctorAccount")
+  .route("/api/appointments/doctor/:doctorId")
   .get(
     authCtrl.requireSignin,
-    authCtrl.hasAuthorization,
+    authCtrl.hasDoctorAuthorization,
     appointmentCtrl.appointmentsByDoctor
   );
 
-router.param("patientAccount", patientCtrl.patientByAccount);
-router.param("doctorAccount", doctorCtrl.doctorByAccount);
+router.param("patientId", patientCtrl.patientById);
+router.param("doctorId", doctorCtrl.doctorById);
 router.param("doctorId", doctorCtrl.doctorById);
 
 module.exports = router;

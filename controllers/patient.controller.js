@@ -26,6 +26,7 @@ const patientByAccount = async (req, res, next, accountId) => {
     req.profile = patient;
     next();
   } catch (err) {
+    console.log(err);
     return res.status(400).json({
       error: "Could not retrieve patient",
     });
@@ -34,7 +35,7 @@ const patientByAccount = async (req, res, next, accountId) => {
 
 const patientById = async (req, res, next, id) => {
   try {
-    let patient = await Patient.findById(id);
+    let patient = await Patient.findById(id).populate("account", "_id email");
     if (!patient) {
       return res.status(400).json({
         error: "Patient not found",
@@ -51,7 +52,12 @@ const patientById = async (req, res, next, id) => {
 
 const read = async (req, res) => {
   try {
-    req.profile.password = undefined;
+    return res.status(200).json(req.patient_profile);
+  } catch (err) {}
+};
+
+const readByAccount = async (req, res) => {
+  try {
     return res.status(200).json(req.profile);
   } catch (err) {}
 };
@@ -67,4 +73,11 @@ const list = async (req, res) => {
   }
 };
 
-module.exports = { create, patientByAccount, patientById, read, list };
+module.exports = {
+  create,
+  patientByAccount,
+  patientById,
+  read,
+  readByAccount,
+  list,
+};
