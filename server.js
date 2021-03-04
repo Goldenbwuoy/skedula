@@ -6,7 +6,7 @@ mongoose.Promise = global.Promise;
 
 const connectMongo = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_LOCAL_URI, {
+    await mongoose.connect(process.env.MONGODB_REMOTE_URI, {
       useNewUrlParser: true,
       useCreateIndex: true,
       useUnifiedTopology: true,
