@@ -1,16 +1,8 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  Animated,
-  ActivityIndicator,
-} from "react-native";
-import SelectRole from "./SelectRole";
+import { Animated } from "react-native";
 import { signup } from "./api-auth";
+import LoginDetails from "./LoginDetails";
+import PersonalDetails from "./PersonalDetails";
 
 const Signup = ({ navigation }) => {
   const ROLES = {
@@ -19,13 +11,13 @@ const Signup = ({ navigation }) => {
   };
 
   const [formValues, setFormValues] = useState({
+    step: 1,
     firstName: "",
     lastName: "",
     email: "",
     phoneNumber: "",
     password: "",
     role: "",
-    practice_number: "",
     loading: false,
     error: "",
   });
@@ -37,8 +29,16 @@ const Signup = ({ navigation }) => {
     isDoctor: false,
   });
 
+  const nextStep = () => {
+    setFormValues({ ...formValues, step: formValues.step + 1 });
+  };
+
+  const previousStep = () => {
+    setFormValues({ ...formValues, step: formValues.step - 1 });
+  };
+
   const handleSignup = () => {
-    setFormValues({ ...formValues, loading: true });
+    setFormValues({ ...formValues, loading: true, error: "" });
     let userType = roleValues.isDoctor ? "doctors" : "patients";
     const user = {
       firstName: formValues.firstName || undefined,
@@ -47,9 +47,6 @@ const Signup = ({ navigation }) => {
       phoneNumber: formValues.phoneNumber || undefined,
       password: formValues.password || undefined,
       role: roleValues.isDoctor ? ROLES.DOCTOR : ROLES.PATIENT,
-      practice_number: roleValues.isDoctor
-        ? formValues.practice_number
-        : undefined,
     };
     signup(userType, user).then((data) => {
       setFormValues({ ...formValues, loading: false, error: "" });
@@ -62,170 +59,29 @@ const Signup = ({ navigation }) => {
     });
   };
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.loginTop}>
-        <Image
-          style={{ width: 50, height: 50 }}
-          source={require("../../assets/logo.jpg")}
+  switch (formValues.step) {
+    case 1:
+      return (
+        <LoginDetails
+          formValues={formValues}
+          setFormValues={setFormValues}
+          roleValues={roleValues}
+          setRoleValues={setRoleValues}
+          nextStep={nextStep}
+          navigation={navigation}
         />
-      </View>
-      <View style={styles.loginForm}>
-        <TextInput
-          style={styles.inputBox}
-          underlineColorAndroid="rgba(0,0,0,0)"
-          placeholder="First Name"
-          placeholderTextColor="#fff"
-          autoCapitalize="none"
-          value={formValues.firstName}
-          onChangeText={(val) =>
-            setFormValues({ ...formValues, firstName: val })
-          }
-        />
-        <TextInput
-          style={styles.inputBox}
-          underlineColorAndroid="rgba(0,0,0,0)"
-          placeholder="Last Name"
-          placeholderTextColor="#fff"
-          autoCapitalize="none"
-          value={formValues.lastName}
-          onChangeText={(val) =>
-            setFormValues({ ...formValues, lastName: val })
-          }
-        />
-        <TextInput
-          style={styles.inputBox}
-          underlineColorAndroid="rgba(0,0,0,0)"
-          placeholder="Email"
-          autoCapitalize="none"
-          placeholderTextColor="#fff"
-          value={formValues.email}
-          onChangeText={(val) => setFormValues({ ...formValues, email: val })}
-        />
-        <TextInput
-          style={styles.inputBox}
-          underlineColorAndroid="rgba(0,0,0,0)"
-          placeholder="Phone Number"
-          placeholderTextColor="#fff"
-          value={formValues.phoneNumber}
-          onChangeText={(val) =>
-            setFormValues({ ...formValues, phoneNumber: val })
-          }
-        />
-        <TextInput
-          style={styles.inputBox}
-          underlineColorAndroid="rgba(0,0,0,0)"
-          placeholder="Password"
-          secureTextEntry={true}
-          placeholderTextColor="#fff"
-          autoCapitalize="none"
-          value={formValues.password}
-          onChangeText={(val) =>
-            setFormValues({ ...formValues, password: val })
-          }
-        />
-        <SelectRole roleValues={roleValues} setRoleValues={setRoleValues} />
+      );
 
-        {roleValues.isDoctor && (
-          <TextInput
-            style={styles.inputBox}
-            underlineColorAndroid="rgba(0,0,0,0)"
-            placeholder="Practice Number"
-            placeholderTextColor="#fff"
-            autoCapitalize="none"
-            value={formValues.practice_number}
-            onChangeText={(val) =>
-              setFormValues({ ...formValues, practice_number: val })
-            }
-          />
-        )}
-        {formValues.error !== "" && (
-          <Text style={styles.errorText}>{formValues.error}</Text>
-        )}
-        <TouchableOpacity
-          disabled={formValues.loading}
-          style={styles.button}
-          onPress={handleSignup}
-        >
-          {formValues.loading ? (
-            <ActivityIndicator color="white" />
-          ) : (
-            <Text style={styles.buttonText}>Sign Up</Text>
-          )}
-        </TouchableOpacity>
-      </View>
-      <View style={styles.signupTextView}>
-        <Text style={styles.signupText}>Already have an account? </Text>
-        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-          <Text style={styles.signupButton}>Signin</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
+    case 2:
+      return (
+        <PersonalDetails
+          formValues={formValues}
+          setFormValues={setFormValues}
+          handleSignup={handleSignup}
+          previousStep={previousStep}
+        />
+      );
+  }
 };
 
 export default Signup;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#455a64",
-  },
-  loginTop: {
-    flexGrow: 1,
-    justifyContent: "flex-end",
-    alignItems: "center",
-  },
-  logoText: {
-    fontSize: 22,
-    color: "rgba(255, 255, 255, 0.7)",
-    marginVertical: 10,
-  },
-  loginForm: {
-    flexGrow: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  inputBox: {
-    width: 300,
-    backgroundColor: "rgba(255,255,255,0.3)",
-    borderRadius: 25,
-    padding: 12,
-    fontSize: 16,
-    color: "#fff",
-    marginVertical: 15,
-  },
-  button: {
-    backgroundColor: "#1c313a",
-    width: 300,
-    borderRadius: 25,
-    marginVertical: 15,
-    paddingVertical: 10,
-  },
-  buttonText: {
-    fontSize: 16,
-    fontWeight: "900",
-    color: "#fff",
-    textAlign: "center",
-  },
-  signupTextView: {
-    flexGrow: 1,
-    alignItems: "flex-end",
-    justifyContent: "center",
-    paddingVertical: 16,
-    flexDirection: "row",
-  },
-  signupText: {
-    color: "rgba(255,255,255,0.7)",
-    fontSize: 16,
-  },
-  signupButton: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "500",
-  },
-  errorText: {
-    color: "rgb(254,92,92)",
-    fontSize: 15,
-  },
-});
