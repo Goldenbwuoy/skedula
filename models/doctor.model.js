@@ -29,7 +29,6 @@ const DoctorSchema = new mongoose.Schema({
   practice_number: {
     type: String,
     trim: true,
-    required: "Practice Number is required",
   },
   affiliations: {},
   brief_introduction: {
