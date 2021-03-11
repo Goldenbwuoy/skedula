@@ -6,13 +6,7 @@ import { EvilIcons } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
 import DisplayCalendar from "./DisplayCalendar";
 
-const AppointmentCard = ({
-	appointment,
-	navigation,
-	title,
-	noHeader,
-	noFooter,
-}) => {
+const AppointmentCard = ({ appointment, navigation, noFooter }) => {
 	const [openCalendar, setOpenCalendar] = useState(false);
 	const momentdate = moment(appointment?.start_time).format(
 		"ddd MMM Do YYYY, HH:mm"
@@ -23,19 +17,6 @@ const AppointmentCard = ({
 	const doctor = appointment?.doctor;
 	return (
 		<View style={styles.cardContainer}>
-			{!noHeader && (
-				<Animatable.View
-					animation="slideInRight"
-					style={styles.cardHeaderContainer}
-				>
-					<Text style={styles.cardHeading}>{title}</Text>
-					<TouchableOpacity
-						onPress={() => navigation.navigate("Appointments")}
-					>
-						<Text style={styles.cardMore}>See All</Text>
-					</TouchableOpacity>
-				</Animatable.View>
-			)}
 			<Animatable.View animation="zoomIn" style={styles.cardBody}>
 				<TouchableOpacity>
 					<View style={styles.cardBodyTop}>
@@ -86,37 +67,7 @@ const AppointmentCard = ({
 						</View>
 					</View>
 				</TouchableOpacity>
-				{!noFooter && <View style={styles.margin} />}
-
-				{!noFooter && (
-					<View style={styles.cardBodyBottom}>
-						<TouchableOpacity style={styles.cardGroupIcon}>
-							<MaterialIcons
-								name="cancel"
-								size={30}
-								color="red"
-							/>
-							<Text style={styles.cardBottomTitle}>Cancel</Text>
-						</TouchableOpacity>
-						<TouchableOpacity
-							onPress={() => setOpenCalendar(true)}
-							style={styles.cardGroupIcon}
-						>
-							<EvilIcons
-								name="calendar"
-								size={30}
-								color="#1c313a"
-							/>
-							<Text style={styles.cardBottomTitle}>Calendar</Text>
-						</TouchableOpacity>
-					</View>
-				)}
 			</Animatable.View>
-			<DisplayCalendar
-				openCalendar={openCalendar}
-				setOpenCalendar={setOpenCalendar}
-				markedDate={appointment?.start_time}
-			/>
 		</View>
 	);
 };
@@ -182,43 +133,10 @@ const styles = StyleSheet.create({
 		// borderWidth: 1,
 		// borderColor: "#1c313a",
 	},
-	cardHeaderContainer: {
-		flexDirection: "row",
-		justifyContent: "space-between",
-		alignItems: "center",
-		marginBottom: 20,
-	},
-	cardHeading: {
-		fontSize: 22,
-		fontWeight: "bold",
-		color: "#fff",
-	},
-	cardMore: {
-		fontWeight: "bold",
-		color: "rgba(255, 255, 255, 0.7)",
-	},
+
 	iconMore: {
 		position: "absolute",
 		bottom: 0,
 		right: 0,
-	},
-	margin: {
-		height: 1,
-		backgroundColor: "#1c313a",
-		width: "100%",
-		marginVertical: 10,
-	},
-	cardBodyBottom: {
-		marginTop: 10,
-		flexDirection: "row",
-		justifyContent: "space-around",
-	},
-	cardBottomTitle: {
-		fontSize: 14,
-		marginTop: 5,
-	},
-	cardGroupIcon: {
-		justifyContent: "center",
-		alignItems: "center",
 	},
 });

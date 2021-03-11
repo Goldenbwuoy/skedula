@@ -26,8 +26,6 @@ const Appointments = () => {
 				{appointments?.map((appointment) => (
 					<AppointmentCard
 						key={appointment._id}
-						noHeader
-						noFooter
 						appointment={appointment}
 					/>
 				))}
