@@ -20,6 +20,7 @@ import { signOut } from "../../auth/api-auth";
 import ListItem from "react-native-elements/dist/list/ListItem";
 import ProfileHeader from "./ProfileHeader";
 import { ScrollView } from "react-native-gesture-handler";
+import FloatingAddbutton from "../../../components/FloatingAddbutton";
 
 const Profile = ({ navigation }) => {
 	const { colors } = useTheme();
@@ -90,6 +91,7 @@ const Profile = ({ navigation }) => {
 					</ListItem>
 				</TouchableOpacity>
 			</ScrollView>
+			<FloatingAddbutton />
 		</View>
 	);
 };
