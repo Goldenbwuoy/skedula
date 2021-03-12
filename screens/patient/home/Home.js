@@ -6,6 +6,7 @@ import {
 	Dimensions,
 	ScrollView,
 	TouchableOpacity,
+	Platform,
 } from "react-native";
 import ProfileContext from "../../../context/ProfileContext";
 import AppointmentCard from "../../../components/AppointmentCard";
@@ -13,6 +14,7 @@ import * as Animatable from "react-native-animatable";
 import { useTheme } from "@react-navigation/native";
 import FloatingAddbutton from "../../../components/FloatingAddbutton";
 import { MaterialIcons } from "@expo/vector-icons";
+import { SearchBar } from "react-native-elements";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -48,9 +50,18 @@ const Home = ({ navigation }) => {
 					</Text>
 				</Animatable.View>
 
+				<View>
+					<SearchBar
+						platform={Platform.OS}
+						containerStyle={{ padding: 10 }}
+						placeholder="Search"
+					/>
+				</View>
+
 				<View style={styles.cardHeaderContainer}>
 					<Text style={styles.cardHeading}>Top Rated Doctors</Text>
 					<TouchableOpacity
+						onPress={() => navigation.navigate("Doctors")}
 						style={{ flexDirection: "row", alignItems: "center" }}
 					>
 						<Text style={styles.cardMore}>See All</Text>
@@ -68,7 +79,7 @@ const Home = ({ navigation }) => {
 					navigation={navigation}
 				/>
 			</ScrollView>
-			<FloatingAddbutton />
+			<FloatingAddbutton navigation={navigation} />
 		</View>
 	);
 };

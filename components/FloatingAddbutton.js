@@ -2,13 +2,13 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { FAB } from "react-native-paper";
 
-const FloatingAddbutton = () => {
+const FloatingAddbutton = ({ navigation }) => {
 	return (
 		<FAB
 			style={styles.fab}
 			large
 			icon="plus"
-			onPress={() => console.log("Pressed")}
+			onPress={() => navigation.navigate("Doctors")}
 		/>
 	);
 };

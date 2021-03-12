@@ -91,7 +91,7 @@ const Profile = ({ navigation }) => {
 					</ListItem>
 				</TouchableOpacity>
 			</ScrollView>
-			<FloatingAddbutton />
+			<FloatingAddbutton navigation={navigation} />
 		</View>
 	);
 };

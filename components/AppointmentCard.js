@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import moment from "moment";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { EvilIcons } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
-import DisplayCalendar from "./DisplayCalendar";
 
-const AppointmentCard = ({ appointment, navigation, noFooter }) => {
-	const [openCalendar, setOpenCalendar] = useState(false);
+const AppointmentCard = ({ appointment, navigation }) => {
 	const momentdate = moment(appointment?.start_time).format(
 		"ddd MMM Do YYYY, HH:mm"
 	);
@@ -26,7 +24,7 @@ const AppointmentCard = ({ appointment, navigation, noFooter }) => {
 						/>
 						<View style={styles.cardLeftSide}>
 							<Text style={styles.cardName}>
-								Dr {`${doctor?.firstName} ${doctor?.lastName}`}
+								Dr {`${doctor?.lastName}`}
 							</Text>
 							<View style={styles.cardTime}>
 								<EvilIcons

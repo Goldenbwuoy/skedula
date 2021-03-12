@@ -1,243 +1,164 @@
 import React, { useEffect, useState } from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  ScrollView,
-  Image,
-  TouchableOpacity,
+	View,
+	Text,
+	StyleSheet,
+	TextInput,
+	ScrollView,
+	Image,
+	TouchableOpacity,
+	Platform,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
 import { fetchDoctors } from "../api-patient";
 import LoadingScreen from "../../shared/LoadingScreen";
-import NewAppointment from "./NewAppointment";
-
-const Search = () => {
-  return (
-    <Animatable.View animation="slideInDown">
-      <View style={styles.wrapperInput}>
-        <AntDesign name="search1" size={18} color="gray" />
-        <TextInput
-          style={styles.inputText}
-          placeholder="Search Doctors"
-          autoCapitalize="none"
-        />
-      </View>
-    </Animatable.View>
-  );
-};
-
-const Rating = ({ rating }) => {
-  return (
-    <View style={styles.rating}>
-      {Array(5)
-        .fill(0)
-        .map((_, i) => {
-          if (rating > i) {
-            return (
-              <AntDesign
-                key={i}
-                name="star"
-                color="#FA8D00"
-                style={{ marginRight: 5 }}
-              />
-            );
-          }
-          return <AntDesign key={i} name="staro" style={{ marginRight: 5 }} />;
-        })}
-    </View>
-  );
-};
+import { Rating } from "react-native-elements";
+import { useTheme } from "@react-navigation/native";
+import { SearchBar } from "react-native-elements";
 
 const DoctorCard = ({ doctor, navigation }) => {
-  const [open, setOpen] = useState(false);
+	return (
+		<Animatable.View animation="zoomIn" style={styles.cardContainer}>
+			<TouchableOpacity>
+				<View style={styles.cardBody}>
+					<View style={styles.cardBodyTop}>
+						<Image
+							style={styles.cardAvatar}
+							source={require("../../../assets/doctor.jpg")}
+						/>
+						<View style={styles.cardRight}>
+							<Text style={styles.cardName}>
+								Dr {`${doctor.lastName}`}
+							</Text>
 
-  const openModal = () => {
-    setOpen(true);
-  };
-
-  const closeModal = () => {
-    setOpen(false);
-  };
-  return (
-    <Animatable.View animation="zoomInUp" style={styles.cardContainer}>
-      <View style={styles.cardBody}>
-        <View style={styles.cardBodyTop}>
-          <Image
-            style={styles.cardAvatar}
-            source={require("../../../assets/doctor.jpg")}
-          />
-          <View style={styles.cardLeftSide}>
-            <Text style={styles.cardName}>
-              Dr {`${doctor.firstName} ${doctor.lastName}`}
-            </Text>
-            <Text style={styles.cardTime}>Affiliations</Text>
-            <Text style={styles.cardAddress}>Specialty</Text>
-            <Text style={styles.cardAddress}>Address</Text>
-            <Rating rating={4} />
-            <View style={styles.buttons}>
-              <TouchableOpacity
-                style={styles.bookButton}
-                onPress={() => setOpen(true)}
-                // onPress={() =>
-                //   navigation.navigate("NewAppointment", { doctor })
-                // }
-              >
-                <Text style={styles.btnBookText}>Book Visit</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.chatButton}>
-                <Ionicons
-                  name="chatbubble-ellipses-outline"
-                  size={24}
-                  color="#1c313a"
-                />
-                <Text style={styles.chatText}>chat</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-        <NewAppointment open={open} closeModal={closeModal} doctor={doctor} />
-      </View>
-    </Animatable.View>
-  );
+							<Text style={styles.cardSpecialty}>
+								Dermatologist
+							</Text>
+						</View>
+						<View style={styles.rating}>
+							<Rating
+								ratingCount={1}
+								readOnly
+								startingValue={1}
+								imageSize={15}
+							/>
+							<Text style={styles.ratingText}>4.5</Text>
+						</View>
+					</View>
+				</View>
+			</TouchableOpacity>
+		</Animatable.View>
+	);
 };
 
 const Doctors = ({ navigation }) => {
-  const [doctors, setDoctors] = useState([]);
-  const [loading, setLoading] = useState(true);
+	const { colors } = useTheme();
+	const [doctors, setDoctors] = useState([]);
+	const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchDoctors()
-      .then((data) => {
-        setLoading(false);
-        if (data && data.error) {
-          console.log(data.error);
-        } else {
-          setDoctors(data);
-        }
-      })
-      .catch((err) => console.log(err));
-  }, []);
+	useEffect(() => {
+		fetchDoctors()
+			.then((data) => {
+				setLoading(false);
+				if (data && data.error) {
+					console.log(data.error);
+				} else {
+					setDoctors(data);
+				}
+			})
+			.catch((err) => console.log(err));
+	}, []);
 
-  if (loading) return <LoadingScreen />;
-  return (
-    <View style={styles.container}>
-      <ScrollView style={styles.scrollView}>
-        <Search />
-        {doctors.map((doctor) => (
-          <DoctorCard
-            key={doctor._id}
-            doctor={doctor}
-            navigation={navigation}
-          />
-        ))}
-      </ScrollView>
-    </View>
-  );
+	if (loading) return <LoadingScreen />;
+	return (
+		<View style={[styles.container, { backgroundColor: colors.card }]}>
+			<ScrollView style={styles.scrollView}>
+				<SearchBar
+					platform={Platform.OS}
+					containerStyle={{ padding: 10 }}
+					placeholder="Search"
+				/>
+				{doctors.map((doctor) => (
+					<DoctorCard
+						key={doctor._id}
+						doctor={doctor}
+						navigation={navigation}
+					/>
+				))}
+			</ScrollView>
+		</View>
+	);
 };
 
 export default Doctors;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  scrollView: {
-    flex: 1,
-  },
-  text: {
-    fontSize: 20,
-    color: "#fff",
-  },
-  wrapperInput: {
-    flexDirection: "row",
-    backgroundColor: "#fff",
-    alignItems: "center",
-    paddingHorizontal: 10,
-    borderRadius: 8,
-    marginTop: 10,
-    marginHorizontal: 8,
-  },
-  inputText: {
-    padding: 10,
-    flex: 1,
-  },
-  cardContainer: {
-    padding: 15,
-    paddingBottom: 0,
-  },
-  cardBody: {
-    padding: 15,
-    backgroundColor: "#fff",
-    marginTop: 15,
-    borderRadius: 10,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-  },
-  cardBodyTop: {
-    flexDirection: "row",
-  },
-  cardAvatar: {
-    height: 60,
-    width: 60,
-    backgroundColor: "gray",
-    borderRadius: 60,
-    borderWidth: 1,
-    borderColor: "#1c313a",
-  },
-  cardLeftSide: {
-    paddingHorizontal: 10,
-    flex: 1,
-  },
-  tag: {
-    color: "#B066A4",
-  },
-  cardName: {
-    color: "#222",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  cardTime: {
-    color: "#222",
-    fontSize: 16,
-    fontWeight: "500",
-    marginTop: 5,
-  },
-  cardAddress: {
-    color: "gray",
-    fontSize: 15,
-    fontWeight: "500",
-    marginTop: 5,
-  },
-  buttons: {
-    flexDirection: "row",
-    marginTop: 20,
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  bookButton: {
-    borderWidth: 1,
-    borderColor: "#1c313a",
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 15,
-  },
-  btnBookText: {
-    fontSize: 14,
-    fontWeight: "bold",
-    color: "#1c313a",
-  },
-  rating: {
-    flexDirection: "row",
-    marginTop: 5,
-  },
-  chatButton: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
+	container: {
+		flex: 1,
+	},
+	scrollView: {
+		flex: 1,
+		backgroundColor: "#fff",
+		borderTopRightRadius: 25,
+		borderTopLeftRadius: 25,
+		paddingTop: 10,
+		paddingBottom: 20,
+	},
+	text: {
+		fontSize: 20,
+		color: "#fff",
+	},
+
+	cardContainer: {
+		padding: 15,
+		paddingBottom: 0,
+	},
+	cardBody: {
+		padding: 15,
+		backgroundColor: "#fff",
+		borderRadius: 10,
+		shadowColor: "#000",
+		shadowOffset: { width: 0, height: 2 },
+		shadowOpacity: 0.2,
+		shadowRadius: 4,
+	},
+	cardBodyTop: {
+		flexDirection: "row",
+	},
+	cardAvatar: {
+		height: 60,
+		width: 50,
+		backgroundColor: "gray",
+		borderRadius: 10,
+	},
+	cardRight: {
+		paddingHorizontal: 10,
+		flex: 1,
+	},
+	tag: {
+		color: "#B066A4",
+	},
+	cardName: {
+		color: "#222",
+		fontSize: 15,
+		fontWeight: "600",
+	},
+	cardSpecialty: {
+		color: "gray",
+		fontSize: 15,
+		marginTop: 5,
+	},
+	rating: {
+		paddingVertical: 10,
+		position: "absolute",
+		bottom: 3,
+		right: 10,
+		flexDirection: "row",
+		alignItems: "center",
+	},
+	ratingText: {
+		marginLeft: 3,
+		fontWeight: "600",
+	},
 });

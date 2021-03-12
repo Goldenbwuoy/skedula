@@ -7,7 +7,7 @@ import AppointmentCard from "../../../components/AppointmentCard";
 import ProfileContext from "../../../context/ProfileContext";
 import FloatingAddbutton from "../../../components/FloatingAddbutton";
 
-const Appointments = () => {
+const Appointments = ({ navigation }) => {
 	const { colors } = useTheme();
 	const {
 		profileState: { appointments },
@@ -30,7 +30,7 @@ const Appointments = () => {
 					/>
 				))}
 			</ScrollView>
-			<FloatingAddbutton />
+			<FloatingAddbutton navigation={navigation} />
 		</View>
 	);
 };
