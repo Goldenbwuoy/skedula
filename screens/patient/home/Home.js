@@ -33,21 +33,7 @@ const Home = ({ navigation }) => {
 					<Text style={styles.heading}>
 						Hi, {`${profile?.firstName}`}
 					</Text>
-					<Text style={styles.desc}>
-						You have{" "}
-						<Text
-							style={[
-								styles.desc,
-								{
-									fontWeight: "bold",
-									color: "rgba(0, 0, 0, 0.9)",
-								},
-							]}
-						>
-							{appointments?.length}
-						</Text>{" "}
-						upcoming appointments.
-					</Text>
+					<Text style={styles.desc}>Welcome Back</Text>
 				</Animatable.View>
 
 				<View>

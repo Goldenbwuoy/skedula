@@ -4,7 +4,7 @@ import Profile from "./Profile";
 import EditProfile from "./EditProfile";
 import { useTheme } from "@react-navigation/native";
 import { View } from "react-native-animatable";
-import NotificationsIcon from "../../../components/NotificationsIcon";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const Stack = createStackNavigator();
 
@@ -22,7 +22,15 @@ const ProfileStack = ({ navigation }) => {
 						shadowColor: colors.card, //iOS
 						elevation: 0, // Android
 					},
-					headerRight: () => <NotificationsIcon />,
+					headerRight: () => (
+						<MaterialCommunityIcons
+							name="account-edit"
+							size={30}
+							color="white"
+							style={{ marginHorizontal: 20 }}
+							onPress={() => navigation.navigate("EditProfile")}
+						/>
+					),
 				}}
 			/>
 			<Stack.Screen name="EditProfile" component={EditProfile} />
