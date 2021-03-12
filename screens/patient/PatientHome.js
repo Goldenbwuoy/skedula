@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import { useTheme } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
 import { Fontisto } from "@expo/vector-icons";
@@ -13,8 +14,10 @@ import ProfileContext from "../../context/ProfileContext";
 import { getProfile, appointmentsByPatient } from "./api-patient";
 import { PROFILE_ACTIONS } from "../../context/reducers/profileReducer";
 import LoadingScreen from "../shared/LoadingScreen";
+import MainTabs from "./MainTabs";
 
 const Tabs = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
 
 const PatientHome = () => {
 	const { state } = useContext(AuthContext);
@@ -71,60 +74,66 @@ const PatientHome = () => {
 	}
 
 	return (
-		<Tabs.Navigator
-			initialRouteName="Home"
-			tabBarOptions={{
-				activeTintColor: "#009387",
-				inactiveTintColor: "rgba(255, 255, 255, 0.7)",
-				style: {
-					backgroundColor: colors.card,
-				},
-			}}
-		>
-			<Tabs.Screen
-				name="Home"
-				component={HomeStack}
-				options={{
-					tabBarLabel: "Home",
-					tabBarIcon: ({ color, size }) => (
-						<FontAwesome name="home" size={size} color={color} />
-					),
-				}}
-			/>
-
-			<Tabs.Screen
-				name="Doctors"
-				component={DoctorsStack}
-				options={{
-					tabBarLabel: "Doctors",
-					tabBarIcon: ({ color, size }) => (
-						<Fontisto name="doctor" size={size} color={color} />
-					),
-				}}
-			/>
-
-			<Tabs.Screen
-				name="Appointments"
-				component={AppointmentsStack}
-				options={{
-					tabBarLabel: "Appointments",
-					tabBarIcon: ({ color, size }) => (
-						<Fontisto name="date" size={size} color={color} />
-					),
-				}}
-			/>
-			<Tabs.Screen
-				name="Profile"
-				component={ProfileStack}
-				options={{
-					tabBarLabel: "Profile",
-					tabBarIcon: ({ color, size }) => (
-						<Fontisto name="person" size={size} color={color} />
-					),
-				}}
-			/>
-		</Tabs.Navigator>
+		<Drawer.Navigator>
+			<Drawer.Screen name="HomeDrawer" component={MainTabs} />
+		</Drawer.Navigator>
 	);
+
+	// return (
+	// 	<Tabs.Navigator
+	// 		initialRouteName="Home"
+	// 		tabBarOptions={{
+	// 			activeTintColor: "#009387",
+	// 			inactiveTintColor: "rgba(255, 255, 255, 0.7)",
+	// 			style: {
+	// 				backgroundColor: colors.card,
+	// 			},
+	// 		}}
+	// 	>
+	// 		<Tabs.Screen
+	// 			name="Home"
+	// 			component={HomeStack}
+	// 			options={{
+	// 				tabBarLabel: "Home",
+	// 				tabBarIcon: ({ color, size }) => (
+	// 					<FontAwesome name="home" size={size} color={color} />
+	// 				),
+	// 			}}
+	// 		/>
+
+	// 		<Tabs.Screen
+	// 			name="Doctors"
+	// 			component={DoctorsStack}
+	// 			options={{
+	// 				tabBarLabel: "Doctors",
+	// 				tabBarIcon: ({ color, size }) => (
+	// 					<Fontisto name="doctor" size={size} color={color} />
+	// 				),
+	// 			}}
+	// 		/>
+
+	// 		<Tabs.Screen
+	// 			name="Appointments"
+	// 			component={AppointmentsStack}
+	// 			options={{
+	// 				tabBarLabel: "Appointments",
+	// 				tabBarIcon: ({ color, size }) => (
+	// 					<Fontisto name="date" size={size} color={color} />
+	// 				),
+	// 			}}
+	// 		/>
+	// 		<Tabs.Screen
+	// 			name="Profile"
+	// 			component={ProfileStack}
+	// 			options={{
+	// 				tabBarLabel: "Profile",
+	// 				tabBarIcon: ({ color, size }) => (
+	// 					<Fontisto name="person" size={size} color={color} />
+	// 				),
+	// 			}}
+	// 		/>
+	// 	</Tabs.Navigator>
+	// );
 };
 
 export default PatientHome;

@@ -5,6 +5,7 @@ import { View } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import NotificationsIcon from "../../../components/NotificationsIcon";
 import { Ionicons } from "@expo/vector-icons";
+import OpenDrawerIcon from "../../../components/OpenDrawerIcon";
 
 const Stack = createStackNavigator();
 
@@ -22,16 +23,8 @@ const DoctorsStack = () => {
 						shadowColor: colors.card, //iOS
 						elevation: 0, // Android
 					},
-					headerLeft: () => (
-						<View style={{ marginHorizontal: 20 }}>
-							<Ionicons name="menu" size={24} color="white" />
-						</View>
-					),
-					headerRight: () => (
-						<View style={{ marginHorizontal: 20 }}>
-							<NotificationsIcon />
-						</View>
-					),
+					headerLeft: () => <OpenDrawerIcon />,
+					headerRight: () => <NotificationsIcon />,
 				}}
 			/>
 		</Stack.Navigator>

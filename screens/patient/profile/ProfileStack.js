@@ -22,11 +22,7 @@ const ProfileStack = ({ navigation }) => {
 						shadowColor: colors.card, //iOS
 						elevation: 0, // Android
 					},
-					headerRight: () => (
-						<View style={{ marginHorizontal: 20 }}>
-							<NotificationsIcon />
-						</View>
-					),
+					headerRight: () => <NotificationsIcon />,
 				}}
 			/>
 			<Stack.Screen name="EditProfile" component={EditProfile} />
