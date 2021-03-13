@@ -77,7 +77,9 @@ export function DrawerContent(props) {
 							)}
 							label="Profile"
 							labelStyle={styles.drawerLabel}
-							onPress={() => props.navigation.navigate("Profile")}
+							onPress={() =>
+								props.navigation.navigate("ProfileStack")
+							}
 						/>
 						<DrawerItem
 							icon={({ color, size }) => (
@@ -118,10 +120,13 @@ export function DrawerContent(props) {
 			<Drawer.Section style={styles.bottonDrawerSection}>
 				<DrawerItem
 					icon={({ color, size }) => (
-						<Icon name="exit-to-app" color={color} size={size} />
+						<Icon name="exit-to-app" color="#ED2939" size={size} />
 					)}
 					label="Sign Out"
-					labelStyle={styles.drawerLabel}
+					labelStyle={[
+						styles.drawerLabel,
+						{ fontWeight: "bold", color: "#ED2939" },
+					]}
 					onPress={handleSignOut}
 				/>
 			</Drawer.Section>

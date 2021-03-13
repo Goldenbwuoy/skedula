@@ -4,10 +4,12 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useTheme } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
 import { Fontisto } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import HomeStack from "./home/HomeStack";
 import DoctorsStack from "./doctors/DoctorsStack";
 import AppointmentsStack from "./appointments/AppointmentsStack";
 import ProfileStack from "./profile/ProfileStack";
+import PharmaciesStack from "./pharmacies/PharmaciesStack";
 
 const Tabs = createBottomTabNavigator();
 
@@ -57,12 +59,16 @@ const MainTabs = () => {
 				}}
 			/>
 			<Tabs.Screen
-				name="Profile"
-				component={ProfileStack}
+				name="Pharmacies"
+				component={PharmaciesStack}
 				options={{
-					tabBarLabel: "Profile",
+					tabBarLabel: "Pharmacies",
 					tabBarIcon: ({ color, size }) => (
-						<Fontisto name="person" size={size} color={color} />
+						<MaterialIcons
+							name="local-pharmacy"
+							size={size}
+							color={color}
+						/>
 					),
 				}}
 			/>

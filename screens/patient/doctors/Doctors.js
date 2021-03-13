@@ -76,7 +76,10 @@ const Doctors = ({ navigation }) => {
 			<ScrollView style={styles.scrollView}>
 				<SearchBar
 					platform={Platform.OS}
-					containerStyle={{ padding: 10 }}
+					containerStyle={{
+						padding: 10,
+						marginHorizontal: 10,
+					}}
 					placeholder="Search"
 				/>
 				{doctors.map((doctor) => (

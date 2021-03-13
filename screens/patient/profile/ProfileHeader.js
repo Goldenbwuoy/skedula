@@ -29,7 +29,7 @@ export default ProfileHeader;
 const styles = StyleSheet.create({
 	userInfoSection: {
 		paddingHorizontal: 20,
-		paddingBottom: 20,
+		paddingVertical: 20,
 		marginBottom: 25,
 		borderBottomLeftRadius: 25,
 		borderBottomRightRadius: 25,

@@ -1,8 +1,10 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import { FAB } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 
-const FloatingAddbutton = ({ navigation }) => {
+const FloatingAddbutton = () => {
+	const navigation = useNavigation();
 	return (
 		<FAB
 			style={styles.fab}

@@ -8,6 +8,7 @@ import { PROFILE_ACTIONS } from "../../context/reducers/profileReducer";
 import LoadingScreen from "../shared/LoadingScreen";
 import MainTabs from "./MainTabs";
 import { DrawerContent } from "./DrawerContent";
+import ProfileStack from "./profile/ProfileStack";
 
 const Drawer = createDrawerNavigator();
 
@@ -69,6 +70,7 @@ const PatientHome = () => {
 			drawerContent={(props) => <DrawerContent {...props} />}
 		>
 			<Drawer.Screen name="HomeDrawer" component={MainTabs} />
+			<Drawer.Screen name="ProfileStack" component={ProfileStack} />
 		</Drawer.Navigator>
 	);
 };
