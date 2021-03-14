@@ -1,21 +1,19 @@
 import React from "react";
-import { View } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
+import Pharmacies from "./Pharmacies";
 import { useTheme } from "@react-navigation/native";
-import Home from "./Home";
-import NotificationsIcon from "../../../components/NotificationsIcon";
-import { Ionicons } from "@expo/vector-icons";
 import OpenDrawerIcon from "../../../components/OpenDrawerIcon";
+import NotificationsIcon from "../../../components/NotificationsIcon";
 
 const Stack = createStackNavigator();
 
-const HomeStack = ({ navigation }) => {
+const PharmaciesStack = ({ navigation }) => {
 	const { colors } = useTheme();
 	return (
 		<Stack.Navigator>
 			<Stack.Screen
-				name="Home"
-				component={Home}
+				name="Pharmacies"
+				component={Pharmacies}
 				options={{
 					title: "",
 					headerStyle: {
@@ -31,4 +29,4 @@ const HomeStack = ({ navigation }) => {
 	);
 };
 
-export default HomeStack;
+export default PharmaciesStack;
