@@ -1,24 +1,19 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import Appointments from "./Appointments";
+import Profile from "./Patients";
 import OpenDrawerIcon from "../../../components/OpenDrawerIcon";
 import NotificationsIcon from "../../../components/NotificationsIcon";
 
 const Stack = createStackNavigator();
 
-const AppointmentsStack = () => {
+const PatientsStack = () => {
 	return (
 		<Stack.Navigator>
 			<Stack.Screen
-				name="Appointments"
-				component={Appointments}
+				name="Profile"
+				component={Profile}
 				options={{
-					title: "Appointments",
-					headerStyle: {
-						// backgroundColor: colors.card,
-						// shadowColor: colors.card, //iOS
-						// elevation: 0, // Android
-					},
+					title: "My Patients",
 					headerLeft: () => <OpenDrawerIcon />,
 					headerRight: () => <NotificationsIcon />,
 				}}
@@ -27,4 +22,4 @@ const AppointmentsStack = () => {
 	);
 };
 
-export default AppointmentsStack;
+export default PatientsStack;
