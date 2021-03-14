@@ -5,6 +5,7 @@ import { Avatar, Title, Caption, Paragraph, Drawer } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { AntDesign } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import AuthContext from "../../context/AuthContext";
 import ProfileContext from "../../context/ProfileContext";
 import { AUTH_ACTIONS } from "../../context/reducers/authReducer";
@@ -101,6 +102,28 @@ export function DrawerContent(props) {
 								/>
 							)}
 							label="My Doctors"
+							labelStyle={styles.drawerLabel}
+						/>
+						<DrawerItem
+							icon={({ color, size }) => (
+								<AntDesign
+									name="wechat"
+									size={size}
+									color={color}
+								/>
+							)}
+							label="Chat Messages"
+							labelStyle={styles.drawerLabel}
+						/>
+						<DrawerItem
+							icon={({ color, size }) => (
+								<MaterialIcons
+									name="payments"
+									size={size}
+									color={color}
+								/>
+							)}
+							label="Payments"
 							labelStyle={styles.drawerLabel}
 						/>
 						<DrawerItem

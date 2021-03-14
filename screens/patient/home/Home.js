@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
 	View,
 	Text,
@@ -7,22 +7,41 @@ import {
 	ScrollView,
 	TouchableOpacity,
 	Platform,
+	ActivityIndicator,
 } from "react-native";
 import ProfileContext from "../../../context/ProfileContext";
+import AuthContex from "../../../context/AuthContext";
 import AppointmentCard from "../../../components/AppointmentCard";
 import * as Animatable from "react-native-animatable";
 import { useTheme } from "@react-navigation/native";
 import FloatingAddbutton from "../../../components/FloatingAddbutton";
+import { topRatedDoctors } from "../api-patient";
 import { MaterialIcons } from "@expo/vector-icons";
 import { SearchBar } from "react-native-elements";
+import DoctorCard from "../../../components/DoctorCard";
 
 const screenWidth = Dimensions.get("window").width;
 
 const Home = ({ navigation }) => {
+	const [fetching, setFetching] = useState(true);
+	const [topDoctors, setTopDoctors] = useState([]);
 	const { colors } = useTheme();
+
+	const { state } = useContext(AuthContex);
 	const {
-		profileState: { profile, appointments },
+		profileState: { profile },
 	} = useContext(ProfileContext);
+
+	useEffect(() => {
+		topRatedDoctors({ token: state.auth?.token }).then((data) => {
+			if (data && data.error) {
+				console.log(data.error);
+			} else {
+				setTopDoctors(data);
+				setFetching(false);
+			}
+		});
+	}, [state.auth]);
 	return (
 		<View style={[styles.container, { backgroundColor: colors.card }]}>
 			<ScrollView style={styles.scrollView}>
@@ -59,11 +78,17 @@ const Home = ({ navigation }) => {
 					</TouchableOpacity>
 				</View>
 
-				<AppointmentCard
-					title="Your Next Appointment"
-					appointment={appointments[0]}
-					navigation={navigation}
-				/>
+				{fetching ? (
+					<View style={styles.loading}>
+						<ActivityIndicator />
+					</View>
+				) : (
+					<>
+						{topDoctors.map((doctor) => (
+							<DoctorCard key={doctor._id} doctor={doctor} />
+						))}
+					</>
+				)}
 			</ScrollView>
 			<FloatingAddbutton navigation={navigation} />
 		</View>
@@ -81,6 +106,7 @@ const styles = StyleSheet.create({
 		backgroundColor: "#fff",
 		borderTopRightRadius: 25,
 		borderTopLeftRadius: 25,
+		paddingBottom: 20,
 	},
 	headingContainer: {
 		padding: 20,
@@ -111,5 +137,8 @@ const styles = StyleSheet.create({
 	cardMore: {
 		color: "rgba(0, 0, 0, 0.7)",
 		marginRight: 3,
+	},
+	loading: {
+		padding: 50,
 	},
 });
