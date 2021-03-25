@@ -4,10 +4,23 @@ import * as Animatable from "react-native-animatable";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Rating } from "react-native-elements";
 
-const DoctorCard = ({ doctor }) => {
+const DoctorCard = ({ doctor, navigation, home }) => {
+	const navigate = () => {
+		if (!home) {
+			return navigation.push("DoctorInfo", {
+				doctorId: doctor._id,
+				name: `Dr ${doctor.lastName}`,
+			});
+		}
+		return navigation.navigate("Doctors", {
+			screen: "DoctorInfo",
+			params: { doctorId: doctor._id, name: `Dr ${doctor.lastName}` },
+		});
+	};
+
 	return (
 		<Animatable.View animation="zoomIn" style={styles.cardContainer}>
-			<TouchableOpacity>
+			<TouchableOpacity onPress={navigate}>
 				<View style={styles.cardBody}>
 					<View style={styles.cardBodyTop}>
 						<Image

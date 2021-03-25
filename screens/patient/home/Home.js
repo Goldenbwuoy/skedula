@@ -85,7 +85,12 @@ const Home = ({ navigation }) => {
 				) : (
 					<>
 						{topDoctors.map((doctor) => (
-							<DoctorCard key={doctor._id} doctor={doctor} />
+							<DoctorCard
+								key={doctor._id}
+								doctor={doctor}
+								navigation={navigation}
+								home={true}
+							/>
 						))}
 					</>
 				)}

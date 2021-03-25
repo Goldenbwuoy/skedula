@@ -104,17 +104,7 @@ export function DrawerContent(props) {
 							label="My Doctors"
 							labelStyle={styles.drawerLabel}
 						/>
-						<DrawerItem
-							icon={({ color, size }) => (
-								<AntDesign
-									name="wechat"
-									size={size}
-									color={color}
-								/>
-							)}
-							label="Chat Messages"
-							labelStyle={styles.drawerLabel}
-						/>
+
 						<DrawerItem
 							icon={({ color, size }) => (
 								<MaterialIcons

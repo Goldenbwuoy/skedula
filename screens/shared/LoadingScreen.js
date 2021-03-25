@@ -1,19 +1,19 @@
 import React from "react";
-import { View, Text, ActivityIndicator } from "react-native";
+import { View, ActivityIndicator } from "react-native";
 
 const LoadingScreen = () => {
-  return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#455a64",
-      }}
-    >
-      <ActivityIndicator size="large" color="#fff" />
-    </View>
-  );
+	return (
+		<View
+			style={{
+				flex: 1,
+				justifyContent: "center",
+				alignItems: "center",
+				backgroundColor: "#fff",
+			}}
+		>
+			<ActivityIndicator size="small" color="#000" />
+		</View>
+	);
 };
 
 export default LoadingScreen;

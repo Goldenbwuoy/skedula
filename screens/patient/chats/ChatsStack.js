@@ -1,14 +1,13 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import Doctors from "./Doctors";
 import { useTheme } from "@react-navigation/native";
-import NotificationsIcon from "../../../components/NotificationsIcon";
+import Chats from "./Chats";
 import OpenDrawerIcon from "../../../components/OpenDrawerIcon";
-import DoctorInfo from "./DoctorInfo";
+import NotificationsIcon from "../../../components/NotificationsIcon";
 
 const Stack = createStackNavigator();
 
-const DoctorsStack = () => {
+const ChatsStack = () => {
 	const { colors } = useTheme();
 	return (
 		<Stack.Navigator
@@ -20,23 +19,16 @@ const DoctorsStack = () => {
 			}}
 		>
 			<Stack.Screen
-				name="Doctors"
-				component={Doctors}
+				name="Chats"
+				component={Chats}
 				options={{
-					title: "Doctors",
+					title: "Chats",
 					headerLeft: () => <OpenDrawerIcon />,
 					headerRight: () => <NotificationsIcon />,
 				}}
-			/>
-			<Stack.Screen
-				name="DoctorInfo"
-				component={DoctorInfo}
-				options={({ route }) => ({
-					title: route.params.name,
-				})}
 			/>
 		</Stack.Navigator>
 	);
 };
 
-export default DoctorsStack;
+export default ChatsStack;

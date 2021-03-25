@@ -1,5 +1,4 @@
 import React from "react";
-import { View, Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useTheme } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
@@ -8,8 +7,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 import HomeStack from "./home/HomeStack";
 import DoctorsStack from "./doctors/DoctorsStack";
 import AppointmentsStack from "./appointments/AppointmentsStack";
-import ProfileStack from "./profile/ProfileStack";
 import PharmaciesStack from "./pharmacies/PharmaciesStack";
+import ChatsStack from "./chats/ChatsStack";
 
 const Tabs = createBottomTabNavigator();
 
@@ -69,6 +68,16 @@ const MainTabs = () => {
 							size={size}
 							color={color}
 						/>
+					),
+				}}
+			/>
+			<Tabs.Screen
+				name="ChatsTab"
+				component={ChatsStack}
+				options={{
+					tabBarLabel: "Messages",
+					tabBarIcon: ({ color, size }) => (
+						<FontAwesome name="wechat" size={size} color={color} />
 					),
 				}}
 			/>
