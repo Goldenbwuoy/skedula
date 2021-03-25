@@ -1,17 +1,13 @@
 import React from "react";
-import { View, Text } from "react-native";
-import { withBadge, Icon } from "react-native-elements";
+import { View, TouchableOpacity } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 const NotificationsIcon = () => {
-	const BadgedIcon = withBadge(5)(Icon);
 	return (
 		<View style={{ marginHorizontal: 20 }}>
-			<BadgedIcon
-				type="ionicon"
-				name="notifications-circle-outline"
-				size={24}
-				color="white"
-			/>
+			<TouchableOpacity>
+				<Ionicons name="notifications-circle" size={30} color="#fff" />
+			</TouchableOpacity>
 		</View>
 	);
 };
