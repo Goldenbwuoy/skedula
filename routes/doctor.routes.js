@@ -17,7 +17,7 @@ router
 	);
 
 router
-	.route("/api/doctors/:doctorId")
+	.route("/api/doctors/doctor/:doctorId")
 	.get(authCtrl.requireSignin, doctorCtrl.read);
 
 router

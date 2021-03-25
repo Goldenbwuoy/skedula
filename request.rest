@@ -87,6 +87,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDMwZWI0N
 GET https://gpnserver.herokuapp.com/api/appointments/doctor/6030eb8af3f0330015615fa1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDMwZWI4YWYzZjAzMzAwMTU2MTVmYTEiLCJpYXQiOjE2MTM4MTkwNjV9.Hh14W0xOuzmY3lrgmk2yQaLIarllVb42BciJmROu0a8
 
+###
+GET https://gpnserver.herokuapp.com/api/doctors/top_rated
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDRkNWI5ZGZjZjAxNzI1M2NhZTQ0Y2YiLCJpYXQiOjE2MTU2ODI1MjR9.rxqIH2d6n5QhQtfINysF9nH9AzoHnq_PdHceDjgQp3E
 
 
 
