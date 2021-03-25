@@ -17,6 +17,10 @@ router
 	);
 
 router
+	.route("/api/doctors/:doctorId")
+	.get(authCtrl.requireSignin, doctorCtrl.read);
+
+router
 	.route("/api/doctors/:doctorId/activate")
 	.post(
 		authCtrl.requireSignin,

@@ -60,7 +60,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDRkNWI5Z
 GET http://localhost:5000/api/doctors
 
 ### Read a doctor by id
-GET http://localhost:5000/api/doctors/602f9a36be4d89387c1756f7
+GET http://localhost:5000/api/doctors/604d6d8de5375f15b058e1a3
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDJmOWEzNmJlNGQ4OTM4N2MxNzU2ZjYiLCJpYXQiOjE2MTQ4MTgyMTN9.vWciyoOk0ZSKuRS2MlKS0lMQxZHJ_LZ9n4wsYwI1dV8
 ### Request to activate account
 POST http://localhost:5000/api/doctors/602f9a36be4d89387c1756f7/activate
