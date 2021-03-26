@@ -20,6 +20,21 @@ import {
 } from "../../../constants/constants";
 import { FlatList } from "react-native";
 
+const DATA = [
+	{
+		// id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+		title: "First Item",
+	},
+	{
+		// id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
+		title: "Second Item",
+	},
+	{
+		// id: "58694a0f-3da1-471f-bd96-145571e29d72",
+		title: "Third Item",
+	},
+];
+
 const NewAppointment = ({ openModal, setOpenModal }) => {
 	const today = new Date();
 	const [date, setDate] = useState("");
@@ -27,6 +42,7 @@ const NewAppointment = ({ openModal, setOpenModal }) => {
 		times: MORNING_TIMES,
 		workingHours: MORNING_WORKING_HOURS,
 	});
+	const [selectedTime, setSelectedTime] = useState("");
 	const [timeValues, setTimeValues] = useState({
 		active: 0,
 		xTabOne: 0,
@@ -34,13 +50,36 @@ const NewAppointment = ({ openModal, setOpenModal }) => {
 		translateX: new Animated.Value(0),
 	});
 
-	const selectedDay = (day) => {
+	const selectDay = (day) => {
 		setDate(day.dateString);
 	};
 
-	console.log(timeOfDay);
+	console.log(selectedTime);
+	console.log(date);
 
 	const handleCreate = () => {};
+
+	const renderItem = ({ item }) => (
+		<TouchableOpacity
+			onPress={() => setSelectedTime(item.time)}
+			style={[
+				styles.item,
+				{
+					backgroundColor:
+						selectedTime === item.time ? "#00adf5" : "#fff",
+				},
+			]}
+		>
+			<Text
+				style={[
+					styles.itemText,
+					{ color: selectedTime === item.time ? "#fff" : "#00adf5" },
+				]}
+			>
+				{item.time}
+			</Text>
+		</TouchableOpacity>
+	);
 
 	return (
 		<Modal animationType="slide" transparent={true} visible={openModal}>
@@ -51,14 +90,14 @@ const NewAppointment = ({ openModal, setOpenModal }) => {
 					</TouchableOpacity>
 
 					<TouchableOpacity>
-						<Text style={styles.headerText}>Proceed to pay</Text>
+						<Text style={styles.headerText}>Submit</Text>
 					</TouchableOpacity>
 				</View>
-				<ScrollView>
+				<View>
 					<View style={styles.calendar}>
 						<Calendar
 							minDate={today}
-							onDayPress={(day) => selectedDay(day)}
+							onDayPress={(day) => selectDay(day)}
 							markedDates={{
 								[date]: {
 									selected: true,
@@ -74,7 +113,14 @@ const NewAppointment = ({ openModal, setOpenModal }) => {
 						timeOfDay={timeOfDay}
 						setTimeOfDay={setTimeOfDay}
 					/>
-				</ScrollView>
+					<FlatList
+						data={timeOfDay.times}
+						contentContainerStyle={styles.grid}
+						numColumns={4}
+						renderItem={renderItem}
+						keyExtractor={(item) => item.time}
+					/>
+				</View>
 			</View>
 		</Modal>
 	);
@@ -111,10 +157,28 @@ const styles = StyleSheet.create({
 		fontWeight: "500",
 	},
 	calendar: {
-		margin: 10,
-		padding: 10,
+		marginTop: 3,
+		marginHorizontal: 10,
+		paddingHorizontal: 10,
 		borderWidth: 1,
 		borderColor: "#00adf5",
 		borderRadius: 10,
+	},
+	item: {
+		marginHorizontal: 5,
+		marginVertical: 4,
+		width: 70,
+		padding: 8,
+		borderRadius: 5,
+		alignItems: "center",
+		borderWidth: 1,
+		borderColor: "#00adf5",
+	},
+	grid: {
+		marginBottom: 32,
+		alignItems: "center",
+	},
+	itemText: {
+		color: "#00adf5",
 	},
 });

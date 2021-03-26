@@ -33,7 +33,6 @@ const SelectTime = ({ timeValues, setTimeValues, setTimeOfDay }) => {
 		}).start();
 	};
 
-	console.log(timeValues.active);
 	return (
 		<View
 			style={{
