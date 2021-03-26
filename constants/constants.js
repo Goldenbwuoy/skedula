@@ -39,3 +39,18 @@ export const AFTERNOON_WORKING_HOURS = {
 	start: "14:00",
 	end: "17:30",
 };
+
+const findIndex = (timesList, time) => {
+	return timesList
+		.map(function (e) {
+			return e.time;
+		})
+		.indexOf(time);
+};
+
+export const filteredWorkingHours = (timesList, start, end) => {
+	return timesList.slice(
+		findIndex(timesList, start),
+		findIndex(timesList, end)
+	);
+};

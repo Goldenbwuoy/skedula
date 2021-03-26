@@ -32,7 +32,7 @@ const DoctorInfo = ({ route }) => {
 		<View style={styles.container}>
 			{fetching ? (
 				<View style={styles.loading}>
-					<ActivityIndicator />
+					<ActivityIndicator size="small" color="black" />
 				</View>
 			) : (
 				<DoctorInfoHeader setOpenModal={setOpenModal} doctor={doctor} />

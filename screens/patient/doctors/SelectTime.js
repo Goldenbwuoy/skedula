@@ -5,14 +5,18 @@ import {
 	AFTERNOON_TIMES,
 	MORNING_WORKING_HOURS,
 	AFTERNOON_WORKING_HOURS,
+	filteredWorkingHours,
 } from "../../../constants/constants";
 
-const SelectTime = ({ timeValues, setTimeValues, setTimeOfDay }) => {
+const SelectTime = ({ timeValues, setTimeValues, setWorkingHours }) => {
 	const handleSlideRight = () => {
 		setTimeValues({ ...timeValues, active: 1 });
-		setTimeOfDay({
-			times: AFTERNOON_TIMES,
-			workingHours: AFTERNOON_WORKING_HOURS,
+		setWorkingHours({
+			times: filteredWorkingHours(
+				AFTERNOON_TIMES,
+				AFTERNOON_WORKING_HOURS.start,
+				AFTERNOON_WORKING_HOURS.end
+			),
 		});
 		Animated.spring(timeValues.translateX, {
 			toValue: timeValues.xTabTwo,
@@ -22,9 +26,12 @@ const SelectTime = ({ timeValues, setTimeValues, setTimeOfDay }) => {
 	};
 	const handleSlideLeft = () => {
 		setTimeValues({ ...timeValues, active: 0 });
-		setTimeOfDay({
-			times: MORNING_TIMES,
-			workingHours: MORNING_WORKING_HOURS,
+		setWorkingHours({
+			times: filteredWorkingHours(
+				MORNING_TIMES,
+				MORNING_WORKING_HOURS.start,
+				MORNING_WORKING_HOURS.end
+			),
 		});
 		Animated.spring(timeValues.translateX, {
 			toValue: timeValues.xTabOne,

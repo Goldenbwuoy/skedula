@@ -17,6 +17,7 @@ import SelectTime from "./SelectTime";
 import {
 	MORNING_TIMES,
 	MORNING_WORKING_HOURS,
+	filteredWorkingHours,
 } from "../../../constants/constants";
 import { FlatList } from "react-native";
 
@@ -38,9 +39,12 @@ const DATA = [
 const NewAppointment = ({ openModal, setOpenModal }) => {
 	const today = new Date();
 	const [date, setDate] = useState("");
-	const [timeOfDay, setTimeOfDay] = useState({
-		times: MORNING_TIMES,
-		workingHours: MORNING_WORKING_HOURS,
+	const [workingHours, setWorkingHours] = useState({
+		times: filteredWorkingHours(
+			MORNING_TIMES,
+			MORNING_WORKING_HOURS.start,
+			MORNING_WORKING_HOURS.end
+		),
 	});
 	const [selectedTime, setSelectedTime] = useState("");
 	const [timeValues, setTimeValues] = useState({
@@ -82,14 +86,21 @@ const NewAppointment = ({ openModal, setOpenModal }) => {
 	);
 
 	return (
-		<Modal animationType="slide" transparent={true} visible={openModal}>
+		<Modal
+			onRequestClose={() => {
+				setOpenModal(!openModal);
+			}}
+			animationType="slide"
+			transparent={true}
+			visible={openModal}
+		>
 			<View style={styles.container}>
 				<View style={styles.header}>
-					<TouchableOpacity onPress={() => setOpenModal(false)}>
+					<TouchableOpacity onPress={() => setOpenModal(!openModal)}>
 						<Text style={styles.headerText}>Cancel</Text>
 					</TouchableOpacity>
 
-					<TouchableOpacity>
+					<TouchableOpacity disabled={!selectedTime || !date}>
 						<Text style={styles.headerText}>Submit</Text>
 					</TouchableOpacity>
 				</View>
@@ -110,11 +121,10 @@ const NewAppointment = ({ openModal, setOpenModal }) => {
 					<SelectTime
 						timeValues={timeValues}
 						setTimeValues={setTimeValues}
-						timeOfDay={timeOfDay}
-						setTimeOfDay={setTimeOfDay}
+						setWorkingHours={setWorkingHours}
 					/>
 					<FlatList
-						data={timeOfDay.times}
+						data={workingHours.times}
 						contentContainerStyle={styles.grid}
 						numColumns={4}
 						renderItem={renderItem}
