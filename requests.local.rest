@@ -54,8 +54,7 @@ GET http://localhost:5000/api/patients
 
 ### Read a patient by id
 GET http://localhost:5000/api/patients/604d5b9dfcf017253cae44d0
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDRkNWI5ZGZjZjAxNzI1M2NhZTQ0Y2YiLCJpYXQiOjE2MTU2ODI1MjR9.rxqIH2d6n5QhQtfINysF9nH9AzoHnq_PdHceDjgQp3E
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDMwZWI0NmYzZjAzMzAwMTU2MTVmOWYiLCJpYXQiOjE2MTY4MjEzMzB9.TJwN3zQQncWiNeqShVyjD7wqUyGj30GKYBoibaoyZak
 ### List all doctors
 GET http://localhost:5000/api/doctors
 
@@ -73,23 +72,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDMwZWI4Y
     "brief_introduction": "This is the New intro"
 }
 
-### Schedule an appointment
-POST http://localhost:5000/api/appointment/by/6030eb47f3f0330015615fa0/with/604d6d8de5375f15b058e1a3
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDMwZWI0NmYzZjAzMzAwMTU2MTVmOWYiLCJpYXQiOjE2MTU2OTA2MDl9.cWSDq4kIhyHHMqCWqkeEbVHNF4E1B2R5Kj5GWhWRyCs
-
-{
-    "start_time": "2021-04-28T05:43:52.815Z"
-}
-
 ### list appointments by patient
-GET http://localhost:5000/api/appointments/patient/604d5b9dfcf017253cae44d0
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDRkNWI5ZGZjZjAxNzI1M2NhZTQ0Y2YiLCJpYXQiOjE2MTU2ODI1MjR9.rxqIH2d6n5QhQtfINysF9nH9AzoHnq_PdHceDjgQp3E
-
+GET http://localhost:5000/api/appointments/patient/6030eb47f3f0330015615fa0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDMwZWI0NmYzZjAzMzAwMTU2MTVmOWYiLCJpYXQiOjE2MTY4MjEzMzB9.TJwN3zQQncWiNeqShVyjD7wqUyGj30GKYBoibaoyZak
 ### list appointments by doctor
-GET http://localhost:5000/api/appointments/doctor/602f9a36be4d89387c1756f7
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDRkNWI5ZGZjZjAxNzI1M2NhZTQ0Y2YiLCJpYXQiOjE2MTU2ODI1MjR9.rxqIH2d6n5QhQtfINysF9nH9AzoHnq_PdHceDjgQp3E
-
+GET http://localhost:5000/api/appointments/doctor/604d6d8de5375f15b058e1a3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDRkNmQ4Y2U1Mzc1ZjE1YjA1OGUxYTIiLCJpYXQiOjE2MTY4MjE0Nzh9._xt1Z3S8BakX3_Oa5V6pOZ6MFoiPb7KJ0MltxGX27Yw
 ### review a doctor
 POST http://localhost:5000/api/doctors/review/604d5c96fcf017253cae44da
 Content-Type: application/json
@@ -138,6 +126,17 @@ Content-Type: application/json
     "phoneNumber": "0772142413",
     "role": "Doctor",
     "password": "password"
+}
+
+### create an appointment
+POST http://localhost:5000/api/appointment/patient/6030eb47f3f0330015615fa0/doctor/604d6d8de5375f15b058e1a3
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDMwZWI0NmYzZjAzMzAwMTU2MTVmOWYiLCJpYXQiOjE2MTM4MTg4NTl9.cmRBED5z6aYXm0AdsJ2wQfO5T5HsU_Bn7nbU4Br201w
+
+{
+    "date": "2021-02-25",
+    "start_time": "09:30"
+    
 }
 
 

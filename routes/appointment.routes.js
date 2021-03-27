@@ -5,28 +5,28 @@ const patientCtrl = require("../controllers/patient.controller");
 const doctorCtrl = require("../controllers/doctor.controller");
 
 router
-  .route("/api/appointment/by/:patientId/with/:doctorId")
-  .post(
-    authCtrl.requireSignin,
-    authCtrl.hasPatientAuthorization,
-    appointmentCtrl.create
-  );
+	.route("/api/appointment/patient/:patientId/doctor/:doctorId")
+	.post(
+		authCtrl.requireSignin,
+		authCtrl.hasPatientAuthorization,
+		appointmentCtrl.create
+	);
 
 router
-  .route("/api/appointments/patient/:patientId")
-  .get(
-    authCtrl.requireSignin,
-    authCtrl.hasPatientAuthorization,
-    appointmentCtrl.appointmentsByPatient
-  );
+	.route("/api/appointments/patient/:patientId")
+	.get(
+		authCtrl.requireSignin,
+		authCtrl.hasPatientAuthorization,
+		appointmentCtrl.appointmentsByPatient
+	);
 
 router
-  .route("/api/appointments/doctor/:doctorId")
-  .get(
-    authCtrl.requireSignin,
-    authCtrl.hasDoctorAuthorization,
-    appointmentCtrl.appointmentsByDoctor
-  );
+	.route("/api/appointments/doctor/:doctorId")
+	.get(
+		authCtrl.requireSignin,
+		authCtrl.hasDoctorAuthorization,
+		appointmentCtrl.appointmentsByDoctor
+	);
 
 router.param("patientId", patientCtrl.patientById);
 router.param("doctorId", doctorCtrl.doctorById);
