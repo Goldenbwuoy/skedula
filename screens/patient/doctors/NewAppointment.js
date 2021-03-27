@@ -6,6 +6,8 @@ import {
 	StyleSheet,
 	TouchableOpacity,
 	Animated,
+	ActivityIndicator,
+	FlatList,
 } from "react-native";
 import AuthContext from "../../../context/AuthContext";
 import { createAppointment } from "../api-patient";
@@ -18,8 +20,6 @@ import {
 	MORNING_WORKING_HOURS,
 	filteredWorkingHours,
 } from "../../../constants/constants";
-import { FlatList } from "react-native";
-import { ActivityIndicator } from "react-native";
 
 const bookedHours = ["08:00", "09:30", "14:30", "15:30"];
 
@@ -49,7 +49,7 @@ const NewAppointment = ({ openModal, setOpenModal, doctor }) => {
 	};
 
 	const handleCreate = async () => {
-		setLoading(!loading);
+		setLoading(true);
 		const appointment = {
 			patient: profileState.profile?._id,
 			doctor: doctor._id,
@@ -58,7 +58,7 @@ const NewAppointment = ({ openModal, setOpenModal, doctor }) => {
 		};
 		createAppointment({ token: state.auth?.token }, appointment)
 			.then((data) => {
-				setLoading(!loading);
+				setLoading(false);
 				if (data && data.error) {
 					console.log(data.error);
 				} else {
@@ -70,53 +70,77 @@ const NewAppointment = ({ openModal, setOpenModal, doctor }) => {
 				}
 			})
 			.catch((error) => {
-				setLoading(!loading);
+				setLoading(false);
 				console.log(error);
 			});
 	};
 
-	const renderItem = ({ item }) => (
-		<>
-			{bookedHours.includes(item.time) ? (
-				<TouchableOpacity
-					disabled
-					style={[
-						styles.item,
-						{ borderColor: "red", backgroundColor: "red" },
-					]}
-				>
-					<Text style={[styles.itemText, { color: "#fff" }]}>
-						Booked
-					</Text>
-				</TouchableOpacity>
-			) : (
-				<TouchableOpacity
-					onPress={() => setSelectedTime(item.time)}
-					style={[
-						styles.item,
-						{
-							backgroundColor:
-								selectedTime === item.time ? "#00adf5" : "#fff",
-						},
-					]}
-				>
-					<Text
+	const formatData = (data, numColumns) => {
+		const numberOfFullRows = Math.floor(data.length / numColumns);
+		let numberOfElementsLastRow =
+			data.length - numberOfFullRows * numColumns;
+		while (
+			numberOfElementsLastRow !== numColumns &&
+			numberOfElementsLastRow !== 0
+		) {
+			data.push({
+				time: `blank-${Math.random()}`,
+				empty: true,
+			});
+			numberOfElementsLastRow = numberOfElementsLastRow + 1;
+		}
+		return data;
+	};
+
+	const renderItem = ({ item }) => {
+		if (item.empty === true) {
+			return <View style={[styles.item, styles.itemBlank]} />;
+		}
+		return (
+			<>
+				{bookedHours.includes(item.time) ? (
+					<TouchableOpacity
+						disabled
 						style={[
-							styles.itemText,
+							styles.item,
+							{ borderColor: "red", backgroundColor: "red" },
+						]}
+					>
+						<Text style={[styles.itemText, { color: "#fff" }]}>
+							Booked
+						</Text>
+					</TouchableOpacity>
+				) : (
+					<TouchableOpacity
+						onPress={() => setSelectedTime(item.time)}
+						style={[
+							styles.item,
 							{
-								color:
+								backgroundColor:
 									selectedTime === item.time
-										? "#fff"
-										: "#00adf5",
+										? "#00adf5"
+										: "#fff",
 							},
 						]}
 					>
-						{item.time}
-					</Text>
-				</TouchableOpacity>
-			)}
-		</>
-	);
+						<Text
+							style={[
+								styles.itemText,
+								{
+									color:
+										selectedTime === item.time
+											? "#fff"
+											: "#00adf5",
+								},
+							]}
+						>
+							{item.time}
+						</Text>
+					</TouchableOpacity>
+				)}
+			</>
+		);
+	};
 
 	return (
 		<Modal
@@ -168,7 +192,7 @@ const NewAppointment = ({ openModal, setOpenModal, doctor }) => {
 						setWorkingHours={setWorkingHours}
 					/>
 					<FlatList
-						data={workingHours.times}
+						data={formatData(workingHours.times, 4)}
 						contentContainerStyle={styles.grid}
 						numColumns={4}
 						renderItem={renderItem}
@@ -227,6 +251,10 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		borderWidth: 1,
 		borderColor: "#00adf5",
+	},
+	itemBlank: {
+		backgroundColor: "transparent",
+		borderWidth: 0,
 	},
 	grid: {
 		marginBottom: 32,
