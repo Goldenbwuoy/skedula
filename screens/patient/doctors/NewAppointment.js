@@ -21,6 +21,8 @@ import {
 import { FlatList } from "react-native";
 import { ActivityIndicator } from "react-native";
 
+const bookedHours = ["08:00", "09:30", "14:30", "15:30"];
+
 const NewAppointment = ({ openModal, setOpenModal, doctor }) => {
 	const { state } = useContext(AuthContext);
 	const { profileState, profileDispatch } = useContext(ProfileContext);
@@ -74,25 +76,46 @@ const NewAppointment = ({ openModal, setOpenModal, doctor }) => {
 	};
 
 	const renderItem = ({ item }) => (
-		<TouchableOpacity
-			onPress={() => setSelectedTime(item.time)}
-			style={[
-				styles.item,
-				{
-					backgroundColor:
-						selectedTime === item.time ? "#00adf5" : "#fff",
-				},
-			]}
-		>
-			<Text
-				style={[
-					styles.itemText,
-					{ color: selectedTime === item.time ? "#fff" : "#00adf5" },
-				]}
-			>
-				{item.time}
-			</Text>
-		</TouchableOpacity>
+		<>
+			{bookedHours.includes(item.time) ? (
+				<TouchableOpacity
+					disabled
+					style={[
+						styles.item,
+						{ borderColor: "red", backgroundColor: "red" },
+					]}
+				>
+					<Text style={[styles.itemText, { color: "#fff" }]}>
+						Booked
+					</Text>
+				</TouchableOpacity>
+			) : (
+				<TouchableOpacity
+					onPress={() => setSelectedTime(item.time)}
+					style={[
+						styles.item,
+						{
+							backgroundColor:
+								selectedTime === item.time ? "#00adf5" : "#fff",
+						},
+					]}
+				>
+					<Text
+						style={[
+							styles.itemText,
+							{
+								color:
+									selectedTime === item.time
+										? "#fff"
+										: "#00adf5",
+							},
+						]}
+					>
+						{item.time}
+					</Text>
+				</TouchableOpacity>
+			)}
+		</>
 	);
 
 	return (
