@@ -5,12 +5,8 @@ const patientCtrl = require("../controllers/patient.controller");
 const doctorCtrl = require("../controllers/doctor.controller");
 
 router
-	.route("/api/appointment/patient/:patientId/doctor/:doctorId")
-	.post(
-		authCtrl.requireSignin,
-		authCtrl.hasPatientAuthorization,
-		appointmentCtrl.create
-	);
+	.route("/api/appointments")
+	.post(authCtrl.requireSignin, appointmentCtrl.create);
 
 router
 	.route("/api/appointments/patient/:patientId")

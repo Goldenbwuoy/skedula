@@ -129,13 +129,15 @@ Content-Type: application/json
 }
 
 ### create an appointment
-POST http://localhost:5000/api/appointment/patient/6030eb47f3f0330015615fa0/doctor/604d6d8de5375f15b058e1a3
+POST http://localhost:5000/api/appointments
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDMwZWI0NmYzZjAzMzAwMTU2MTVmOWYiLCJpYXQiOjE2MTM4MTg4NTl9.cmRBED5z6aYXm0AdsJ2wQfO5T5HsU_Bn7nbU4Br201w
 
 {
-    "date": "2021-02-25",
-    "start_time": "09:30"
+    "doctor": "604d6d8de5375f15b058e1a3",
+    "patient": "6030eb47f3f0330015615fa0",
+    "date": "2022-10-25",
+    "start_time": "16:30"
     
 }
 
