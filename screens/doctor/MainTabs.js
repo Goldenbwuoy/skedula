@@ -7,6 +7,7 @@ import { Ionicons } from "@expo/vector-icons";
 import HomeStack from "./home/HomeStack";
 import AppointmentsStack from "./appointments/AppointmentsStack";
 import PatientsStack from "./patients/PatientsStack";
+import ChatsStack from "./chats/ChatsStack";
 
 const Tabs = createBottomTabNavigator();
 
@@ -57,6 +58,16 @@ const MainTabs = () => {
 							size={size}
 							color={color}
 						/>
+					),
+				}}
+			/>
+			<Tabs.Screen
+				name="ChatsTab"
+				component={ChatsStack}
+				options={{
+					tabBarLabel: "Messages",
+					tabBarIcon: ({ color, size }) => (
+						<FontAwesome name="wechat" size={size} color={color} />
 					),
 				}}
 			/>

@@ -4,14 +4,9 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { EvilIcons } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
-import DisplayCalendar from "../../../components/DisplayCalendar";
 
 const DoctorAppointmentCard = ({ appointment, navigation }) => {
-	const [openCalendar, setOpenCalendar] = useState(false);
-	const momentdate = moment(appointment?.start_time).format(
-		"ddd MMM Do YYYY, HH:mm"
-	);
-	const [date, time] = momentdate.split(",");
+	const date = moment(appointment?.date).format("ddd MMM Do YYYY");
 
 	const patient = appointment?.patient;
 
@@ -42,7 +37,9 @@ const DoctorAppointmentCard = ({ appointment, navigation }) => {
 									size={15}
 									color="#1c313a"
 								/>
-								<Text style={styles.cardTimeText}>{time}</Text>
+								<Text style={styles.cardTimeText}>
+									{appointment?.start_time}
+								</Text>
 							</View>
 
 							<View style={styles.iconMore}>

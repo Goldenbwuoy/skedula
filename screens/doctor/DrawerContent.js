@@ -3,7 +3,6 @@ import { View, StyleSheet } from "react-native";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import { Avatar, Title, Caption, Paragraph, Drawer } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { AntDesign } from "@expo/vector-icons";
 import AuthContext from "../../context/AuthContext";
 import ProfileContext from "../../context/ProfileContext";
 import { AUTH_ACTIONS } from "../../context/reducers/authReducer";
@@ -79,17 +78,6 @@ export function DrawerContent(props) {
 							}
 						/>
 
-						<DrawerItem
-							icon={({ color, size }) => (
-								<AntDesign
-									name="wechat"
-									size={size}
-									color={color}
-								/>
-							)}
-							label="Chat Messages"
-							labelStyle={styles.drawerLabel}
-						/>
 						<DrawerItem
 							icon={({ color, size }) => (
 								<Icon
