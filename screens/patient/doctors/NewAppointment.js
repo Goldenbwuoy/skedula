@@ -5,7 +5,6 @@ import {
 	Modal,
 	StyleSheet,
 	TouchableOpacity,
-	ScrollView,
 	Animated,
 } from "react-native";
 import AuthContext from "../../../context/AuthContext";
@@ -20,25 +19,14 @@ import {
 	filteredWorkingHours,
 } from "../../../constants/constants";
 import { FlatList } from "react-native";
+import { ActivityIndicator } from "react-native";
 
-const DATA = [
-	{
-		// id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-		title: "First Item",
-	},
-	{
-		// id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-		title: "Second Item",
-	},
-	{
-		// id: "58694a0f-3da1-471f-bd96-145571e29d72",
-		title: "Third Item",
-	},
-];
-
-const NewAppointment = ({ openModal, setOpenModal }) => {
+const NewAppointment = ({ openModal, setOpenModal, doctor }) => {
+	const { state } = useContext(AuthContext);
+	const { profileState, profileDispatch } = useContext(ProfileContext);
 	const today = new Date();
 	const [date, setDate] = useState("");
+	const [loading, setLoading] = useState(false);
 	const [workingHours, setWorkingHours] = useState({
 		times: filteredWorkingHours(
 			MORNING_TIMES,
@@ -58,10 +46,32 @@ const NewAppointment = ({ openModal, setOpenModal }) => {
 		setDate(day.dateString);
 	};
 
-	console.log(selectedTime);
-	console.log(date);
-
-	const handleCreate = () => {};
+	const handleCreate = async () => {
+		setLoading(!loading);
+		const appointment = {
+			patient: profileState.profile?._id,
+			doctor: doctor._id,
+			date: date,
+			start_time: selectedTime,
+		};
+		createAppointment({ token: state.auth?.token }, appointment)
+			.then((data) => {
+				setLoading(!loading);
+				if (data && data.error) {
+					console.log(data.error);
+				} else {
+					profileDispatch({
+						type: PROFILE_ACTIONS.ADD_APPOINTMENT,
+						appointment: { ...data, doctor: doctor },
+					});
+					setOpenModal(!openModal);
+				}
+			})
+			.catch((error) => {
+				setLoading(!loading);
+				console.log(error);
+			});
+	};
 
 	const renderItem = ({ item }) => (
 		<TouchableOpacity
@@ -100,8 +110,19 @@ const NewAppointment = ({ openModal, setOpenModal }) => {
 						<Text style={styles.headerText}>Cancel</Text>
 					</TouchableOpacity>
 
-					<TouchableOpacity disabled={!selectedTime || !date}>
-						<Text style={styles.headerText}>Submit</Text>
+					<TouchableOpacity
+						onPress={handleCreate}
+						disabled={!selectedTime || !date}
+					>
+						{loading ? (
+							<ActivityIndicator
+								style={{ marginHorizontal: 15 }}
+								size="small"
+								color="#01478F"
+							/>
+						) : (
+							<Text style={styles.headerText}>Submit</Text>
+						)}
 					</TouchableOpacity>
 				</View>
 				<View>

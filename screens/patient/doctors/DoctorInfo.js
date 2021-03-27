@@ -37,7 +37,11 @@ const DoctorInfo = ({ route }) => {
 			) : (
 				<DoctorInfoHeader setOpenModal={setOpenModal} doctor={doctor} />
 			)}
-			<NewAppointment openModal={openModal} setOpenModal={setOpenModal} />
+			<NewAppointment
+				openModal={openModal}
+				setOpenModal={setOpenModal}
+				doctor={doctor}
+			/>
 		</View>
 	);
 };

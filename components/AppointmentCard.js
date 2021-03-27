@@ -6,11 +6,7 @@ import { EvilIcons } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
 
 const AppointmentCard = ({ appointment, navigation }) => {
-	const momentdate = moment(appointment?.start_time).format(
-		"ddd MMM Do YYYY, HH:mm"
-	);
-
-	const [date, time] = momentdate.split(",");
+	const date = moment(appointment?.date).format("ddd MMM Do YYYY");
 
 	const doctor = appointment?.doctor;
 	return (
@@ -41,7 +37,7 @@ const AppointmentCard = ({ appointment, navigation }) => {
 									color="#1c313a"
 								/>
 								<Text style={styles.cardTimeText}>
-									{time?.trim()}
+									{appointment?.start_time}
 								</Text>
 							</View>
 							<View style={styles.cardAddressContainer}>

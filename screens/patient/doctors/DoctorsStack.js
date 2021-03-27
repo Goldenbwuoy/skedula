@@ -5,6 +5,7 @@ import { useTheme } from "@react-navigation/native";
 import NotificationsIcon from "../../../components/NotificationsIcon";
 import OpenDrawerIcon from "../../../components/OpenDrawerIcon";
 import DoctorInfo from "./DoctorInfo";
+import HeaderBackButton from "../../../components/HeaderBackButton";
 
 const Stack = createStackNavigator();
 
@@ -33,6 +34,7 @@ const DoctorsStack = () => {
 				component={DoctorInfo}
 				options={({ route }) => ({
 					title: route.params.name,
+					headerLeft: () => <HeaderBackButton />,
 				})}
 			/>
 		</Stack.Navigator>
