@@ -141,6 +141,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDMwZWI0N
     
 }
 
+###
+GET http://localhost:5000/api/appointments/doctors/6030eb47f3f0330015615fa0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDMwZWI0NmYzZjAzMzAwMTU2MTVmOWYiLCJpYXQiOjE2MTY4MjEzMzB9.TJwN3zQQncWiNeqShVyjD7wqUyGj30GKYBoibaoyZak
+
 
 
 

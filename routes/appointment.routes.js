@@ -23,6 +23,10 @@ router
 		authCtrl.hasDoctorAuthorization,
 		appointmentCtrl.appointmentsByDoctor
 	);
+// Get distinct doctors from appointments
+router
+	.route("/api/appointments/doctors/:patientId")
+	.get(authCtrl.requireSignin, appointmentCtrl.myDoctorsByAppointments);
 
 router.param("patientId", patientCtrl.patientById);
 router.param("doctorId", doctorCtrl.doctorById);
