@@ -20,6 +20,7 @@ import {
 	MORNING_WORKING_HOURS,
 	filteredWorkingHours,
 } from "../../../constants/constants";
+import { Tooltip } from "react-native-elements/dist/tooltip/Tooltip";
 
 const bookedHours = ["08:00", "09:30", "14:30", "15:30"];
 
@@ -161,6 +162,7 @@ const NewAppointment = ({ openModal, setOpenModal, doctor }) => {
 						onPress={handleCreate}
 						disabled={!selectedTime || !date}
 					>
+						<Tooltip popover={<Text>Info here</Text>} />
 						{loading ? (
 							<ActivityIndicator
 								style={{ marginHorizontal: 15 }}
@@ -168,7 +170,7 @@ const NewAppointment = ({ openModal, setOpenModal, doctor }) => {
 								color="#01478F"
 							/>
 						) : (
-							<Text style={styles.headerText}>Submit</Text>
+							<Text style={styles.headerText}>Book</Text>
 						)}
 					</TouchableOpacity>
 				</View>
@@ -227,12 +229,13 @@ const styles = StyleSheet.create({
 		paddingVertical: 20,
 		borderTopRightRadius: 30,
 		borderTopLeftRadius: 30,
-		paddingHorizontal: 15,
+		paddingHorizontal: 20,
 	},
 	headerText: {
 		color: "#01478F",
 		fontSize: 18,
 		fontWeight: "500",
+		fontFamily: "Montserrat_600SemiBold",
 	},
 	calendar: {
 		marginTop: 3,
@@ -245,7 +248,7 @@ const styles = StyleSheet.create({
 	item: {
 		marginHorizontal: 5,
 		marginVertical: 4,
-		width: 70,
+		width: 80,
 		padding: 8,
 		borderRadius: 5,
 		alignItems: "center",
@@ -262,5 +265,6 @@ const styles = StyleSheet.create({
 	},
 	itemText: {
 		color: "#00adf5",
+		fontFamily: "Montserrat_400Regular",
 	},
 });

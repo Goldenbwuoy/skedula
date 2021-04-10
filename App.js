@@ -17,6 +17,15 @@ import ProfileContext from "./context/ProfileContext";
 import RootStack from "./screens/auth/RootStack";
 import PatientScreen from "./screens/patient/PatientHome";
 import DoctorScreen from "./screens/doctor/DoctorScreen";
+import AppLoading from "expo-app-loading";
+import {
+	useFonts,
+	Montserrat_300Light,
+	Montserrat_400Regular,
+	Montserrat_500Medium,
+	Montserrat_600SemiBold,
+	Montserrat_700Bold,
+} from "@expo-google-fonts/montserrat";
 
 export default function App() {
 	const [authState, authDispatch] = useReducer(authReducer, authInitialState);
@@ -24,6 +33,14 @@ export default function App() {
 		profileReducer,
 		profileInitialState
 	);
+
+	let [fontsLoaded] = useFonts({
+		Montserrat_300Light,
+		Montserrat_400Regular,
+		Montserrat_500Medium,
+		Montserrat_600SemiBold,
+		Montserrat_700Bold,
+	});
 
 	const MyTheme = {
 		...DefaultTheme,
@@ -64,6 +81,8 @@ export default function App() {
 	const profileContextValue = useMemo(() => {
 		return { profileState, profileDispatch };
 	}, [profileState, profileDispatch]);
+
+	if (!fontsLoaded) return <AppLoading />;
 
 	return (
 		<AuthContext.Provider value={authContextValue}>

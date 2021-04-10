@@ -23,6 +23,9 @@ const MainTabs = () => {
 				style: {
 					backgroundColor: colors.card,
 				},
+				labelStyle: {
+					fontFamily: "Montserrat_300Light",
+				},
 			}}
 		>
 			<Tabs.Screen

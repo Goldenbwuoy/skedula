@@ -125,11 +125,13 @@ const styles = StyleSheet.create({
 		marginTop: 3,
 		fontWeight: "bold",
 		color: "#fff",
+		fontFamily: "Montserrat_600SemiBold",
 	},
 	caption: {
 		fontSize: 14,
 		lineHeight: 14,
 		color: "#fff",
+		fontFamily: "Montserrat_300Light",
 	},
 	row: {
 		marginTop: 20,
@@ -141,6 +143,7 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		marginRight: 15,
 		color: "#fff",
+		fontFamily: "Montserrat_400Regular",
 	},
 	paragraph: {
 		fontWeight: "bold",
@@ -156,5 +159,6 @@ const styles = StyleSheet.create({
 	},
 	drawerLabel: {
 		color: "#fff",
+		fontFamily: "Montserrat_400Regular",
 	},
 });

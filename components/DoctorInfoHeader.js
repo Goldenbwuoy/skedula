@@ -72,15 +72,17 @@ const styles = StyleSheet.create({
 		borderRadius: 10,
 	},
 	title: {
-		fontSize: 18,
+		fontSize: 16,
 		fontWeight: "600",
 		color: "#fff",
+		fontFamily: "Montserrat_600SemiBold",
 	},
 	caption: {
 		fontSize: 14,
 		fontWeight: "500",
 		color: "#fff",
 		marginTop: 8,
+		fontFamily: "Montserrat_300Light",
 	},
 	rating: {
 		paddingVertical: 10,

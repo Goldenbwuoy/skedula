@@ -10,17 +10,22 @@ const Stack = createStackNavigator();
 const PharmaciesStack = ({ navigation }) => {
 	const { colors } = useTheme();
 	return (
-		<Stack.Navigator>
+		<Stack.Navigator
+			screenOptions={{
+				headerStyle: {
+					shadowColor: colors.card, //iOS
+					elevation: 0, // Android
+				},
+				headerTitleStyle: {
+					fontFamily: "Montserrat_600SemiBold",
+				},
+			}}
+		>
 			<Stack.Screen
 				name="Pharmacies"
 				component={Pharmacies}
 				options={{
-					title: "",
-					headerStyle: {
-						backgroundColor: colors.card,
-						shadowColor: colors.card, //iOS
-						elevation: 0, // Android
-					},
+					title: "Pharmacies",
 					headerLeft: () => <OpenDrawerIcon />,
 					headerRight: () => <NotificationsIcon />,
 				}}

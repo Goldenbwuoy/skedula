@@ -3,7 +3,6 @@ import {
 	View,
 	Text,
 	StyleSheet,
-	Dimensions,
 	ScrollView,
 	TouchableOpacity,
 	Platform,
@@ -11,16 +10,13 @@ import {
 } from "react-native";
 import ProfileContext from "../../../context/ProfileContext";
 import AuthContex from "../../../context/AuthContext";
-import AppointmentCard from "../../../components/AppointmentCard";
 import * as Animatable from "react-native-animatable";
 import { useTheme } from "@react-navigation/native";
 import FloatingAddbutton from "../../../components/FloatingAddbutton";
-import { topRatedDoctors, myDoctors } from "../api-patient";
+import { myDoctors } from "../api-patient";
 import { MaterialIcons } from "@expo/vector-icons";
 import { SearchBar } from "react-native-elements";
 import DoctorCard from "../../../components/DoctorCard";
-
-const screenWidth = Dimensions.get("window").width;
 
 const Home = ({ navigation }) => {
 	const [fetching, setFetching] = useState(true);
@@ -124,12 +120,14 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		fontWeight: "bold",
 		color: "rgba(0, 0, 0, 0.7)",
+		fontFamily: "Montserrat_700Bold",
 	},
 	desc: {
 		fontSize: 18,
 		fontWeight: "400",
 		color: "rgba(0, 0, 0, 0.6)",
 		marginTop: 5,
+		fontFamily: "Montserrat_300Light",
 	},
 	cardHeaderContainer: {
 		flexDirection: "row",
@@ -141,10 +139,12 @@ const styles = StyleSheet.create({
 		fontSize: 15,
 		fontWeight: "bold",
 		color: "rgba(0, 0, 0, 0.7)",
+		fontFamily: "Montserrat_700Bold",
 	},
 	cardMore: {
 		color: "rgba(0, 0, 0, 0.7)",
 		marginRight: 3,
+		fontFamily: "Montserrat_300Light",
 	},
 	loading: {
 		padding: 50,

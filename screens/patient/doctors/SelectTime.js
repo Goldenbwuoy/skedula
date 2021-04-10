@@ -56,6 +56,7 @@ const SelectTime = ({ timeValues, setTimeValues, setWorkingHours }) => {
 					fontSize: 16,
 					fontWeight: "600",
 					marginBottom: 10,
+					fontFamily: "Montserrat_600SemiBold",
 				}}
 			>
 				Choose Time
@@ -107,6 +108,7 @@ const SelectTime = ({ timeValues, setTimeValues, setWorkingHours }) => {
 						style={{
 							color: timeValues.active === 0 ? "#fff" : "#00adf5",
 							fontWeight: "600",
+							fontFamily: "Montserrat_400Regular",
 						}}
 					>
 						Morning
@@ -136,6 +138,7 @@ const SelectTime = ({ timeValues, setTimeValues, setWorkingHours }) => {
 						style={{
 							color: timeValues.active === 1 ? "#fff" : "#00adf5",
 							fontWeight: "600",
+							fontFamily: "Montserrat_400Regular",
 						}}
 					>
 						Afternoon

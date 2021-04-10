@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
 		color: "#222",
 		fontSize: 15,
 		fontWeight: "600",
+		fontFamily: "Montserrat_600SemiBold",
 	},
 	cardTime: {
 		flexDirection: "row",
@@ -94,9 +95,10 @@ const styles = StyleSheet.create({
 	},
 	cardTimeText: {
 		color: "#B066A4",
-		fontSize: 10,
+		fontSize: 11,
 		fontWeight: "800",
 		marginLeft: 5,
+		fontFamily: "Montserrat_600SemiBold",
 	},
 	cardAddressContainer: {
 		flexDirection: "row",

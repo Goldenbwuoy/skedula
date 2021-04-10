@@ -16,6 +16,9 @@ const ChatsStack = () => {
 					shadowColor: colors.card, //iOS
 					elevation: 0, // Android
 				},
+				headerTitleStyle: {
+					fontFamily: "Montserrat_600SemiBold",
+				},
 			}}
 		>
 			<Stack.Screen

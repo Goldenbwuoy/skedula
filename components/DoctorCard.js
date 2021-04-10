@@ -90,11 +90,13 @@ const styles = StyleSheet.create({
 		color: "#222",
 		fontSize: 15,
 		fontWeight: "600",
+		fontFamily: "Montserrat_600SemiBold",
 	},
 	cardSpecialty: {
 		color: "gray",
-		fontSize: 15,
+		fontSize: 14,
 		marginTop: 5,
+		fontFamily: "Montserrat_300Light",
 	},
 	rating: {
 		paddingVertical: 10,

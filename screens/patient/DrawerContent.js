@@ -93,17 +93,6 @@ export function DrawerContent(props) {
 							label="Prescriptions"
 							labelStyle={styles.drawerLabel}
 						/>
-						<DrawerItem
-							icon={({ color, size }) => (
-								<MaterialCommunityIcons
-									name="doctor"
-									size={size}
-									color={color}
-								/>
-							)}
-							label="My Doctors"
-							labelStyle={styles.drawerLabel}
-						/>
 
 						<DrawerItem
 							icon={({ color, size }) => (
@@ -163,11 +152,13 @@ const styles = StyleSheet.create({
 		marginTop: 3,
 		fontWeight: "bold",
 		color: "#fff",
+		fontFamily: "Montserrat_600SemiBold",
 	},
 	caption: {
 		fontSize: 14,
 		lineHeight: 14,
 		color: "#fff",
+		fontFamily: "Montserrat_300Light",
 	},
 	row: {
 		marginTop: 20,
@@ -179,6 +170,7 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		marginRight: 15,
 		color: "#fff",
+		fontFamily: "Montserrat_300Light",
 	},
 	paragraph: {
 		fontWeight: "bold",
@@ -194,5 +186,6 @@ const styles = StyleSheet.create({
 	},
 	drawerLabel: {
 		color: "#fff",
+		fontFamily: "Montserrat_400Regular",
 	},
 });

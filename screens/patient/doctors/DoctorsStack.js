@@ -18,6 +18,9 @@ const DoctorsStack = () => {
 					shadowColor: colors.card, //iOS
 					elevation: 0, // Android
 				},
+				headerTitleStyle: {
+					fontFamily: "Montserrat_600SemiBold",
+				},
 			}}
 		>
 			<Stack.Screen
@@ -33,7 +36,7 @@ const DoctorsStack = () => {
 				name="DoctorInfo"
 				component={DoctorInfo}
 				options={({ route }) => ({
-					title: route.params.name,
+					title: "Doctor Profile",
 					headerLeft: () => <HeaderBackButton />,
 				})}
 			/>

@@ -8,7 +8,17 @@ const Stack = createStackNavigator();
 
 const PatientsStack = () => {
 	return (
-		<Stack.Navigator>
+		<Stack.Navigator
+			screenOptions={{
+				headerStyle: {
+					// shadowColor: colors.card, //iOS
+					elevation: 0, // Android
+				},
+				headerTitleStyle: {
+					fontFamily: "Montserrat_600SemiBold",
+				},
+			}}
+		>
 			<Stack.Screen
 				name="Profile"
 				component={Profile}

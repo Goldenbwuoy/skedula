@@ -26,14 +26,14 @@ const Home = ({ navigation }) => {
 					<Text style={styles.desc}>Welcome Back</Text>
 				</Animatable.View>
 
-				<View style={styles.accountActivation}>
+				{/* <View style={styles.accountActivation}>
 					<TouchableOpacity>
 						<Text style={styles.activationText}>
 							Your Account is not active, click here to activate
 							and connect with your Patients.
 						</Text>
 					</TouchableOpacity>
-				</View>
+				</View> */}
 				<View style={styles.cardHeaderContainer}>
 					<Text style={styles.cardHeading}>
 						Your Next Appointment
@@ -81,12 +81,14 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		fontWeight: "bold",
 		color: "rgba(0, 0, 0, 0.7)",
+		fontFamily: "Montserrat_700Bold",
 	},
 	desc: {
 		fontSize: 18,
 		fontWeight: "400",
 		color: "rgba(0, 0, 0, 0.6)",
 		marginTop: 5,
+		fontFamily: "Montserrat_300Light",
 	},
 	accountActivation: {
 		padding: 5,
@@ -109,9 +111,11 @@ const styles = StyleSheet.create({
 		fontSize: 15,
 		fontWeight: "bold",
 		color: "rgba(0, 0, 0, 0.7)",
+		fontFamily: "Montserrat_700Bold",
 	},
 	cardMore: {
 		color: "rgba(0, 0, 0, 0.7)",
 		marginRight: 3,
+		fontFamily: "Montserrat_300Light",
 	},
 });
