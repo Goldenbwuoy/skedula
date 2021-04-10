@@ -55,6 +55,24 @@ const appointmentsByPatient = async (params, credentials) => {
 	}
 };
 
+const myDoctors = async (params, credentials) => {
+	// console.log(params, credentials);
+	try {
+		const doctors = await axios.get(
+			`/api/appointments/doctors/${params.patientId}`,
+			{
+				headers: {
+					Authorization: `Bearer ${credentials.token}`,
+				},
+			}
+		);
+		// console.log(doctors.data);
+		return doctors.data;
+	} catch (err) {
+		return err.doctors.data;
+	}
+};
+
 const topRatedDoctors = async (credentials) => {
 	try {
 		const top_rated = await axios.get("/api/doctors/top_rated", {
@@ -92,4 +110,5 @@ export {
 	appointmentsByPatient,
 	topRatedDoctors,
 	doctorProfile,
+	myDoctors,
 };

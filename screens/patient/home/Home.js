@@ -15,7 +15,7 @@ import AppointmentCard from "../../../components/AppointmentCard";
 import * as Animatable from "react-native-animatable";
 import { useTheme } from "@react-navigation/native";
 import FloatingAddbutton from "../../../components/FloatingAddbutton";
-import { topRatedDoctors } from "../api-patient";
+import { topRatedDoctors, myDoctors } from "../api-patient";
 import { MaterialIcons } from "@expo/vector-icons";
 import { SearchBar } from "react-native-elements";
 import DoctorCard from "../../../components/DoctorCard";
@@ -24,24 +24,27 @@ const screenWidth = Dimensions.get("window").width;
 
 const Home = ({ navigation }) => {
 	const [fetching, setFetching] = useState(true);
-	const [topDoctors, setTopDoctors] = useState([]);
+	const [doctors, setDoctors] = useState([]);
 	const { colors } = useTheme();
 
+	const { profileState } = useContext(ProfileContext);
 	const { state } = useContext(AuthContex);
-	const {
-		profileState: { profile },
-	} = useContext(ProfileContext);
 
 	useEffect(() => {
-		topRatedDoctors({ token: state.auth?.token }).then((data) => {
-			if (data && data.error) {
-				console.log(data.error);
-			} else {
-				setTopDoctors(data);
-				setFetching(false);
-			}
-		});
-	}, [state.auth]);
+		myDoctors(
+			{ patientId: profileState.profile?._id },
+			{ token: state.auth?.token }
+		)
+			.then((data) => {
+				if (data && data.error) {
+					console.log(data.error);
+				} else {
+					setDoctors(data);
+					setFetching(false);
+				}
+			})
+			.catch((err) => console.log(err.message));
+	}, [state.auth, profileState.profile]);
 	return (
 		<View style={[styles.container, { backgroundColor: colors.card }]}>
 			<ScrollView style={styles.scrollView}>
@@ -50,7 +53,7 @@ const Home = ({ navigation }) => {
 					style={styles.headingContainer}
 				>
 					<Text style={styles.heading}>
-						Hi, {`${profile?.firstName}`}
+						Hi, {`${profileState.profile?.firstName}`}
 					</Text>
 					<Text style={styles.desc}>Welcome Back</Text>
 				</Animatable.View>
@@ -64,7 +67,7 @@ const Home = ({ navigation }) => {
 				</View>
 
 				<View style={styles.cardHeaderContainer}>
-					<Text style={styles.cardHeading}>Top Rated Doctors</Text>
+					<Text style={styles.cardHeading}>My Doctors</Text>
 					<TouchableOpacity
 						onPress={() => navigation.navigate("Doctors")}
 						style={{ flexDirection: "row", alignItems: "center" }}
@@ -84,7 +87,7 @@ const Home = ({ navigation }) => {
 					</View>
 				) : (
 					<>
-						{topDoctors.map((doctor) => (
+						{doctors.map((doctor) => (
 							<DoctorCard
 								key={doctor._id}
 								doctor={doctor}
