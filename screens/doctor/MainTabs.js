@@ -61,7 +61,7 @@ const MainTabs = () => {
 					),
 				}}
 			/>
-			<Tabs.Screen
+			{/* <Tabs.Screen
 				name="ChatsTab"
 				component={ChatsStack}
 				options={{
@@ -70,7 +70,7 @@ const MainTabs = () => {
 						<FontAwesome name="wechat" size={size} color={color} />
 					),
 				}}
-			/>
+			/> */}
 		</Tabs.Navigator>
 	);
 };

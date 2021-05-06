@@ -1,8 +1,7 @@
 import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, Platform } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { Rating } from "react-native-elements";
 
 const DoctorCard = ({ doctor, navigation, home }) => {
 	const navigate = () => {
@@ -36,7 +35,7 @@ const DoctorCard = ({ doctor, navigation, home }) => {
 								Dermatologist
 							</Text>
 						</View>
-						<View style={styles.rating}>
+						{/* <View style={styles.rating}>
 							<Rating
 								ratingCount={1}
 								readOnly
@@ -46,7 +45,7 @@ const DoctorCard = ({ doctor, navigation, home }) => {
 							<Text style={styles.ratingText}>
 								{doctor.overal_rating}
 							</Text>
-						</View>
+						</View> */}
 					</View>
 				</View>
 			</TouchableOpacity>
@@ -65,10 +64,18 @@ const styles = StyleSheet.create({
 		padding: 15,
 		backgroundColor: "#fff",
 		borderRadius: 10,
-		shadowColor: "#000",
-		shadowOffset: { width: 0, height: 2 },
-		shadowOpacity: 0.2,
-		shadowRadius: 4,
+		...Platform.select({
+			ios: {
+				shadowColor: "#000",
+				shadowOffset: { width: 0, height: 2 },
+				shadowOpacity: 0.2,
+				shadowRadius: 4,
+			},
+			android: {
+				borderWidth: 1,
+				borderColor: "rgba(11, 52, 84, 0.1)",
+			},
+		}),
 	},
 	cardBodyTop: {
 		flexDirection: "row",

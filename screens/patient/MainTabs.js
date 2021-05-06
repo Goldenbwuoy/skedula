@@ -9,6 +9,7 @@ import DoctorsStack from "./doctors/DoctorsStack";
 import AppointmentsStack from "./appointments/AppointmentsStack";
 import PharmaciesStack from "./pharmacies/PharmaciesStack";
 import ChatsStack from "./chats/ChatsStack";
+import { Platform } from "react-native";
 
 const Tabs = createBottomTabNavigator();
 
@@ -25,6 +26,12 @@ const MainTabs = () => {
 				},
 				labelStyle: {
 					fontFamily: "Montserrat_300Light",
+
+					...Platform.select({
+						android: {
+							paddingBottom: 5,
+						},
+					}),
 				},
 			}}
 		>
@@ -74,7 +81,7 @@ const MainTabs = () => {
 					),
 				}}
 			/>
-			<Tabs.Screen
+			{/* <Tabs.Screen
 				name="ChatsTab"
 				component={ChatsStack}
 				options={{
@@ -83,7 +90,7 @@ const MainTabs = () => {
 						<FontAwesome name="wechat" size={size} color={color} />
 					),
 				}}
-			/>
+			/> */}
 		</Tabs.Navigator>
 	);
 };
