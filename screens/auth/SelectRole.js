@@ -34,6 +34,7 @@ const SelectRole = ({ roleValues, setRoleValues }) => {
 					fontSize: 16,
 					fontWeight: "600",
 					marginBottom: 10,
+					fontFamily: "Montserrat_300Light",
 				}}
 			>
 				Register As
@@ -81,7 +82,12 @@ const SelectRole = ({ roleValues, setRoleValues }) => {
 					}
 					onPress={handleSlideLeft}
 				>
-					<Text style={{ color: "#fff", fontWeight: "600" }}>
+					<Text
+						style={{
+							color: "#fff",
+							fontFamily: "Montserrat_600SemiBold",
+						}}
+					>
 						Patient
 					</Text>
 				</TouchableOpacity>
@@ -105,7 +111,12 @@ const SelectRole = ({ roleValues, setRoleValues }) => {
 					}
 					onPress={handleSlideRight}
 				>
-					<Text style={{ color: "#fff", fontWeight: "600" }}>
+					<Text
+						style={{
+							color: "#fff",
+							fontFamily: "Montserrat_600SemiBold",
+						}}
+					>
 						Doctor
 					</Text>
 				</TouchableOpacity>
