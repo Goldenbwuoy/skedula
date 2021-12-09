@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "GPN",
-    "slug": "GPN",
+    "name": "Skedula",
+    "slug": "Skedula",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
