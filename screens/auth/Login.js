@@ -19,6 +19,7 @@ const Login = ({ navigation }) => {
 		loading: false,
 		error: "",
 	});
+
 	const { state, dispatch } = useContext(AuthContext);
 
 	const emptyField = !values.email || !values.password;
@@ -45,7 +46,7 @@ const Login = ({ navigation }) => {
 		<View style={styles.container}>
 			<View style={styles.loginTop}>
 				<Image
-					style={{ width: 80, height: 80 }}
+					style={{ width: 60, height: 60, borderRadius: 60 }}
 					source={require("../../assets/logo.jpg")}
 				/>
 				{/* <Text style={styles.logoText}>Welcome to the World</Text> */}

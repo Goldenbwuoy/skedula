@@ -72,8 +72,9 @@ const styles = StyleSheet.create({
 		shadowOffset: { width: 0, height: 2 },
 		shadowOpacity: 0.2,
 		shadowRadius: 4,
+		borderWidth: 1,
 		borderLeftWidth: 8,
-		borderLeftColor: "#009572",
+		borderColor: "#009572",
 	},
 	cardBodyTop: {
 		flexDirection: "row",

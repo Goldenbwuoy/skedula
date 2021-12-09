@@ -54,14 +54,6 @@ const Home = ({ navigation }) => {
 					<Text style={styles.desc}>Welcome Back</Text>
 				</Animatable.View>
 
-				<View>
-					<SearchBar
-						platform={Platform.OS}
-						containerStyle={{ padding: 10 }}
-						placeholder="Search"
-					/>
-				</View>
-
 				<View style={styles.cardHeaderContainer}>
 					<Text style={styles.cardHeading}>My Doctors</Text>
 					<TouchableOpacity

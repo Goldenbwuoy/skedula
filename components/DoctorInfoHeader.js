@@ -40,15 +40,15 @@ const DoctorInfoHeader = ({ doctor, setOpenModal }) => {
 								color="white"
 							/>
 						</TouchableOpacity>
-						{/* <TouchableOpacity
-							onPress={() => navigation.navigate("ChatsTab")}
+						<TouchableOpacity
+						// onPress={() => navigation.navigate("ChatsTab")}
 						>
 							<Ionicons
 								name="chatbubbles"
 								size={24}
 								color="white"
 							/>
-						</TouchableOpacity> */}
+						</TouchableOpacity>
 					</View>
 				</View>
 			</View>

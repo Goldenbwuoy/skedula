@@ -170,7 +170,7 @@ const NewAppointment = ({ openModal, setOpenModal, doctor }) => {
 								color="#01478F"
 							/>
 						) : (
-							<Text style={styles.headerText}>Book</Text>
+							<Text style={styles.headerText}>Confirm</Text>
 						)}
 					</TouchableOpacity>
 				</View>
