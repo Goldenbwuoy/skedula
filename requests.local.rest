@@ -1,0 +1,151 @@
+### This file is used to test the REST API endpoints
+
+GET http://localhost:5000/
+
+###
+GET http://localhost:5000/api/users
+
+### Test Create Patient
+POST http://localhost:5000/api/patients
+Content-Type: application/json
+
+{
+    "firstName": "Golden2",
+    "lastName": "Tendekai2",
+    "email": "golden2@mail.com",
+    "phoneNumber": "0772142413",
+    "role": "Patient",
+    "password": "password"
+}
+
+### Test Create a doctor
+POST http://localhost:5000/api/doctors
+Content-Type: application/json
+
+{
+    "firstName": "Doctor7",
+    "lastName": "Test7",
+    "email": "doctor7@test.com",
+    "phoneNumber": "0772142413",
+    "role": "Doctor",
+    "password": "password"
+}
+
+### Test Login (doctor)
+POST http://localhost:5000/api/signin
+Content-Type: application/json
+
+{
+    "email": "doctor@test.com",
+    "password": "password"
+}
+
+### Test Login (Patient)
+POST http://localhost:5000/api/signin
+Content-Type: application/json
+
+{
+    "email": "golden@mail.com",
+    "password": "password"
+}
+
+### List all patients
+GET http://localhost:5000/api/patients
+
+### Read a patient by id
+GET http://localhost:5000/api/patients/604d5b9dfcf017253cae44d0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDMwZWI0NmYzZjAzMzAwMTU2MTVmOWYiLCJpYXQiOjE2MTY4MjEzMzB9.TJwN3zQQncWiNeqShVyjD7wqUyGj30GKYBoibaoyZak
+### List all doctors
+GET http://localhost:5000/api/doctors
+
+### Read a doctor by id
+GET http://localhost:5000/api/doctors/doctor/604d6d8de5375f15b058e1a3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDJmOWEzNmJlNGQ4OTM4N2MxNzU2ZjYiLCJpYXQiOjE2MTQ4MTgyMTN9.vWciyoOk0ZSKuRS2MlKS0lMQxZHJ_LZ9n4wsYwI1dV8
+### Request to activate account
+POST http://localhost:5000/api/doctors/602f9a36be4d89387c1756f7/activate
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDMwZWI4YWYzZjAzMzAwMTU2MTVmYTEiLCJpYXQiOjE2MTM4MTkwNjV9.Hh14W0xOuzmY3lrgmk2yQaLIarllVb42BciJmROu0a8
+
+{
+    "physical_address": "The New address",
+    "affiliations": "Your Affiliations",
+    "brief_introduction": "This is the New intro"
+}
+
+### list appointments by patient
+GET http://localhost:5000/api/appointments/patient/6030eb47f3f0330015615fa0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDMwZWI0NmYzZjAzMzAwMTU2MTVmOWYiLCJpYXQiOjE2MTY4MjEzMzB9.TJwN3zQQncWiNeqShVyjD7wqUyGj30GKYBoibaoyZak
+### list appointments by doctor
+GET http://localhost:5000/api/appointments/doctor/604d6d8de5375f15b058e1a3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDRkNmQ4Y2U1Mzc1ZjE1YjA1OGUxYTIiLCJpYXQiOjE2MTY4MjE0Nzh9._xt1Z3S8BakX3_Oa5V6pOZ6MFoiPb7KJ0MltxGX27Yw
+### review a doctor
+POST http://localhost:5000/api/doctors/review/604d5c96fcf017253cae44da
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDRkNWI5ZGZjZjAxNzI1M2NhZTQ0Y2YiLCJpYXQiOjE2MTU2ODI1MjR9.rxqIH2d6n5QhQtfINysF9nH9AzoHnq_PdHceDjgQp3E
+
+{
+    "review": {
+        "patient": "604d5b9dfcf017253cae44d0",
+        "rating": 2,
+        "review": "He is not that bad",
+        "time": "2021-03-13T22:44:42.401Z"
+    },
+    "overal_rating": 2
+}
+
+### Get top rated doctors
+GET http://localhost:5000/api/doctors/top_rated
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDRkNWI5ZGZjZjAxNzI1M2NhZTQ0Y2YiLCJpYXQiOjE2MTU2ODI1MjR9.rxqIH2d6n5QhQtfINysF9nH9AzoHnq_PdHceDjgQp3E
+
+### Test with remote data
+POST http://localhost:5000/api/doctors/review/604d6dffe5375f15b058e1af
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDMwZWI4YWYzZjAzMzAwMTU2MTVmYTEiLCJpYXQiOjE2MTU2ODUzNzJ9.6m5dBdarobxDtCkob-LGus6t6hut9Bg6yySKJPlfvPA
+
+{
+    "review": {
+        "patient": "6030eb47f3f0330015615fa0",
+        "rating": 5,
+        "review": "He is the best",
+        "time": "2021-03-13T22:44:42.401Z"
+    },
+    "overal_rating": 5
+}
+
+### Get top rated doctors
+GET http://localhost:5000/api/doctors/top_rated
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDMwZWI4YWYzZjAzMzAwMTU2MTVmYTEiLCJpYXQiOjE2MTU2ODUzNzJ9.6m5dBdarobxDtCkob-LGus6t6hut9Bg6yySKJPlfvPA
+###
+POST http://localhost:5000/api/doctors
+Content-Type: application/json
+
+{
+    "firstName": "Doctor7",
+    "lastName": "Test7",
+    "email": "doctor7@test.com",
+    "phoneNumber": "0772142413",
+    "role": "Doctor",
+    "password": "password"
+}
+
+### create an appointment
+POST http://localhost:5000/api/appointments
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDMwZWI0NmYzZjAzMzAwMTU2MTVmOWYiLCJpYXQiOjE2MTM4MTg4NTl9.cmRBED5z6aYXm0AdsJ2wQfO5T5HsU_Bn7nbU4Br201w
+
+{
+    "doctor": "604d6d8de5375f15b058e1a3",
+    "patient": "6030eb47f3f0330015615fa0",
+    "date": "2022-10-25",
+    "start_time": "16:30"
+    
+}
+
+###
+GET http://localhost:5000/api/appointments/doctors/6030eb47f3f0330015615fa0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDMwZWI0NmYzZjAzMzAwMTU2MTVmOWYiLCJpYXQiOjE2MTY4MjEzMzB9.TJwN3zQQncWiNeqShVyjD7wqUyGj30GKYBoibaoyZak
+
+
+
+
+

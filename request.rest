@@ -1,0 +1,96 @@
+### This file is used to test the REST API endpoints
+
+GET https://gpnserver.herokuapp.com/
+### Test Create Patient
+POST https://gpnserver.herokuapp.com/api/patients
+Content-Type: application/json
+
+{
+    "firstName": "Golden",
+    "lastName": "Tendekai",
+    "email": "golden@mail.com",
+    "phoneNumber": "0772142413",
+    "role": "Patient",
+    "password": "password"
+}
+
+### Test Create a doctor
+POST https://gpnserver.herokuapp.com/api/doctors
+Content-Type: application/json
+
+{
+    "firstName": "Doctor",
+    "lastName": "Test",
+    "email": "doctor@test.com",
+    "phoneNumber": "0772142413",
+    "practice_number": "FB299883",
+    "role": "Doctor",
+    "password": "password"
+}
+
+### Test Login (doctor)
+POST https://gpnserver.herokuapp.com/api/signin
+Content-Type: application/json
+
+{
+    "email": "doctor@test.com",
+    "password": "password"
+}
+
+### Test Login (Patient)
+POST https://gpnserver.herokuapp.com/api/signin
+Content-Type: application/json
+
+{
+    "email": "golden@mail.com",
+    "password": "password"
+}
+
+### List all patients
+GET https://gpnserver.herokuapp.com/api/patients
+
+### Read a patient by accountId
+GET https://gpnserver.herokuapp.com/api/patients/6030eb46f3f0330015615f9f
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDMwZWI0NmYzZjAzMzAwMTU2MTVmOWYiLCJpYXQiOjE2MTM4MTg4NTl9.cmRBED5z6aYXm0AdsJ2wQfO5T5HsU_Bn7nbU4Br201w
+### List all doctors
+GET https://gpnserver.herokuapp.com/api/doctors
+
+### Read a doctor by accountId
+GET https://gpnserver.herokuapp.com/api/doctors/6030eb8af3f0330015615fa1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDMwZWI4YWYzZjAzMzAwMTU2MTVmYTEiLCJpYXQiOjE2MTM4MTkwNjV9.Hh14W0xOuzmY3lrgmk2yQaLIarllVb42BciJmROu0a8
+### Read a doctor by accountId
+POST https://gpnserver.herokuapp.com/api/doctors/6030eb8af3f0330015615fa1/activate
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDMwZWI4YWYzZjAzMzAwMTU2MTVmYTEiLCJpYXQiOjE2MTM4MTkwNjV9.Hh14W0xOuzmY3lrgmk2yQaLIarllVb42BciJmROu0a8
+
+{
+    "physical_address": "The address",
+    "affiliations": "Affiliations",
+    "brief_introduction": "This is the intro"
+}
+
+### Schedule an appointment
+POST https://gpnserver.herokuapp.com/api/appointment/by/6030eb46f3f0330015615f9f/with/6030eb8af3f0330015615fa2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDMwZWI0NmYzZjAzMzAwMTU2MTVmOWYiLCJpYXQiOjE2MTM4MTg4NTl9.cmRBED5z6aYXm0AdsJ2wQfO5T5HsU_Bn7nbU4Br201w
+
+{
+    "start_time": "2021-02-21T05:43:52.815Z",
+    "end_time": "2021-02-21T07:43:52.815Z"
+}
+
+### list appointments by patient
+GET https://gpnserver.herokuapp.com/api/appointments/patient/6030eb46f3f0330015615f9f
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDMwZWI0NmYzZjAzMzAwMTU2MTVmOWYiLCJpYXQiOjE2MTM4MTg4NTl9.cmRBED5z6aYXm0AdsJ2wQfO5T5HsU_Bn7nbU4Br201w
+
+### list appointments by doctor
+GET https://gpnserver.herokuapp.com/api/appointments/doctor/6030eb8af3f0330015615fa1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDMwZWI4YWYzZjAzMzAwMTU2MTVmYTEiLCJpYXQiOjE2MTM4MTkwNjV9.Hh14W0xOuzmY3lrgmk2yQaLIarllVb42BciJmROu0a8
+
+###
+GET https://gpnserver.herokuapp.com/api/doctors/top_rated
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDRkNWI5ZGZjZjAxNzI1M2NhZTQ0Y2YiLCJpYXQiOjE2MTU2ODI1MjR9.rxqIH2d6n5QhQtfINysF9nH9AzoHnq_PdHceDjgQp3E
+
+
+
+
