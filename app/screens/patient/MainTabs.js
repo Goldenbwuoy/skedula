@@ -7,7 +7,6 @@ import { MaterialIcons } from "@expo/vector-icons";
 import HomeStack from "./home/HomeStack";
 import DoctorsStack from "./doctors/DoctorsStack";
 import AppointmentsStack from "./appointments/AppointmentsStack";
-import PharmaciesStack from "./pharmacies/PharmaciesStack";
 import ChatsStack from "./chats/ChatsStack";
 import { Platform } from "react-native";
 
@@ -68,20 +67,6 @@ const MainTabs = () => {
 				}}
 			/>
 			<Tabs.Screen
-				name="Pharmacies"
-				component={PharmaciesStack}
-				options={{
-					tabBarLabel: "Pharmacies",
-					tabBarIcon: ({ color, size }) => (
-						<MaterialIcons
-							name="local-pharmacy"
-							size={size}
-							color={color}
-						/>
-					),
-				}}
-			/>
-			{/* <Tabs.Screen
 				name="ChatsTab"
 				component={ChatsStack}
 				options={{
@@ -90,7 +75,7 @@ const MainTabs = () => {
 						<FontAwesome name="wechat" size={size} color={color} />
 					),
 				}}
-			/> */}
+			/>
 		</Tabs.Navigator>
 	);
 };
