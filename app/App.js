@@ -1,6 +1,6 @@
 import "react-native-gesture-handler";
 import React, { useEffect, useReducer, useMemo } from "react";
-import AsyncStorage from "@react-native-community/async-storage";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import {
 	authReducer,
