@@ -10,23 +10,19 @@ Skedula is a doctor's appointment scheduling mobile application that is meant to
 
 # Screenshots
 
-![Login Screen](/assets/screenshots/login.png "Login Screen")
+## Doctor's side
+
+![Doctors Screens](assets/screenshots/doctors.png "Doctors Screens")
 
 </br>
 </br>
 
 ## Patient's side
 
-![Home Screen](/assets/screenshots/patient_home.png "Home Screen")
-![Appointments Screen](/assets/screenshots/patient_appointments.png "Appointments Screen")
-![Create Appointment Screen](/assets/screenshots/create_appointment.png "Create Appointments Screen")
+![Patients Screens](/assets/screenshots/patients.png "Patients Screens")
+
 </br>
 </br>
-
-## Doctor's side
-
-![Home Screen](assets/screenshots/doctor_home.png "Home Screen")
-![Appointments Screen](/assets/screenshots/doctor_appointments.png "Appointments Screen")
 
 # Installation
 
